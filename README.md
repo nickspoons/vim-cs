@@ -1,2 +1,5 @@
 # vim-cs
-Vim Runtime Files for C#
+Official Vim runtime files for C#
+
+# License
+The Vim License applies. See `:h license`
