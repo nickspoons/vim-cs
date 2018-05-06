@@ -1,7 +1,8 @@
 " Vim syntax file
 " Language:		C#
 " Maintainer:		Nick Jensen <nickspoon@gmail.com>
-" Former Maintainer:	Anduin Withers <awithers@anduin.com>
+" Former Maintainers:	Anduin Withers <awithers@anduin.com>
+"			Johannes Zellner <johannes@zellner.org>
 " Last Change:		2018-05-02
 " Filenames:		*.cs
 " License:		Vim (see :h license)
