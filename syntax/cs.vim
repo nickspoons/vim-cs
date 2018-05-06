@@ -33,14 +33,14 @@ syn keyword csException			try catch finally throw when
 syn keyword csLinq			ascending by descending equals from group in into join let on orderby select where
 syn keyword csAsync			async await
 
-syn keyword csUnspecifiedStatement	as base checked event fixed get in is lock nameof operator out params ref set sizeof stackalloc this typeof unchecked unsafe using
+syn keyword csUnspecifiedStatement	as base checked event fixed in is lock nameof operator out params ref sizeof stackalloc this typeof unchecked unsafe using
 syn keyword csUnsupportedStatement	add remove value
 syn keyword csUnspecifiedKeyword	explicit implicit
 
 " Contextual Keywords
 syn match csContextualStatement	/\<yield[[:space:]\n]\+\(return\|break\)/me=s+5
 syn match csContextualStatement	/\<partial[[:space:]\n]\+\(class\|struct\|interface\)/me=s+7
-syn match csContextualStatement	/\<\(get\|set\)[[:space:]\n]*{/me=s+3
+syn match csContextualStatement	/\<\(get\|set\)\(;\|[[:space:]\n]*{\)/me=s+3
 syn match csContextualStatement	/\<where\>[^:]\+:/me=s+5
 
 " Comments
