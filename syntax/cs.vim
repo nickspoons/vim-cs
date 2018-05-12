@@ -69,7 +69,8 @@ syn cluster xmlTagHook add=csXmlTag
 
 syn match   csXmlCommentLeader	+\/\/\/+    contained
 syn match   csXmlComment	+\/\/\/.*$+ contains=csXmlCommentLeader,@csXml,@Spell
-syntax include @csXml syntax/xml.vim
+" [nickspoons]: What is this? does it only work when this file is in vim, not a plugin?
+syn include @csXml syntax/xml.vim
 hi def link xmlRegion Comment
 
 
@@ -104,8 +105,10 @@ syn match   csSpecialChar	contained +\\["\\'0abfnrtvx]+
 " unicode characters
 syn match   csUnicodeNumber		+\\\(u\x\{4}\|U\x\{8}\)+ contained contains=csUnicodeSpecifier
 syn match   csUnicodeSpecifier		+\\[uU]+ contained
+syn region  csInterpolatedString	matchgroup=csQuote start=+\$"+ end=+"+ end=+$+ contains=csInterpolatedSpec,csInterpolation,csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
 syn region  csVerbatimString		matchgroup=csQuote start=+@"+ end=+"+ skip=+""+ contains=csVerbatimSpec,csVerbatimQuote,@Spell
 syn match   csVerbatimQuote		+""+ contained
+syn match   csQuoteError		+@$"+he=s+2,me=s+2
 syn region  csString			matchgroup=csQuote start=+"+  end=+"+ end=+$+ contains=csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
 syn match   csCharacter			"'[^']*'" contains=csSpecialChar,csSpecialCharError
 syn match   csCharacter			"'\\''" contains=csSpecialChar
@@ -114,6 +117,10 @@ syn match   csNumber			"\<\(0[0-7]*\|0[xX]\x\+\|\d\+\)[lL]\=\>" display
 syn match   csNumber			"\(\<\d\+\.\d*\|\.\d\+\)\([eE][-+]\=\d\+\)\=[fFdD]\=" display
 syn match   csNumber			"\<\d\+[eE][-+]\=\d\+[fFdD]\=\>" display
 syn match   csNumber			"\<\d\+\([eE][-+]\=\d\+\)\=[fFdD]\>" display
+
+syn region  csInterpolation matchgroup=csInterpolationDelimiter start=/{/ end=/}/ contained contains=@csAll
+
+syn cluster csAll contains=csCharacter,csClassType,csComment,csContextualStatement,csEndColons,csInterpolatedSpec,csInterpolatedString,csIsType,csLabel,csLogicSymbols,csNewType,csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csUnicodeNumber,csUnicodeSpecifier,csVerbatimSpec,csVerbatimString
 
 " The default highlighting.
 hi def link csType			Type
@@ -152,6 +159,8 @@ hi def link csSpecialError		Error
 hi def link csSpecialCharError		Error
 hi def link csString			String
 hi def link csQuote			String
+hi def link csQuoteError		Error
+hi def link csInterpolatedString	String
 hi def link csVerbatimString		String
 hi def link csVerbatimQuote		SpecialChar
 hi def link csPreCondit			PreCondit
@@ -160,6 +169,7 @@ hi def link csSpecialChar		SpecialChar
 hi def link csNumber			Number
 hi def link csUnicodeNumber		SpecialChar
 hi def link csUnicodeSpecifier		SpecialChar
+hi def link csInterpolationDelimiter	Delimiter
 
 " xml markup
 hi def link csXmlCommentLeader		Comment
