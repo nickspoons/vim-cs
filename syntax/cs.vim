@@ -102,18 +102,18 @@ syn match   csSpecialCharError	contained "[^']"
 " [1] 9.4.4.4 Character literals
 syn match   csSpecialChar	contained +\\["\\'0abfnrtvx]+
 " unicode characters
-syn match   csUnicodeNumber	+\\\(u\x\{4}\|U\x\{8}\)+ contained contains=csUnicodeSpecifier
-syn match   csUnicodeSpecifier	+\\[uU]+ contained
-syn region  csVerbatimString	start=+@"+ end=+"+ skip=+""+ contains=csVerbatimSpec,@Spell
-syn match   csVerbatimSpec	+@"+he=s+1 contained
-syn region  csString		start=+"+  end=+"+ end=+$+ contains=csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
-syn match   csCharacter		"'[^']*'" contains=csSpecialChar,csSpecialCharError
-syn match   csCharacter		"'\\''" contains=csSpecialChar
-syn match   csCharacter		"'[^\\]'"
-syn match   csNumber		"\<\(0[0-7]*\|0[xX]\x\+\|\d\+\)[lL]\=\>"
-syn match   csNumber		"\(\<\d\+\.\d*\|\.\d\+\)\([eE][-+]\=\d\+\)\=[fFdD]\="
-syn match   csNumber		"\<\d\+[eE][-+]\=\d\+[fFdD]\=\>"
-syn match   csNumber		"\<\d\+\([eE][-+]\=\d\+\)\=[fFdD]\>"
+syn match   csUnicodeNumber		+\\\(u\x\{4}\|U\x\{8}\)+ contained contains=csUnicodeSpecifier
+syn match   csUnicodeSpecifier		+\\[uU]+ contained
+syn region  csVerbatimString		matchgroup=csQuote start=+@"+ end=+"+ skip=+""+ contains=csVerbatimSpec,csVerbatimQuote,@Spell
+syn match   csVerbatimQuote		+""+ contained
+syn region  csString			matchgroup=csQuote start=+"+  end=+"+ end=+$+ contains=csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
+syn match   csCharacter			"'[^']*'" contains=csSpecialChar,csSpecialCharError
+syn match   csCharacter			"'\\''" contains=csSpecialChar
+syn match   csCharacter			"'[^\\]'"
+syn match   csNumber			"\<\(0[0-7]*\|0[xX]\x\+\|\d\+\)[lL]\=\>" display
+syn match   csNumber			"\(\<\d\+\.\d*\|\.\d\+\)\([eE][-+]\=\d\+\)\=[fFdD]\=" display
+syn match   csNumber			"\<\d\+[eE][-+]\=\d\+[fFdD]\=\>" display
+syn match   csNumber			"\<\d\+\([eE][-+]\=\d\+\)\=[fFdD]\>" display
 
 " The default highlighting.
 hi def link csType			Type
@@ -151,8 +151,9 @@ hi def link csParens			Operator
 hi def link csSpecialError		Error
 hi def link csSpecialCharError		Error
 hi def link csString			String
+hi def link csQuote			String
 hi def link csVerbatimString		String
-hi def link csVerbatimSpec		SpecialChar
+hi def link csVerbatimQuote		SpecialChar
 hi def link csPreCondit			PreCondit
 hi def link csCharacter			Character
 hi def link csSpecialChar		SpecialChar
