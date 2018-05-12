@@ -46,10 +46,7 @@ syn match csContextualStatement	/\<where\>[^:]\+:/me=s+5
 " Comments
 "
 " PROVIDES: @csCommentHook
-"
-" TODO: include strings ?
-"
-syn keyword csTodo		contained TODO FIXME XXX NOTE HACK
+syn keyword csTodo		contained TODO FIXME XXX NOTE HACK TBD
 syn region  csComment		start="/\*"  end="\*/" contains=@csCommentHook,csTodo,@Spell
 syn match   csComment		"//.*$" contains=@csCommentHook,csTodo,@Spell
 
@@ -91,6 +88,13 @@ syn region	csIsType start="\v (is|as) "hs=s+4 end="\v[A-Za-z0-9]+" oneline conta
 syn keyword	csNew new contained
 syn keyword	csClass class contained
 syn keyword	csIsAs is as
+
+" punctuation
+syn match csBraces "[{}\[\]]"
+syn match csParens "[()]"
+syn match csOpSymbols "=\{1,2}\|!=\|<\|>\|>=\|<=\|++\|+=\|--\|-=\|*=\|/=\|=>"
+syn match csEndColons "[;,]"
+syn match csLogicSymbols "\(&&\)\|\(||\)"
 
 " Strings and constants
 syn match   csSpecialError	contained "\\."
@@ -137,6 +141,12 @@ hi def link csInterfaceDeclaration	Include
 
 hi def link csTodo			Todo
 hi def link csComment			Comment
+
+hi def link csEndColons			Exception
+hi def link csOpSymbols			Operator
+hi def link csLogicSymbols		Boolean
+hi def link csBraces			Function
+hi def link csParens			Operator
 
 hi def link csSpecialError		Error
 hi def link csSpecialCharError		Error
