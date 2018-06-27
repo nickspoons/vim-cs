@@ -1,8 +1,9 @@
 # vim-cs
-This is the home of the official Vim runtime files for C#. Changes made here
-will be included in future vim distributions, but if you want the latest version
-now then feel free to install the repo as a plugin, using your preferred plugin
-manager.
+This is the home of the official Vim runtime files for C#.
+
+Changes made here will be included in future vim distributions, but if you want
+the latest version now then feel free to install the repo as a plugin, using
+your preferred plugin manager.
 
 # Contributions
 Issues, feature requests and especially pull requests are welcome!
