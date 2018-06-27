@@ -107,56 +107,62 @@ Execute:
   AssertEqual 'csNumber',                 SyntaxAt(15)
   AssertEqual 'csInterpolationDelimiter', SyntaxAt(16)
 
-Given cs (an interpolated string, containing strings):
-  $"a:{"a\""} b:{@"b"""}, c{$"c{1}"}\""
+Given cs (interpolated strings, containing strings):
+  $"a:{"a\""} "
+  $"b:{@"b"""} "
+  $"c{$"c{1}"}\""
+
+Execute:
+  AssertEqual 'csQuote',                  SyntaxAt(1, 1)
+  AssertEqual 'csQuote',                  SyntaxAt(1, 2)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(1, 3)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(1, 4)
+  AssertEqual 'csInterpolationDelimiter', SyntaxAt(1, 5)
+  AssertEqual 'csQuote',                  SyntaxAt(1, 6)
+  AssertEqual 'csString',                 SyntaxAt(1, 7)
+  AssertEqual 'csSpecialChar',            SyntaxAt(1, 8)
+  AssertEqual 'csSpecialChar',            SyntaxAt(1, 9)
+  AssertEqual 'csQuote',                  SyntaxAt(1, 10)
+  AssertEqual 'csInterpolationDelimiter', SyntaxAt(1, 11)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(1, 12)
+  AssertEqual 'csQuote',                  SyntaxAt(1, 13)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(2, 3)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(2, 4)
+  AssertEqual 'csInterpolationDelimiter', SyntaxAt(2, 5)
+  AssertEqual 'csQuote',                  SyntaxAt(2, 6)
+  AssertEqual 'csQuote',                  SyntaxAt(2, 7)
+  AssertEqual 'csVerbatimString',         SyntaxAt(2, 8)
+  AssertEqual 'csVerbatimQuote',          SyntaxAt(2, 9)
+  AssertEqual 'csVerbatimQuote',          SyntaxAt(2, 10)
+  AssertEqual 'csQuote',                  SyntaxAt(2, 11)
+  AssertEqual 'csInterpolationDelimiter', SyntaxAt(2, 12)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(2, 13)
+  AssertEqual 'csQuote',                  SyntaxAt(2, 14)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(3, 3)
+  AssertEqual 'csInterpolationDelimiter', SyntaxAt(3, 4)
+  AssertEqual 'csQuote',                  SyntaxAt(3, 5)
+  AssertEqual 'csQuote',                  SyntaxAt(3, 6)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(3, 7)
+  AssertEqual 'csInterpolationDelimiter', SyntaxAt(3, 8)
+  AssertEqual 'csNumber',                 SyntaxAt(3, 9)
+  AssertEqual 'csInterpolationDelimiter', SyntaxAt(3, 10)
+  AssertEqual 'csQuote',                  SyntaxAt(3, 11)
+  AssertEqual 'csInterpolationDelimiter', SyntaxAt(3, 12)
+  AssertEqual 'csSpecialChar',            SyntaxAt(3, 13)
+  AssertEqual 'csSpecialChar',            SyntaxAt(3, 14)
+  AssertEqual 'csQuote',                  SyntaxAt(3, 15)
+
+Given cs (an interpolated string, containing aligned strings):
+  $"a:{"a",3} b:{"b",-5}"
 
 Execute:
   AssertEqual 'csInterpolatedString',     SyntaxAt(4)
   AssertEqual 'csInterpolationDelimiter', SyntaxAt(5)
   AssertEqual 'csQuote',                  SyntaxAt(6)
   AssertEqual 'csString',                 SyntaxAt(7)
-  AssertEqual 'csSpecialChar',            SyntaxAt(8)
-  AssertEqual 'csSpecialChar',            SyntaxAt(9)
-  AssertEqual 'csQuote',                  SyntaxAt(10)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(11)
-  AssertEqual 'csInterpolatedString',     SyntaxAt(12)
-  AssertEqual 'csInterpolatedString',     SyntaxAt(13)
-  AssertEqual 'csInterpolatedString',     SyntaxAt(14)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(15)
-  AssertEqual 'csQuote',                  SyntaxAt(16)
-  AssertEqual 'csQuote',                  SyntaxAt(17)
-  AssertEqual 'csVerbatimString',         SyntaxAt(18)
-  AssertEqual 'csVerbatimQuote',          SyntaxAt(19)
-  AssertEqual 'csVerbatimQuote',          SyntaxAt(20)
-  AssertEqual 'csQuote',                  SyntaxAt(21)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(22)
-  AssertEqual 'csInterpolatedString',     SyntaxAt(23)
-  AssertEqual 'csInterpolatedString',     SyntaxAt(24)
-  AssertEqual 'csInterpolatedString',     SyntaxAt(25)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(26)
-  AssertEqual 'csQuote',                  SyntaxAt(27)
-  AssertEqual 'csQuote',                  SyntaxAt(28)
-  AssertEqual 'csInterpolatedString',     SyntaxAt(29)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(30)
-  AssertEqual 'csNumber',                 SyntaxAt(31)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(32)
-  AssertEqual 'csQuote',                  SyntaxAt(33)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(34)
-  AssertEqual 'csSpecialChar',            SyntaxAt(35)
-  AssertEqual 'csSpecialChar',            SyntaxAt(36)
-  AssertEqual 'csQuote',                  SyntaxAt(37)
-
-Given cs (an interpolated string, containing an aligned string):
-  $"a:{"a",5} b:{"b",-5}"
-
-Execute (TODO):
-  AssertEqual 'csInterpolatedString',     SyntaxAt(4)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(5)
-  AssertEqual 'csQuote',                  SyntaxAt(6)
-  AssertEqual 'csString',                 SyntaxAt(7)
   AssertEqual 'csQuote',                  SyntaxAt(8)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(9), 'TODO: alignment char'
-  AssertEqual 'csInterpolationAlign',     SyntaxAt(10)
+  AssertEqual 'csInterpolationAlignDel',  SyntaxAt(9)
+  AssertEqual 'csNumber',                 SyntaxAt(10)
   AssertEqual 'csInterpolationDelimiter', SyntaxAt(11)
   AssertEqual 'csInterpolatedString',     SyntaxAt(12)
   AssertEqual 'csInterpolatedString',     SyntaxAt(13)
@@ -165,87 +171,112 @@ Execute (TODO):
   AssertEqual 'csQuote',                  SyntaxAt(16)
   AssertEqual 'csString',                 SyntaxAt(17)
   AssertEqual 'csQuote',                  SyntaxAt(18)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(19), 'TODO: alignment char'
-  AssertEqual 'csInterpolationAlign',     SyntaxAt(20)
-  AssertEqual 'csInterpolationAlign',     SyntaxAt(21)
+  AssertEqual 'csInterpolationAlignDel',  SyntaxAt(19)
+  AssertEqual 'csOpSymbols',              SyntaxAt(20)
+  AssertEqual 'csNumber',                 SyntaxAt(21)
   AssertEqual 'csInterpolationDelimiter', SyntaxAt(22)
   AssertEqual 'csQuote',                  SyntaxAt(23)
 
-Given cs (a string interpolated with formatted integers):
+Given cs (strings interpolated with formatted numbers):
   $"a:{5:0} b:{5:F}"
 
-Execute (TODO):
+Execute:
   AssertEqual 'csInterpolatedString',     SyntaxAt(4)
   AssertEqual 'csInterpolationDelimiter', SyntaxAt(5)
   AssertEqual 'csNumber',                 SyntaxAt(6)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(7)
+  AssertEqual 'csInterpolationFormatDel', SyntaxAt(7)
   AssertEqual 'csInterpolationFormat',    SyntaxAt(8)
   AssertEqual 'csInterpolationDelimiter', SyntaxAt(9)
   AssertEqual 'csInterpolationDelimiter', SyntaxAt(13)
   AssertEqual 'csNumber',                 SyntaxAt(14)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(15)
+  AssertEqual 'csInterpolationFormatDel', SyntaxAt(15)
   AssertEqual 'csInterpolationFormat',    SyntaxAt(16)
   AssertEqual 'csInterpolationDelimiter', SyntaxAt(17)
 
-Given cs (a string interpolated with formatted floats):
-  $"a:{.5:0.#} b:{.5:F}"
+Given cs (a string interpolated with an aligned, formatted integer):
+  $"a:{ 5,-(true?-3:3):0,# }"
 
-Execute (TODO):
+Execute:
   AssertEqual 'csInterpolatedString',     SyntaxAt(4)
   AssertEqual 'csInterpolationDelimiter', SyntaxAt(5)
-  AssertEqual 'csNumber',                 SyntaxAt(6)
+  AssertEqual 'csInterpolation',          SyntaxAt(6)
   AssertEqual 'csNumber',                 SyntaxAt(7)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(8)
-  AssertEqual 'csInterpolationFormat',    SyntaxAt(9)
-  AssertEqual 'csInterpolationFormat',    SyntaxAt(10)
-  AssertEqual 'csInterpolationFormat',    SyntaxAt(11)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(12)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(16)
-  AssertEqual 'csInterpolationFormat',    SyntaxAt(17)
-  AssertEqual 'csInterpolationFormat',    SyntaxAt(18)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(19)
-  AssertEqual 'csInterpolationFormat',    SyntaxAt(20)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(21)
+  AssertEqual 'csInterpolationAlignDel',  SyntaxAt(8)
+  AssertEqual 'csOpSymbols',              SyntaxAt(9)
+  AssertEqual 'csParens',                 SyntaxAt(10)
+  AssertEqual 'csConstant',               SyntaxAt(11)
+  AssertEqual 'csConstant',               SyntaxAt(12)
+  AssertEqual 'csConstant',               SyntaxAt(13)
+  AssertEqual 'csConstant',               SyntaxAt(14)
+  AssertEqual 'csLogicSymbols',           SyntaxAt(15)
+  AssertEqual 'csOpSymbols',              SyntaxAt(16)
+  AssertEqual 'csNumber',                 SyntaxAt(17)
+  AssertEqual 'csLogicSymbols',           SyntaxAt(18)
+  AssertEqual 'csNumber',                 SyntaxAt(19)
+  AssertEqual 'csParens',                 SyntaxAt(20)
+  AssertEqual 'csInterpolationFormatDel', SyntaxAt(21)
+  AssertEqual 'csInterpolationFormat',    SyntaxAt(22)
+  AssertEqual 'csInterpolationFormat',    SyntaxAt(23)
+  AssertEqual 'csInterpolationFormat',    SyntaxAt(24)
+  AssertEqual 'csInterpolationFormat',    SyntaxAt(25)
+  AssertEqual 'csInterpolationDelimiter', SyntaxAt(26)
 
-Given cs (a strint interpolated with an aligned, formatted integer):
-  $"a:{5,5:00}"
+Given cs (an interpolated string containing escaped (doubled) {{ }}):
+  $"{{{5}}} a:{{'ab'}} '{ab}'c"
 
-Execute (TODO):
+Execute:
+  AssertEqual 'csQuote',                  SyntaxAt(1)
+  AssertEqual 'csQuote',                  SyntaxAt(2)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(3)
   AssertEqual 'csInterpolatedString',     SyntaxAt(4)
   AssertEqual 'csInterpolationDelimiter', SyntaxAt(5)
   AssertEqual 'csNumber',                 SyntaxAt(6)
   AssertEqual 'csInterpolationDelimiter', SyntaxAt(7)
-  AssertEqual 'csInterpolationAlign',     SyntaxAt(8)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(9)
-  AssertEqual 'csInterpolationFormat',    SyntaxAt(10)
-  AssertEqual 'csInterpolationFormat',    SyntaxAt(11)
-  AssertEqual 'csInterpolationDelimiter', SyntaxAt(12)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(8)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(9)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(10)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(11)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(12)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(13)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(14)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(15)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(16)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(17)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(18)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(19)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(20)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(21)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(22)
+  AssertEqual 'csInterpolationDelimiter', SyntaxAt(23)
+  AssertEqual 'csInterpolation',          SyntaxAt(24)
+  AssertEqual 'csInterpolation',          SyntaxAt(25)
+  AssertEqual 'csInterpolationDelimiter', SyntaxAt(26)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(27)
+  AssertEqual 'csInterpolatedString',     SyntaxAt(28)
 
 Given cs (a verbatim, interpolated string):
   $@"a:{'a'}""
     b"""
 
-Execute (TODO):
-  AssertEqual 'csQuote',                      SyntaxAt(1)
-  AssertEqual 'csQuote',                      SyntaxAt(2)
-  AssertEqual 'csQuote',                      SyntaxAt(3)
-  AssertEqual 'csVerbatimInterpolatedString', SyntaxAt(4)
-  AssertEqual 'csVerbatimInterpolatedString', SyntaxAt(5)
-  AssertEqual 'csInterpolationDelimiter',     SyntaxAt(6)
-  AssertEqual 'csCharacter',                  SyntaxAt(7)
-  AssertEqual 'csCharacter',                  SyntaxAt(8)
-  AssertEqual 'csCharacter',                  SyntaxAt(9)
-  AssertEqual 'csInterpolationDelimiter',     SyntaxAt(10)
-  AssertEqual 'csVerbatimQuote',              SyntaxAt(11)
-  AssertEqual 'csVerbatimQuote',              SyntaxAt(12)
-  AssertEqual 'csVerbatimInterpolatedString', SyntaxAt(13)
-  AssertEqual 'csVerbatimInterpolatedString', SyntaxAt(14)
-  AssertEqual 'csVerbatimInterpolatedString', SyntaxAt(15)
-  AssertEqual 'csVerbatimInterpolatedString', SyntaxAt(16)
-  AssertEqual 'csVerbatimInterpolatedString', SyntaxAt(17)
-  AssertEqual 'csVerbatimQuote',              SyntaxAt(18)
-  AssertEqual 'csVerbatimQuote',              SyntaxAt(19)
-  AssertEqual 'csQuote',                      SyntaxAt(20)
+Execute:
+  AssertEqual 'csQuote',                      SyntaxAt(1, 1)
+  AssertEqual 'csQuote',                      SyntaxAt(1, 2)
+  AssertEqual 'csQuote',                      SyntaxAt(1, 3)
+  AssertEqual 'csInterVerbString',            SyntaxAt(1, 4)
+  AssertEqual 'csInterVerbString',            SyntaxAt(1, 5)
+  AssertEqual 'csInterpolationDelimiter',     SyntaxAt(1, 6)
+  AssertEqual 'csCharacter',                  SyntaxAt(1, 7)
+  AssertEqual 'csCharacter',                  SyntaxAt(1, 8)
+  AssertEqual 'csCharacter',                  SyntaxAt(1, 9)
+  AssertEqual 'csInterpolationDelimiter',     SyntaxAt(1, 10)
+  AssertEqual 'csVerbatimQuote',              SyntaxAt(1, 11)
+  AssertEqual 'csVerbatimQuote',              SyntaxAt(1, 12)
+  AssertEqual 'csInterVerbString',            SyntaxAt(2, 1)
+  AssertEqual 'csInterVerbString',            SyntaxAt(2, 2)
+  AssertEqual 'csInterVerbString',            SyntaxAt(2, 3)
+  AssertEqual 'csVerbatimQuote',              SyntaxAt(2, 4)
+  AssertEqual 'csVerbatimQuote',              SyntaxAt(2, 5)
+  AssertEqual 'csQuote',                      SyntaxAt(2, 6)
 
 Given cs (an incorrect prefix (@$ instead of $@)):
   @$""

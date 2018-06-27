@@ -24,7 +24,8 @@ syn keyword csStorage			delegate enum interface namespace struct
 syn keyword csRepeat			break continue do for foreach goto return while
 syn keyword csConditional		else if switch
 syn keyword csLabel			case default
-syn match csOperatorError		display +\(global\)\@<!::+
+syn match csOperatorError		display +::+
+syn match csGlobal			display +global::+
 " user labels (see [1] 8.6 Statements)
 syn match   csLabel			display +^\s*\I\i*\s*:\([^:]\)\@=+
 syn keyword csModifier			abstract const extern internal override private protected public readonly sealed static virtual volatile
@@ -38,89 +39,108 @@ syn keyword csUnsupportedStatement	add remove value
 syn keyword csUnspecifiedKeyword	explicit implicit
 
 " Contextual Keywords
-syn match csContextualStatement	/\<yield[[:space:]\n]\+\(return\|break\)/me=s+5
-syn match csContextualStatement	/\<partial[[:space:]\n]\+\(class\|struct\|interface\)/me=s+7
-syn match csContextualStatement	/\<\(get\|set\)\(;\|[[:space:]\n]*{\)/me=s+3
-syn match csContextualStatement	/\<where\>[^:]\+:/me=s+5
+syn match csContextualStatement		/\<yield[[:space:]\n]\+\(return\|break\)/me=s+5
+syn match csContextualStatement		/\<partial[[:space:]\n]\+\(class\|struct\|interface\)/me=s+7
+syn match csContextualStatement		/\<\(get\|set\)\(;\|[[:space:]\n]*{\)/me=s+3
+syn match csContextualStatement		/\<where\>[^:]\+:/me=s+5
+
+" Punctuation
+syn match   csBraces			"[{}\[\]]" display
+syn match   csParens			"[()]" display
+syn match   csOpSymbols			"[+\-><=]\{1,2}" display
+syn match   csOpSymbols			"[!><+\-*/]=" display
+syn match   csOpSymbols			"[!*/^]" display
+syn match   csOpSymbols			"=>" display
+syn match   csEndColon			";" display
+syn match   csLogicSymbols		"&&" display
+syn match   csLogicSymbols		"||" display
+syn match   csLogicSymbols		"?" display
+syn match   csLogicSymbols		":" display
 
 " Comments
 "
 " PROVIDES: @csCommentHook
-syn keyword csTodo		contained TODO FIXME XXX NOTE HACK TBD
-syn region  csComment		start="/\*"  end="\*/" contains=@csCommentHook,csTodo,@Spell
-syn match   csComment		"//.*$" contains=@csCommentHook,csTodo,@Spell
+syn keyword csTodo			contained TODO FIXME XXX NOTE HACK TBD
+syn region  csComment			start="/\*"  end="\*/" contains=@csCommentHook,csTodo,@Spell
+syn match   csComment			"//.*$" contains=@csCommentHook,csTodo,@Spell
 
 " xml markup inside '///' comments
-syn cluster xmlRegionHook	add=csXmlCommentLeader
-syn cluster xmlCdataHook	add=csXmlCommentLeader
-syn cluster xmlStartTagHook	add=csXmlCommentLeader
-syn keyword csXmlTag		contained Libraries Packages Types Excluded ExcludedTypeName ExcludedLibraryName
-syn keyword csXmlTag		contained ExcludedBucketName TypeExcluded Type TypeKind TypeSignature AssemblyInfo
-syn keyword csXmlTag		contained AssemblyName AssemblyPublicKey AssemblyVersion AssemblyCulture Base
-syn keyword csXmlTag		contained BaseTypeName Interfaces Interface InterfaceName Attributes Attribute
-syn keyword csXmlTag		contained AttributeName Members Member MemberSignature MemberType MemberValue
-syn keyword csXmlTag		contained ReturnValue ReturnType Parameters Parameter MemberOfPackage
-syn keyword csXmlTag		contained ThreadingSafetyStatement Docs devdoc example overload remarks returns summary
-syn keyword csXmlTag		contained threadsafe value internalonly nodoc exception param permission platnote
-syn keyword csXmlTag		contained seealso b c i pre sub sup block code note paramref see subscript superscript
-syn keyword csXmlTag		contained list listheader item term description altcompliant altmember
+syn cluster xmlRegionHook		add=csXmlCommentLeader
+syn cluster xmlCdataHook		add=csXmlCommentLeader
+syn cluster xmlStartTagHook		add=csXmlCommentLeader
+syn keyword csXmlTag			contained Libraries Packages Types Excluded ExcludedTypeName ExcludedLibraryName
+syn keyword csXmlTag			contained ExcludedBucketName TypeExcluded Type TypeKind TypeSignature AssemblyInfo
+syn keyword csXmlTag			contained AssemblyName AssemblyPublicKey AssemblyVersion AssemblyCulture Base
+syn keyword csXmlTag			contained BaseTypeName Interfaces Interface InterfaceName Attributes Attribute
+syn keyword csXmlTag			contained AttributeName Members Member MemberSignature MemberType MemberValue
+syn keyword csXmlTag			contained ReturnValue ReturnType Parameters Parameter MemberOfPackage
+syn keyword csXmlTag			contained ThreadingSafetyStatement Docs devdoc example overload remarks returns summary
+syn keyword csXmlTag			contained threadsafe value internalonly nodoc exception param permission platnote
+syn keyword csXmlTag			contained seealso b c i pre sub sup block code note paramref see subscript superscript
+syn keyword csXmlTag			contained list listheader item term description altcompliant altmember
 
 syn cluster xmlTagHook add=csXmlTag
 
-syn match   csXmlCommentLeader	+\/\/\/+    contained
-syn match   csXmlComment	+\/\/\/.*$+ contains=csXmlCommentLeader,@csXml,@Spell
-" [nickspoons]: What is this? does it only work when this file is in vim, not a plugin?
+syn match   csXmlCommentLeader		+\/\/\/+    contained
+syn match   csXmlComment		+\/\/\/.*$+ contains=csXmlCommentLeader,@csXml,@Spell
 syn include @csXml syntax/xml.vim
 hi def link xmlRegion Comment
 
 
 " [1] 9.5 Pre-processing directives
-syn region	csPreCondit
-    \ start="^\s*#\s*\(define\|undef\|if\|elif\|else\|endif\|line\|error\|warning\)"
-    \ skip="\\$" end="$" contains=csComment keepend
-syn region	csRegion matchgroup=csPreCondit start="^\s*#\s*region.*$"
-    \ end="^\s*#\s*endregion" transparent fold contains=TOP
-syn region	csSummary start="^\s*/// <summary" end="^\(\s*///\)\@!" transparent fold keepend
+syn region  csPreCondit			start="^\s*#\s*\(define\|undef\|if\|elif\|else\|endif\|line\|error\|warning\)" skip="\\$" end="$" contains=csComment keepend
+syn region  csRegion			matchgroup=csPreCondit start="^\s*#\s*region.*$" end="^\s*#\s*endregion" transparent fold contains=TOP
+syn region  csSummary			start="^\s*/// <summary" end="^\%\(\s*///\)\@!" transparent fold keepend
 
 
-syn region	csClassType start="\(@\)\@<!class\>"hs=s+6 end="[:\n{]"he=e-1 contains=csClass
-syn region	csNewType start="\(@\)\@<!new\>"hs=s+4 end="[\(\<{\[]"he=e-1 contains=csNew contains=csNewType
-syn region	csIsType start="\v (is|as) "hs=s+4 end="\v[A-Za-z0-9]+" oneline contains=csIsAs
-syn keyword	csNew new contained
-syn keyword	csClass class contained
-syn keyword	csIsAs is as
-
-" punctuation
-syn match csBraces "[{}\[\]]"
-syn match csParens "[()]"
-syn match csOpSymbols "=\{1,2}\|!=\|<\|>\|>=\|<=\|++\|+=\|--\|-=\|*=\|/=\|=>"
-syn match csEndColons "[;,]"
-syn match csLogicSymbols "\(&&\)\|\(||\)"
+syn region  csClassType			start="@\@1<!\<class\>"hs=s+6 end="[:\n{]"he=e-1 contains=csClass
+syn region  csNewType			start="@\@1<!\<new\>"hs=s+4 end="[;\(\<{\[\n]"he=e-1 contains=csNew contains=csNewType
+syn region  csIsType			start=" is "hs=s+4 end="[A-Za-z0-9]\+" oneline contains=csIsAs
+syn region  csIsType			start=" as "hs=s+4 end="[A-Za-z0-9]\+" oneline contains=csIsAs
+syn keyword csNew			new contained
+syn keyword csClass			class contained
+syn keyword csIsAs			is as
 
 " Strings and constants
-syn match   csSpecialError	contained "\\."
-syn match   csSpecialCharError	contained "[^']"
+syn match   csSpecialError		"\\." contained
+syn match   csSpecialCharError		"[^']" contained
 " [1] 9.4.4.4 Character literals
-syn match   csSpecialChar	contained +\\["\\'0abfnrtvx]+
-" unicode characters
-syn match   csUnicodeNumber		+\\\(u\x\{4}\|U\x\{8}\)+ contained contains=csUnicodeSpecifier
-syn match   csUnicodeSpecifier		+\\[uU]+ contained
-syn region  csInterpolatedString	matchgroup=csQuote start=+\$"+ end=+"+ end=+$+ contains=csInterpolatedSpec,csInterpolation,csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
-syn region  csVerbatimString		matchgroup=csQuote start=+@"+ end=+"+ skip=+""+ contains=csVerbatimSpec,csVerbatimQuote,@Spell
+syn match   csSpecialChar		+\\["\\'0abfnrtvx]+ contained display
+syn match   csUnicodeNumber		+\\u\x\{4}+ contained contains=csUnicodeSpecifier display
+syn match   csUnicodeNumber		+\\U\x\{8}+ contained contains=csUnicodeSpecifier display
+syn match   csUnicodeSpecifier		+\\[uU]+ contained display
+
+syn region  csString			matchgroup=csQuote start=+"+  end=+"+ end=+$+ extend contains=csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
+syn match   csCharacter			"'[^']*'" contains=csSpecialChar,csSpecialCharError display
+syn match   csCharacter			"'\\''" contains=csSpecialChar display
+syn match   csCharacter			"'[^\\]'" display
+syn match   csNumber			"\<0[0-7]*[lL]\=\>" display
+syn match   csNumber			"\<0[xX]\x\+[lL]\=\>" display
+syn match   csNumber			"\<\d\+[lL]\=\>" display
+syn match   csNumber			"\<\d\+\.\d*\%\([eE][-+]\=\d\+\)\=[fFdD]\=" display
+syn match   csNumber			"\.\d\+\%\([eE][-+]\=\d\+\)\=[fFdD]\=" display
+syn match   csNumber			"\<\d\+[eE][-+]\=\d\+[fFdD]\=\>" display
+syn match   csNumber			"\<\d\+\%\([eE][-+]\=\d\+\)\=[fFdD]\>" display
+
+syn region  csInterpolatedString	matchgroup=csQuote start=+\$"+ end=+"+ end=+$+ extend contains=csInterpolation,csEscapedInterpolation,csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
+
+syn region  csInterpolation		matchgroup=csInterpolationDelimiter start=+{+ end=+}+ keepend contained contains=@csAll,csBracketed,csInterpolationAlign,csInterpolationFormat
+syn match   csEscapedInterpolation	"{{" transparent contains=NONE display
+syn match   csEscapedInterpolation	"}}" transparent contains=NONE display
+syn region  csInterpolationAlign	matchgroup=csInterpolationAlignDel start=+,+ end=+}+ end=+:+me=e-1 contained contains=csNumber,csConstant,csCharacter,csParens,csOpSymbols,csString,csBracketed display
+syn match   csInterpolationFormat	+:[^}]\+}+ contained contains=csInterpolationFormatDel display
+syn match   csInterpolationAlignDel	+,+ contained display
+syn match   csInterpolationFormatDel	+:+ contained display
+
+syn region  csVerbatimString		matchgroup=csQuote start=+@"+ end=+"+ skip=+""+ extend contains=csVerbatimQuote,@Spell
 syn match   csVerbatimQuote		+""+ contained
 syn match   csQuoteError		+@$"+he=s+2,me=s+2
-syn region  csString			matchgroup=csQuote start=+"+  end=+"+ end=+$+ contains=csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
-syn match   csCharacter			"'[^']*'" contains=csSpecialChar,csSpecialCharError
-syn match   csCharacter			"'\\''" contains=csSpecialChar
-syn match   csCharacter			"'[^\\]'"
-syn match   csNumber			"\<\(0[0-7]*\|0[xX]\x\+\|\d\+\)[lL]\=\>" display
-syn match   csNumber			"\(\<\d\+\.\d*\|\.\d\+\)\([eE][-+]\=\d\+\)\=[fFdD]\=" display
-syn match   csNumber			"\<\d\+[eE][-+]\=\d\+[fFdD]\=\>" display
-syn match   csNumber			"\<\d\+\([eE][-+]\=\d\+\)\=[fFdD]\>" display
 
-syn region  csInterpolation matchgroup=csInterpolationDelimiter start=/{/ end=/}/ contained contains=@csAll
+syn region  csInterVerbString		matchgroup=csQuote start=+\$@"+ end=+"+ skip=+""+ extend contains=csInterpolation,csEscapedInterpolation,csSpecialChar,csSpecialError,csUnicodeNumber,csVerbatimQuote,@Spell
 
-syn cluster csAll contains=csCharacter,csClassType,csComment,csContextualStatement,csEndColons,csInterpolatedSpec,csInterpolatedString,csIsType,csLabel,csLogicSymbols,csNewType,csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csUnicodeNumber,csUnicodeSpecifier,csVerbatimSpec,csVerbatimString
+syn region  csBracketed			matchgroup=csParens start=+(+ end=+)+ contained transparent contains=@csAll,csBracketed
+
+syn cluster csAll			contains=csCharacter,csClassType,csComment,csContextualStatement,csEndColon,csInterpolatedString,csIsType,csLabel,csLogicSymbols,csNewType,csConstant,csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csUnicodeNumber,csUnicodeSpecifier,csVerbatimString
 
 " The default highlighting.
 hi def link csType			Type
@@ -149,7 +169,7 @@ hi def link csInterfaceDeclaration	Include
 hi def link csTodo			Todo
 hi def link csComment			Comment
 
-hi def link csEndColons			Exception
+hi def link csEndColon			Statement
 hi def link csOpSymbols			Operator
 hi def link csLogicSymbols		Boolean
 hi def link csBraces			Function
@@ -162,6 +182,7 @@ hi def link csQuote			String
 hi def link csQuoteError		Error
 hi def link csInterpolatedString	String
 hi def link csVerbatimString		String
+hi def link csInterVerbString		String
 hi def link csVerbatimQuote		SpecialChar
 hi def link csPreCondit			PreCondit
 hi def link csCharacter			Character
@@ -170,6 +191,9 @@ hi def link csNumber			Number
 hi def link csUnicodeNumber		SpecialChar
 hi def link csUnicodeSpecifier		SpecialChar
 hi def link csInterpolationDelimiter	Delimiter
+hi def link csInterpolationAlignDel	csInterpolationDelimiter
+hi def link csInterpolationFormat	csInterpolationDelimiter
+hi def link csInterpolationFormatDel	csInterpolationDelimiter
 
 " xml markup
 hi def link csXmlCommentLeader		Comment
