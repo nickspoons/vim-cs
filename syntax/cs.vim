@@ -3,7 +3,7 @@
 " Maintainer:		Nick Jensen <nickspoon@gmail.com>
 " Former Maintainers:	Anduin Withers <awithers@anduin.com>
 "			Johannes Zellner <johannes@zellner.org>
-" Last Change:		2018-06-27
+" Last Change:		2018-06-29
 " Filenames:		*.cs
 " License:		Vim (see :h license)
 " Repository:		https://github.com/nickspoons/vim-cs
@@ -93,8 +93,8 @@ syn region  csRegion			matchgroup=csPreCondit start="^\s*#\s*region.*$" end="^\s
 syn region  csSummary			start="^\s*/// <summary" end="^\%\(\s*///\)\@!" transparent fold keepend
 
 
-syn region  csClassType			start="@\@1<!\<class\>"hs=s+6 end="[:\n{]"he=e-1 contains=csClass
-syn region  csNewType			start="@\@1<!\<new\>"hs=s+4 end="[;\(\<{\[\n]"he=e-1 contains=csNew contains=csNewType
+syn region  csClassType			start="@\@1<!\<class\>"hs=s+6 end="[:\n{]"me=e-1 contains=csClass
+syn region  csNewType			start="@\@1<!\<new\>"hs=s+4 end="[;\n{(<\[]"me=e-1 contains=csNew contains=csNewType
 syn region  csIsType			start=" is "hs=s+4 end="[A-Za-z0-9]\+" oneline contains=csIsAs
 syn region  csIsType			start=" as "hs=s+4 end="[A-Za-z0-9]\+" oneline contains=csIsAs
 syn keyword csNew			new contained
