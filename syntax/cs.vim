@@ -110,8 +110,8 @@ syn match	csUnicodeNumber	+\\u\x\{4}+ contained contains=csUnicodeSpecifier disp
 syn match	csUnicodeNumber	+\\U\x\{8}+ contained contains=csUnicodeSpecifier display
 syn match	csUnicodeSpecifier	+\\[uU]+ contained display
 
-syn region	sString	matchgroup=csQuote start=+"+  end=+"+ end=+$+ extend contains=csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
-syn match	sCharacter	"'[^']*'" contains=csSpecialChar,csSpecialCharError display
+syn region	csString	matchgroup=csQuote start=+"+  end=+"+ end=+$+ extend contains=csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
+syn match	csCharacter	"'[^']*'" contains=csSpecialChar,csSpecialCharError display
 syn match	csCharacter	"'\\''" contains=csSpecialChar display
 syn match	csCharacter	"'[^\\]'" display
 syn match	csNumber	"\<0[0-7]*[lL]\=\>" display
