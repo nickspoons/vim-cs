@@ -34,7 +34,7 @@ syn keyword	csException	try catch finally throw when
 syn keyword	csLinq	ascending by descending equals from group in into join let on orderby select where
 syn keyword	csAsync	async await
 
-syn keyword	csUnspecifiedStatement	as base checked event fixed in is lock nameof operator out params ref sizeof stackalloc this typeof unchecked unsafe using
+syn keyword	csUnspecifiedStatement	as base checked event fixed in is lock nameof operator out params ref sizeof stackalloc this unchecked unsafe using
 syn keyword	csUnsupportedStatement	add remove value
 syn keyword	csUnspecifiedKeyword	explicit implicit
 
@@ -43,6 +43,10 @@ syn match	csContextualStatement	/\<yield[[:space:]\n]\+\(return\|break\)/me=s+5
 syn match	csContextualStatement	/\<partial[[:space:]\n]\+\(class\|struct\|interface\)/me=s+7
 syn match	csContextualStatement	/\<\(get\|set\)\(;\|[[:space:]\n]*{\)/me=s+3
 syn match	csContextualStatement	/\<where\>[^:]\+:/me=s+5
+
+" Operators
+syn keyword	csTypeOf	typeof contained
+syn region	csTypeOfStatement	start="typeof(" end=")" contains=csType, csTypeOf
 
 " Punctuation
 syn match	csBraces	"[{}\[\]]" display
@@ -154,6 +158,8 @@ hi def link	csLabel	Label
 hi def link	csModifier	StorageClass
 hi def link	csConstant	Constant
 hi def link	csException	Exception
+hi def link	csTypeOf	Operator
+hi def link	csTypeOfStatement	Typedef
 hi def link	csUnspecifiedStatement	Statement
 hi def link	csUnsupportedStatement	Statement
 hi def link	csUnspecifiedKeyword	Keyword
