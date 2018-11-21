@@ -51,7 +51,9 @@ syn region	csTypeOfStatement	start="typeof(" end=")" contains=csType, csTypeOf
 " Punctuation
 syn match	csBraces	"[{}\[\]]" display
 syn match	csParens	"[()]" display
-syn match	csOpSymbols	"[+\-><=]\{1,2}" display
+syn match	csOpSymbols	"[+\-=]\{1,2}" display
+syn match	csOpSymbols	"[><]\{2}" display
+syn match	csOpSymbols	"\s\zs[><]\ze\_s" display
 syn match	csOpSymbols	"[!><+\-*/]=" display
 syn match	csOpSymbols	"[!*/^]" display
 syn match	csOpSymbols	"=>" display

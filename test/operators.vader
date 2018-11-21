@@ -1,0 +1,56 @@
+Given cs (order comparison at start of line):
+  void f() {
+    if (i
+    < LongFunctionName())
+  }
+
+Execute:
+  normal! 2jf<
+  AssertEqual 'csOpSymbols', SyntaxAt()
+
+
+Given cs (order comparison at end of line):
+  void f() {
+    if (i <
+    LongFunctionName())
+  }
+
+Execute:
+  normal! jf<
+  AssertEqual 'csOpSymbols', SyntaxAt()
+
+
+Given cs (order comparison with whitespace):
+  void f() {
+    if (7 < 8)
+  }
+
+Execute:
+  normal! jf<
+  AssertEqual 'csOpSymbols', SyntaxAt()
+
+
+Given cs (order comparison missing whitespace):
+  void f() {
+    if (7<8)
+  }
+
+Execute:
+  normal! jf<
+  AssertEqual '', SyntaxAt()
+
+
+Given cs (generic function):
+  void f<int>() {
+    return Get<int>();
+  }
+
+Execute:
+  normal! f<
+  AssertEqual '', SyntaxAt()
+  normal! f>
+  AssertEqual '', SyntaxAt()
+  normal! j0f<
+  AssertEqual '', SyntaxAt()
+  normal! f>
+  AssertEqual '', SyntaxAt()
