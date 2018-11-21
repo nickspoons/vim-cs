@@ -1,0 +1,7 @@
+filetype off
+set runtimepath^=~/.vim/plugged/vader.vim
+set runtimepath+=~/.vim/plugged/vim-cs
+filetype plugin indent on
+syntax enable
+set nomore noswapfile
+set viminfo=
