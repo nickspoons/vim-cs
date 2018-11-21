@@ -164,7 +164,6 @@ hi def link	csIsAs 	Keyword
 hi def link	csAsync	Keyword
 hi def link	csContextualStatement	Statement
 hi def link	csOperatorError	Error
-hi def link	csInterfaceDeclaration	Include
 
 hi def link	csTodo	Todo
 hi def link	csComment	Comment
