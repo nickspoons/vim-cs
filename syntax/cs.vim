@@ -144,7 +144,6 @@ syn cluster	csAll	contains=csCharacter,csClassType,csComment,csContextualStateme
 
 " The default highlighting.
 hi def link	csType	Type
-hi def link	csNewType	Type
 hi def link	csClassType	Type
 hi def link	csIsType	Type
 hi def link	csStorage	StorageClass
@@ -168,11 +167,8 @@ hi def link	csOperatorError	Error
 hi def link	csTodo	Todo
 hi def link	csComment	Comment
 
-hi def link	csEndColon	Statement
 hi def link	csOpSymbols	Operator
-hi def link	csLogicSymbols	Boolean
-hi def link	csBraces	Function
-hi def link	csParens	Operator
+hi def link	csLogicSymbols	Operator
 
 hi def link	csSpecialError	Error
 hi def link	csSpecialCharError	Error
