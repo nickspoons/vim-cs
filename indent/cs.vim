@@ -1,6 +1,11 @@
 " Vim indent file
-" Language:	C#
-" Maintainer:   Aquila Deus
+" Language:            C#
+" Maintainer:          Nick Jensen <nickspoon@gmail.com>
+" Former Maintainer:   Aquila Deus
+" Last Change:         2018-11-21
+" Filenames:           *.cs
+" License:             Vim (see :h license)
+" Repository:          https://github.com/nickspoons/vim-cs
 "
 
 " Only load this indent file when no other was loaded.
