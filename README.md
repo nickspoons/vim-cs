@@ -1,3 +1,5 @@
+![Travis status](https://api.travis-ci.org/nickspoons/vim-cs.svg?branch=master)
+
 # vim-cs
 This is the home of the official Vim runtime files for C#.
 
