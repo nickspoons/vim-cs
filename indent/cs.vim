@@ -1,15 +1,36 @@
 " Vim indent file
 " Language:	C#
-" Maintainer:	Johannes Zellner <johannes@zellner.org>
-" Last Change:	Fri, 15 Mar 2002 07:53:54 CET
+" Maintainer:   Aquila Deus
+"
 
 " Only load this indent file when no other was loaded.
-if exists("b:did_indent")
+if exists('b:did_indent')
    finish
 endif
 let b:did_indent = 1
 
-" C# is like indenting C
-setlocal cindent
 
-let b:undo_indent = "setl cin<"
+setlocal indentexpr=GetCSIndent(v:lnum)
+
+
+function! GetCSIndent(lnum) abort
+
+  let this_line = getline(a:lnum)
+  let previous_line = getline(a:lnum - 1)
+
+  " Hit the start of the file, use zero indent.
+  if a:lnum == 0
+    return 0
+  endif
+
+  " If previous_line is an attribute line:
+  if previous_line =~? '^\s*\[[A-Za-z]' && previous_line =~? '\]$'
+    let ind = indent(a:lnum - 1)
+    return ind
+  else
+    return cindent(a:lnum)
+  endif
+
+endfunction
+
+" vim:et:sw=2:sts=2
