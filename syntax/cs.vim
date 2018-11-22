@@ -11,12 +11,12 @@
 " REFERENCES:
 " [1] ECMA TC39: C# Language Specification (WD13Oct01.doc)
 
-if exists("b:current_syntax")
-    finish
+if exists('b:current_syntax')
+  finish
 endif
 
-let s:cs_cpo_save = &cpo
-set cpo&vim
+let s:save_cpo = &cpoptions
+set cpoptions&vim
 
 
 syn keyword	csType	bool byte char decimal double float int long object sbyte short string T uint ulong ushort var void dynamic
@@ -203,9 +203,9 @@ hi def link	csXmlCommentLeader	Comment
 hi def link	csXmlComment	Comment
 hi def link	csXmlTag	Statement
 
-let b:current_syntax = "cs"
+let b:current_syntax = 'cs'
 
-let &cpo = s:cs_cpo_save
-unlet s:cs_cpo_save
+let &cpoptions = s:save_cpo
+unlet s:save_cpo
 
 " vim: vts=16,28

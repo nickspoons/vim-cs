@@ -10,9 +10,12 @@
 
 " Only load this indent file when no other was loaded.
 if exists('b:did_indent')
-   finish
+  finish
 endif
 let b:did_indent = 1
+
+let s:save_cpo = &cpoptions
+set cpoptions&vim
 
 
 setlocal indentexpr=GetCSIndent(v:lnum)
@@ -59,7 +62,11 @@ function! GetCSIndent(lnum) abort
   else
     return cindent(a:lnum)
   endif
-
 endfunction
+
+let b:undo_indent = 'setlocal indentexpr<'
+
+let &cpoptions = s:save_cpo
+unlet s:save_cpo
 
 " vim:et:sw=2:sts=2
