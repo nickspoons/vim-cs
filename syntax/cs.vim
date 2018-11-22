@@ -146,8 +146,8 @@ syn cluster	csAll	contains=csCharacter,csClassType,csComment,csContextualStateme
 hi def link	csType	Type
 hi def link	csClassType	Type
 hi def link	csIsType	Type
-hi def link	csStorage	StorageClass
-hi def link	csClass	StorageClass
+hi def link	csStorage	Structure
+hi def link	csClass	Structure
 hi def link	csRepeat	Repeat
 hi def link	csConditional	Conditional
 hi def link	csLabel	Label
