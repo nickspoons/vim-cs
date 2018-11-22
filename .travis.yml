@@ -15,11 +15,8 @@ before_script: |
 script: |
   /usr/local/bin/vim --version
   /usr/local/bin/vim -Nu <(cat << VIMRC
-  set rtp+=vader
+  set rtp^=vader
+  set rtp^=.
   set rtp+=sensible
-  set rtp+=textobj-user
-  set rtp+=.
-  set rtp+=textobj-user/after
-  set rtp+=./after
   set expandtab shiftwidth=4 softtabstop=-1
   VIMRC) -c 'Vader! test/*'
