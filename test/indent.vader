@@ -1,0 +1,77 @@
+Given cs (a declaration with an attribute):
+  namespace UnitTest.SomeTest
+  {
+  [RequireComponent(typeof(Collider))]
+  class Test {
+  [SerializeField]
+  public string m_PrettyName = "";
+  }
+  }
+
+Execute:
+  normal! gg=G
+
+Expect (correct indentation):
+  namespace UnitTest.SomeTest
+  {
+      [RequireComponent(typeof(Collider))]
+      class Test {
+          [SerializeField]
+          public string m_PrettyName = "";
+      }
+  }
+
+Given cs (a declaration with a directive):
+  namespace UnitTest.SomeTest
+  {
+  class Test {
+  #if UNITY_EDITOR
+  public
+  #endif
+  string m_PrettyName = "";
+  }
+  }
+
+Execute:
+  normal! gg=G
+
+Expect (correct indentation):
+  namespace UnitTest.SomeTest
+  {
+      class Test {
+  #if UNITY_EDITOR
+          public
+  #endif
+              string m_PrettyName = "";
+      }
+  }
+
+Given cs (a declaration with an attribute interleaved with directive):
+  namespace UnitTest.SomeTest
+  {
+  [RequireComponent(typeof(Collider))]
+  class Test {
+  [SerializeField]
+  #if UNITY_EDITOR
+  public
+  #endif
+  string m_PrettyName = "";
+  }
+  }
+
+Execute:
+  normal! gg=G
+
+Expect (correct indentation):
+  namespace UnitTest.SomeTest
+  {
+      [RequireComponent(typeof(Collider))]
+      class Test {
+          [SerializeField]
+  #if UNITY_EDITOR
+          public
+  #endif
+              string m_PrettyName = "";
+      }
+  }
+
