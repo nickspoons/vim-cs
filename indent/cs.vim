@@ -1,7 +1,8 @@
 " Vim indent file
 " Language:            C#
 " Maintainer:          Nick Jensen <nickspoon@gmail.com>
-" Former Maintainer:   Aquila Deus
+" Former Maintainers:  Aquila Deus
+"                      Johannes Zellner <johannes@zellner.org>
 " Last Change:         2018-11-21
 " Filenames:           *.cs
 " License:             Vim (see :h license)
