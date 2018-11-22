@@ -5,3 +5,4 @@ filetype plugin indent on
 syntax enable
 set nomore noswapfile
 set viminfo=
+set expandtab shiftwidth=4 softtabstop=-1

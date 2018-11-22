@@ -21,4 +21,5 @@ script: |
   set rtp+=.
   set rtp+=textobj-user/after
   set rtp+=./after
-  VIMRC) -c 'Vader! test/*' > /dev/null
+  set expandtab shiftwidth=4 softtabstop=-1
+  VIMRC) -c 'Vader! test/*'
