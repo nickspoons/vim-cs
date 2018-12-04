@@ -54,3 +54,19 @@ Execute:
   AssertEqual '', SyntaxAt()
   normal! f>
   AssertEqual '', SyntaxAt()
+
+
+Given cs (generic inside generic):
+  Dictionary<string,List<Image>> f() {
+    return null;
+  }
+
+Execute:
+  normal! f<
+  AssertEqual '', SyntaxAt()
+  normal! f<
+  AssertEqual '', SyntaxAt()
+  normal! f>
+  AssertEqual '', SyntaxAt()
+  normal! f>
+  AssertEqual '', SyntaxAt()
