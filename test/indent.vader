@@ -11,7 +11,7 @@ Given cs (a declaration with an attribute):
 Execute:
   normal! gg=G
 
-Expect (correct indentation):
+Expect cs (correct indentation):
   namespace UnitTest.SomeTest
   {
       [RequireComponent(typeof(Collider))]
@@ -35,7 +35,7 @@ Given cs (a declaration with a directive):
 Execute:
   normal! gg=G
 
-Expect (correct indentation):
+Expect cs (correct indentation):
   namespace UnitTest.SomeTest
   {
       class Test {
@@ -62,7 +62,7 @@ Given cs (a declaration with an attribute interleaved with directive):
 Execute:
   normal! gg=G
 
-Expect (correct indentation):
+Expect cs(correct indentation):
   namespace UnitTest.SomeTest
   {
       [RequireComponent(typeof(Collider))]
@@ -74,4 +74,3 @@ Expect (correct indentation):
               string m_PrettyName = "";
       }
   }
-
