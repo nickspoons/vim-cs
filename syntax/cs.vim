@@ -51,9 +51,11 @@ syn region	csTypeOfStatement	start="typeof(" end=")" contains=csType, csTypeOf
 " Punctuation
 syn match	csBraces	"[{}\[\]]" display
 syn match	csParens	"[()]" display
-syn match	csOpSymbols	"[+\-=]\{1,2}" display
-syn match	csOpSymbols	"[><]\{2}" display
-syn match	csOpSymbols	"\s\zs[><]\ze\_s" display
+syn match	csOpSymbols	"+\{1,2}" display
+syn match	csOpSymbols	"-\{1,2}" display
+syn match	csOpSymbols	"=\{1,2}" display
+syn match	csOpSymbols	">\{1,2}" display
+syn match	csOpSymbols	"<\{1,2}" display
 syn match	csOpSymbols	"[!><+\-*/]=" display
 syn match	csOpSymbols	"[!*/^]" display
 syn match	csOpSymbols	"=>" display
@@ -62,6 +64,9 @@ syn match	csLogicSymbols	"&&" display
 syn match	csLogicSymbols	"||" display
 syn match	csLogicSymbols	"?" display
 syn match	csLogicSymbols	":" display
+
+" Generics
+syn region	csGeneric	matchgroup=csGenericBraces start="<" end=">" oneline contains=csType,csGeneric,csUserType,csUserIdentifier,csUserInterface,csUserMethod
 
 " Comments
 "
@@ -197,6 +202,8 @@ hi def link	csInterpolationDelimiter	Delimiter
 hi def link	csInterpolationAlignDel	csInterpolationDelimiter
 hi def link	csInterpolationFormat	csInterpolationDelimiter
 hi def link	csInterpolationFormatDel	csInterpolationDelimiter
+
+hi def link	csGenericBraces	csBraces
 
 " xml markup
 hi def link	csXmlCommentLeader	Comment
