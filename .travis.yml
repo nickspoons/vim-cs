@@ -5,15 +5,13 @@ before_script: |
   git clone https://github.com/tpope/vim-sensible.git sensible
 
   git clone https://github.com/vim/vim
-  cd vim
-  # ./configure --with-features=huge --enable-rubyinterp --enable-pythoninterp
+  pushd vim
   ./configure --with-features=huge
   make -j4
   sudo make install
-  cd -
+  popd
 
 script: |
-  /usr/local/bin/vim --version
   /usr/local/bin/vim -Nu <(cat << VIMRC
   set rtp^=vader
   set rtp^=.
