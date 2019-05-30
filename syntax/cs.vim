@@ -105,7 +105,8 @@ syn region	csSummary	start="^\s*/// <summary" end="^\%\(\s*///\)\@!" transparent
 
 
 syn region	csClassType	start="@\@1<!\<class\>"hs=s+6 end="[:\n{]"me=e-1 contains=csClass
-syn region	csNewType	start="@\@1<!\<new\>"hs=s+4 end="[;\n{(<\[]"me=e-1 contains=csNew contains=csNewType
+" csUserType may be defined by user scripts/plugins - it should be contained in csNewType
+syn region	csNewType	start="@\@1<!\<new\>"hs=s+4 end="[;\n{(<\[]"me=e-1 contains=csNew,csUserType
 syn region	csIsType	start=" is "hs=s+4 end="[A-Za-z0-9]\+" oneline contains=csIsAs
 syn region	csIsType	start=" as "hs=s+4 end="[A-Za-z0-9]\+" oneline contains=csIsAs
 syn keyword	csNew	new contained
@@ -151,7 +152,7 @@ syn region	csInterVerbString	matchgroup=csQuote start=+\$@"+ end=+"+ skip=+""+ e
 
 syn region	csBracketed	matchgroup=csParens start=+(+ end=+)+ contained transparent contains=@csAll,csBracketed
 
-syn cluster	csAll	contains=csCharacter,csClassType,csComment,csContextualStatement,csEndColon,csInterpolatedString,csIsType,csLabel,csLogicSymbols,csNewType,csConstant,csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csUnicodeNumber,csUnicodeSpecifier,csVerbatimString
+syn cluster	csAll	contains=csCharacter,csClassType,csComment,csContextualStatement,csEndColon,csInterpolatedString,csIsType,csLabel,csLogicSymbols,csNewType,csConstant,csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csUnicodeNumber,csUnicodeSpecifier,csVerbatimString,csUserType,csUserIdentifier,csUserInterface,csUserMethod
 
 " The default highlighting.
 hi def link	csType	Type
