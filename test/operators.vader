@@ -37,7 +37,7 @@ Given cs (order comparison missing whitespace):
 
 Execute:
   normal! jf<
-  AssertEqual '', SyntaxAt()
+  AssertEqual 'csOpSymbols', SyntaxAt()
 
 
 Given cs (generic function):
@@ -47,10 +47,26 @@ Given cs (generic function):
 
 Execute:
   normal! f<
-  AssertEqual '', SyntaxAt()
+  AssertEqual 'csGenericBraces', SyntaxAt()
   normal! f>
-  AssertEqual '', SyntaxAt()
+  AssertEqual 'csGenericBraces', SyntaxAt()
   normal! j0f<
-  AssertEqual '', SyntaxAt()
+  AssertEqual 'csGenericBraces', SyntaxAt()
   normal! f>
-  AssertEqual '', SyntaxAt()
+  AssertEqual 'csGenericBraces', SyntaxAt()
+
+
+Given cs (generic inside generic):
+  Dictionary<string,List<Image>> f() {
+    return 'a' <> null;
+  }
+
+Execute:
+  normal! f<
+  AssertEqual 'csGenericBraces', SyntaxAt()
+  normal! f<
+  AssertEqual 'csGenericBraces', SyntaxAt()
+  normal! f>
+  AssertEqual 'csGenericBraces', SyntaxAt()
+  normal! f>
+  AssertEqual 'csGenericBraces', SyntaxAt()

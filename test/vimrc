@@ -1,8 +1,19 @@
+if &compatible
+  set nocompatible
+endif
+
 filetype off
-set runtimepath^=~/.vim/plugged/vader.vim
-set runtimepath^=~/.vim/plugged/vim-cs
+
+" Assuming that plugins are installed in the same folder, e.g. ~/.vim/plugged
+let plugindir = expand("\<sfile>:h:h:h")
+
+" Dependency to vader.vim
+let &runtimepath = plugindir . '/vim-cs,' . &runtimepath
+let &runtimepath .= ',' . plugindir . '/vader.vim'
+
 filetype plugin indent on
 syntax enable
+
 set nomore noswapfile
 set viminfo=
 set expandtab shiftwidth=4 softtabstop=-1
