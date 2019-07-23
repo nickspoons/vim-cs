@@ -152,7 +152,7 @@ syn region	csInterVerbString	matchgroup=csQuote start=+\$@"+ end=+"+ skip=+""+ e
 
 syn region	csBracketed	matchgroup=csParens start=+(+ end=+)+ contained transparent contains=@csAll,csBracketed
 
-syn cluster	csAll	contains=csCharacter,csClassType,csComment,csContextualStatement,csEndColon,csInterpolatedString,csIsType,csLabel,csLogicSymbols,csNewType,csConstant,csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csUnicodeNumber,csUnicodeSpecifier,csVerbatimString,csUserType,csUserIdentifier,csUserInterface,csUserMethod
+syn cluster	csAll	contains=csCharacter,csClassType,csComment,csContextualStatement,csEndColon,csInterpolatedString,csIsType,csLabel,csLogicSymbols,csNewType,csConstant,csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csType,csUnicodeNumber,csUnicodeSpecifier,csVerbatimString,csUserType,csUserIdentifier,csUserInterface,csUserMethod
 
 " The default highlighting.
 hi def link	csType	Type
