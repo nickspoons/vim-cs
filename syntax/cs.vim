@@ -92,8 +92,8 @@ syn keyword	csXmlTag	contained list listheader item term description altcomplian
 
 syn cluster xmlTagHook add=csXmlTag
 
-syn match	csXmlCommentLeader	+\/\/\/+    contained
-syn match	csXmlComment	+\/\/\/.*$+ contains=csXmlCommentLeader,@csXml,@Spell
+syn match	csXmlCommentLeader	"///" contained
+syn match	csXmlComment	"///.*$" contains=csXmlCommentLeader,@csXml,@Spell keepend
 syn include	@csXml syntax/xml.vim
 hi def link	xmlRegion Comment
 
