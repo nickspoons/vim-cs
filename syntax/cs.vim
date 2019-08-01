@@ -166,7 +166,7 @@ hi def link	csLabel	Label
 hi def link	csModifier	StorageClass
 hi def link	csConstant	Constant
 hi def link	csException	Exception
-hi def link	csTypeOf	Operator
+hi def link	csTypeOf	Keyword
 hi def link	csTypeOfStatement	Typedef
 hi def link	csUnspecifiedStatement	Statement
 hi def link	csUnsupportedStatement	Statement
