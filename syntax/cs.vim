@@ -3,7 +3,7 @@
 " Maintainer:          Nick Jensen <nickspoon@gmail.com>
 " Former Maintainers:  Anduin Withers <awithers@anduin.com>
 "                      Johannes Zellner <johannes@zellner.org>
-" Last Change:         2018-06-29
+" Last Change:         2019-08-01
 " Filenames:           *.cs
 " License:             Vim (see :h license)
 " Repository:          https://github.com/nickspoons/vim-cs
