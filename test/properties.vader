@@ -1,0 +1,26 @@
+Given cs (standard get/set formatting):
+  get { return 0; }
+  set { _value = value; }
+
+Execute:
+  AssertEqual 'csContextualStatement', SyntaxAt()
+  normal! j
+  AssertEqual 'csContextualStatement', SyntaxAt()
+
+
+Given cs (automatic property get/set):
+  get; set;
+
+Execute:
+  AssertEqual 'csContextualStatement', SyntaxAt()
+  normal! fs
+  AssertEqual 'csContextualStatement', SyntaxAt()
+
+
+Given cs (in-line property get/set):
+  get => 0; set => _value = value;
+
+Execute:
+  AssertEqual 'csContextualStatement', SyntaxAt()
+  normal! fs
+  AssertEqual 'csContextualStatement', SyntaxAt()
