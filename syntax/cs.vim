@@ -27,7 +27,7 @@ syn keyword	csLabel	case default
 syn match	csOperatorError	display +::+
 syn match	csGlobal	display +global::+
 " user labels (see [1] 8.6 Statements)
-syn match	csLabel	display +^\s*\I\i*\s*:\([^:]\)\@=+
+syn match	csLabel	display +^\s*\I\i*\s*:\%([^:]\)\@=+
 syn keyword	csModifier	abstract const extern internal override private protected public readonly sealed static virtual volatile
 syn keyword	csConstant	false null true
 syn keyword	csException	try catch finally throw when
@@ -39,9 +39,9 @@ syn keyword	csUnsupportedStatement	add remove value
 syn keyword	csUnspecifiedKeyword	explicit implicit
 
 " Contextual Keywords
-syn match	csContextualStatement	/\<yield[[:space:]\n]\+\(return\|break\)/me=s+5
-syn match	csContextualStatement	/\<partial[[:space:]\n]\+\(class\|struct\|interface\)/me=s+7
-syn match	csContextualStatement	/\<\(get\|set\)\(;\|[[:space:]\n]*{\)/me=s+3
+syn match	csContextualStatement	/\<yield[[:space:]\n]\+\%(return\|break\)/me=s+5
+syn match	csContextualStatement	/\<partial[[:space:]\n]\+\%(class\|struct\|interface\)/me=s+7
+syn match	csContextualStatement	/\<\%(get\|set\)\%(;\|[[:space:]\n]*{\)/me=s+3
 syn match	csContextualStatement	/\<where\>[^:]\+:/me=s+5
 
 " Operators
@@ -101,7 +101,7 @@ hi def link	xmlRegion Comment
 syn spell default
 
 " [1] 9.5 Pre-processing directives
-syn region	csPreCondit	start="^\s*#\s*\(define\|undef\|if\|elif\|else\|endif\|line\|error\|warning\)" skip="\\$" end="$" contains=csComment keepend
+syn region	csPreCondit	start="^\s*#\s*\%(define\|undef\|if\|elif\|else\|endif\|line\|error\|warning\)" skip="\\$" end="$" contains=csComment keepend
 syn region	csRegion	matchgroup=csPreCondit start="^\s*#\s*region.*$" end="^\s*#\s*endregion" transparent fold contains=TOP
 syn region	csSummary	start="^\s*/// <summary" end="^\%\(\s*///\)\@!" transparent fold keepend
 
