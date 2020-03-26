@@ -1,0 +1,4 @@
+" Unfortunately we can't test preprocessors (#if, #define, #pragma, #region
+" etc.) with Vader because the plugin treats any line beginning with "#" as a
+" comment and ignores it:
+" https://github.com/junegunn/vader.vim#comments
