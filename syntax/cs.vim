@@ -102,7 +102,7 @@ hi def link	xmlRegion Comment
 syn spell default
 
 " [1] 9.5 Pre-processing directives
-syn region	csPreCondit	start="^\s*#\s*\%(define\|undef\|if\|elif\|else\|endif\|line\|error\|warning\|pragma\)" skip="\\$" end="$" contains=csComment keepend
+syn region	csPreCondit	start="^\s*#\s*\%(define\|undef\|if\|elif\|else\|endif\|line\|error\|warning\|pragma\)\>" skip="\\$" end="$" contains=csComment keepend
 syn region	csRegion	matchgroup=csPreCondit start="^\s*#\s*region.*$" end="^\s*#\s*endregion" transparent fold contains=TOP
 syn region	csSummary	start="^\s*/// <summary" end="^\%\(\s*///\)\@!" transparent fold keepend
 
