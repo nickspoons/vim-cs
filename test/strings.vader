@@ -278,6 +278,37 @@ Execute:
   AssertEqual 'csVerbatimQuote',              SyntaxAt(2, 5)
   AssertEqual 'csQuote',                      SyntaxAt(2, 6)
 
+Given cs (a nested verbatim, interpolated string):
+  $@"a:{$@"b{'c'}"}""
+    c"""
+
+Execute:
+  AssertEqual 'csQuote',                      SyntaxAt(1, 1)
+  AssertEqual 'csQuote',                      SyntaxAt(1, 2)
+  AssertEqual 'csQuote',                      SyntaxAt(1, 3)
+  AssertEqual 'csInterVerbString',            SyntaxAt(1, 4)
+  AssertEqual 'csInterVerbString',            SyntaxAt(1, 5)
+  AssertEqual 'csInterpolationDelimiter',     SyntaxAt(1, 6)
+  AssertEqual 'csQuote',                      SyntaxAt(1, 7)
+  AssertEqual 'csQuote',                      SyntaxAt(1, 8)
+  AssertEqual 'csQuote',                      SyntaxAt(1, 9)
+  AssertEqual 'csInterVerbString',            SyntaxAt(1, 10)
+  AssertEqual 'csInterpolationDelimiter',     SyntaxAt(1, 11)
+  AssertEqual 'csCharacter',                  SyntaxAt(1, 12)
+  AssertEqual 'csCharacter',                  SyntaxAt(1, 13)
+  AssertEqual 'csCharacter',                  SyntaxAt(1, 14)
+  AssertEqual 'csInterpolationDelimiter',     SyntaxAt(1, 15)
+  AssertEqual 'csQuote',                      SyntaxAt(1, 16)
+  AssertEqual 'csInterpolationDelimiter',     SyntaxAt(1, 17)
+  AssertEqual 'csVerbatimQuote',              SyntaxAt(1, 18)
+  AssertEqual 'csVerbatimQuote',              SyntaxAt(1, 19)
+  AssertEqual 'csInterVerbString',            SyntaxAt(2, 1)
+  AssertEqual 'csInterVerbString',            SyntaxAt(2, 2)
+  AssertEqual 'csInterVerbString',            SyntaxAt(2, 3)
+  AssertEqual 'csVerbatimQuote',              SyntaxAt(2, 4)
+  AssertEqual 'csVerbatimQuote',              SyntaxAt(2, 5)
+  AssertEqual 'csQuote',                      SyntaxAt(2, 6)
+
 Given cs (an incorrect prefix (@$ instead of $@)):
   @$""
 

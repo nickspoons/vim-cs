@@ -18,7 +18,6 @@ endif
 let s:save_cpo = &cpoptions
 set cpoptions&vim
 
-
 syn keyword	csType	bool byte char decimal double float int long object sbyte short string T uint ulong ushort var void dynamic
 syn keyword	csStorage	delegate enum interface namespace struct
 syn keyword	csRepeat	break continue do for foreach goto return while
@@ -137,7 +136,7 @@ syn match	csNumber	"\.\d\+\%\([eE][-+]\=\d\+\)\=[fFdD]\=" display
 syn match	csNumber	"\<\d\+[eE][-+]\=\d\+[fFdD]\=\>" display
 syn match	csNumber	"\<\d\+\%\([eE][-+]\=\d\+\)\=[fFdD]\>" display
 
-syn region	csInterpolatedString	matchgroup=csQuote start=+\$"+ end=+"+ end=+$+ extend contains=csInterpolation,csEscapedInterpolation,csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
+syn region	csInterpolatedString	matchgroup=csQuote start=+\$"+ end=+"+ extend contains=csInterpolation,csEscapedInterpolation,csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
 
 syn region	csInterpolation	matchgroup=csInterpolationDelimiter start=+{+ end=+}+ keepend contained contains=@csAll,csBracketed,csInterpolationAlign,csInterpolationFormat
 syn match	csEscapedInterpolation	"{{" transparent contains=NONE display
@@ -155,7 +154,7 @@ syn region	csInterVerbString	matchgroup=csQuote start=+\$@"+ end=+"+ skip=+""+ e
 
 syn region	csBracketed	matchgroup=csParens start=+(+ end=+)+ contained transparent contains=@csAll,csBracketed
 
-syn cluster	csAll	contains=csCharacter,csClassType,csComment,csContextualStatement,csEndColon,csInterpolatedString,csIsType,csLabel,csLogicSymbols,csNewType,csConstant,csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csType,csUnicodeNumber,csUnicodeSpecifier,csVerbatimString,csUserType,csUserIdentifier,csUserInterface,csUserMethod
+syn cluster	csAll	contains=csCharacter,csClassType,csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csConstant,csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csType,csUnicodeNumber,csUnicodeSpecifier,csInterpolatedString,csVerbatimString,csInterVerbString,csUserType,csUserIdentifier,csUserInterface,csUserMethod
 
 " The default highlighting.
 hi def link	csType	Type
