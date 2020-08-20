@@ -278,6 +278,37 @@ Execute:
   AssertEqual 'csVerbatimQuote',              SyntaxAt(2, 5)
   AssertEqual 'csQuote',                      SyntaxAt(2, 6)
 
+Given cs (a verbatim, interpolated string containing braces):
+  $@"a:{new{'a'}}a"
+
+Execute:
+  AssertEqual 'csInterpolationDelimiter',     SyntaxAt(1, 6)
+  AssertEqual 'csNew',                        SyntaxAt(1, 7)
+  AssertEqual 'csNew',                        SyntaxAt(1, 8)
+  AssertEqual 'csNew',                        SyntaxAt(1, 9)
+  AssertEqual 'csParens',                     SyntaxAt(1, 10)
+  AssertEqual 'csCharacter',                  SyntaxAt(1, 11)
+  AssertEqual 'csCharacter',                  SyntaxAt(1, 12)
+  AssertEqual 'csCharacter',                  SyntaxAt(1, 13)
+  AssertEqual 'csParens',                     SyntaxAt(1, 14)
+  AssertEqual 'csInterpolationDelimiter',     SyntaxAt(1, 15)
+  AssertEqual 'csInterVerbString',            SyntaxAt(1, 16)
+  AssertEqual 'csQuote',                      SyntaxAt(1, 17)
+
+Given cs (a verbatim, interpolated string containing brackets):
+  $@"a:{('a')}a"
+
+Execute:
+  AssertEqual 'csInterpolationDelimiter',     SyntaxAt(1, 6)
+  AssertEqual 'csParens',                     SyntaxAt(1, 7)
+  AssertEqual 'csCharacter',                  SyntaxAt(1, 8)
+  AssertEqual 'csCharacter',                  SyntaxAt(1, 9)
+  AssertEqual 'csCharacter',                  SyntaxAt(1, 10)
+  AssertEqual 'csParens',                     SyntaxAt(1, 11)
+  AssertEqual 'csInterpolationDelimiter',     SyntaxAt(1, 12)
+  AssertEqual 'csInterVerbString',            SyntaxAt(1, 13)
+  AssertEqual 'csQuote',                      SyntaxAt(1, 14)
+
 Given cs (a nested verbatim, interpolated string):
   $@"a:{$@"b{'c'}"}""
     c"""
