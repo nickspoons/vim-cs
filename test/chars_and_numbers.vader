@@ -21,29 +21,48 @@ Execute:
 
 Given cs (hex literal):
   0xf
+  0xfl
   0xg
 
 Execute:
   AssertEqual 'csNumber',                 SyntaxAt(1, 3)
-  AssertNotEqual 'csNumber',              SyntaxAt(2, 3), 'Not a hex digit'
+  AssertEqual 'csNumber',                 SyntaxAt(2, 4)
+  AssertNotEqual 'csNumber',              SyntaxAt(3, 3), 'Not a hex digit'
 
 Given cs (binary literal):
   0b0
+  0B0L
   0b2
 
 Execute:
   AssertEqual 'csNumber',                 SyntaxAt(1, 3)
-  AssertNotEqual 'csNumber',              SyntaxAt(2, 3), 'Not a binary digit'
+  AssertEqual 'csNumber',                 SyntaxAt(2, 4)
+  AssertNotEqual 'csNumber',              SyntaxAt(3, 3), 'Not a binary digit'
+
+Given cs (floating point literals):
+  1.5f
+  1e10d
+  123.456D
+  123.456M
+
+Execute:
+  AssertEqual 'csNumber',                 SyntaxAt(1, 4)
+  AssertEqual 'csNumber',                 SyntaxAt(2, 5)
+  AssertEqual 'csNumber',                 SyntaxAt(3, 8)
+  AssertEqual 'csNumber',                 SyntaxAt(4, 8)
 
 Given cs (digit separators):
   123_456
   0x_be_af
   0b_0011_0101
+  123_456.242_3D
 
 Execute:
   AssertEqual 'csNumber',                 SyntaxAt(1, 4)
   AssertEqual 'csNumber',                 SyntaxAt(2, 3)
   AssertEqual 'csNumber',                 SyntaxAt(3, 3)
+  AssertEqual 'csNumber',                 SyntaxAt(4, 4)
+  AssertEqual 'csNumber',                 SyntaxAt(4, 12)
 
 Given cs (valid char literals):
   '\x41'

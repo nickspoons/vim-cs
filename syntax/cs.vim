@@ -130,12 +130,13 @@ syn match	csCharacter	"'[^']*'" contains=csSpecialChar,csSpecialCharError,csUnic
 syn match	csCharacter	"'\\''" contains=csSpecialChar display
 syn match	csCharacter	"'[^\\]'" display
 syn match	csNumber	"\<0[0-7]*[lL]\=\>" display
-syn match	csNumber	"\<0[xX]\x\+[lL]\=\>" display
-syn match	csNumber	"\<\d\+[lL]\=\>" display
-syn match	csNumber	"\<\d\+\.\d*\%\([eE][-+]\=\d\+\)\=[fFdD]\=" display
-syn match	csNumber	"\.\d\+\%\([eE][-+]\=\d\+\)\=[fFdD]\=" display
-syn match	csNumber	"\<\d\+[eE][-+]\=\d\+[fFdD]\=\>" display
-syn match	csNumber	"\<\d\+\%\([eE][-+]\=\d\+\)\=[fFdD]\>" display
+syn match	csNumber	"\<0[xX][[:xdigit:]_]\+[lL]\=\>" display
+syn match	csNumber	"\<0[bB][01_]\+[lL]\=\>" display
+syn match	csNumber	"\<[[:digit:]_]\+[lL]\=\>" display
+syn match	csNumber	"\<[[:digit:]_]\+\.[[:digit:]_]*\%\([eE][-+]\=[[:digit:]_]\+\)\=[fFdDmM]\=" display
+syn match	csNumber	"\.[[:digit:]_]\+\%\([eE][-+]\=[[:digit:]_]\+\)\=[fFdDmM]\=" display
+syn match	csNumber	"\<[[:digit:]_]\+[eE][-+]\=[[:digit:]_]\+[fFdDmM]\=\>" display
+syn match	csNumber	"\<[[:digit:]_]\+\%\([eE][-+]\=[[:digit:]_]\+\)\=[fFdDmM]\>" display
 
 syn region	csInterpolatedString	matchgroup=csQuote start=+\$"+ end=+"+ extend contains=csInterpolation,csEscapedInterpolation,csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
 
