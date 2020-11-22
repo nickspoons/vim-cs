@@ -120,12 +120,13 @@ syn match	csSpecialError	"\\." contained
 syn match	csSpecialCharError	"[^']" contained
 " [1] 9.4.4.4 Character literals
 syn match	csSpecialChar	+\\["\\'0abfnrtvx]+ contained display
+syn match	csUnicodeNumber	+\\x\x\{2,4}+ contained contains=csUnicodeSpecifier display
 syn match	csUnicodeNumber	+\\u\x\{4}+ contained contains=csUnicodeSpecifier display
 syn match	csUnicodeNumber	+\\U\x\{8}+ contained contains=csUnicodeSpecifier display
 syn match	csUnicodeSpecifier	+\\[uU]+ contained display
 
 syn region	csString	matchgroup=csQuote start=+"+  end=+"+ end=+$+ extend contains=csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
-syn match	csCharacter	"'[^']*'" contains=csSpecialChar,csSpecialCharError display
+syn match	csCharacter	"'[^']*'" contains=csSpecialChar,csSpecialCharError,csUnicodeNumber display
 syn match	csCharacter	"'\\''" contains=csSpecialChar display
 syn match	csCharacter	"'[^\\]'" display
 syn match	csNumber	"\<0[0-7]*[lL]\=\>" display
