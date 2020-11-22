@@ -1,0 +1,81 @@
+Given cs (chars):
+  'a'
+  '\''
+
+Execute:
+  AssertEqual 'csCharacter',              SyntaxAt(1, 1)
+  AssertEqual 'csCharacter',              SyntaxAt(1, 2)
+  AssertEqual 'csCharacter',              SyntaxAt(1, 3)
+  AssertEqual 'csCharacter',              SyntaxAt(2, 1)
+  AssertEqual 'csSpecialChar',            SyntaxAt(2, 2)
+  AssertEqual 'csSpecialChar',            SyntaxAt(2, 3)
+  AssertEqual 'csCharacter',              SyntaxAt(2, 4)
+
+Given cs (decimal literals):
+  1234
+  1234l
+
+Execute:
+  AssertEqual 'csNumber',                 SyntaxAt(1, 1)
+  AssertEqual 'csNumber',                 SyntaxAt(2, 5)
+
+Given cs (hex literal):
+  0xf
+  0xg
+
+Execute:
+  AssertEqual 'csNumber',                 SyntaxAt(1, 3)
+  AssertNotEqual 'csNumber',              SyntaxAt(2, 3), 'Not a hex digit'
+
+Given cs (binary literal):
+  0b0
+  0b2
+
+Execute:
+  AssertEqual 'csNumber',                 SyntaxAt(1, 3)
+  AssertNotEqual 'csNumber',              SyntaxAt(2, 3), 'Not a binary digit'
+
+Given cs (digit separators):
+  123_456
+  0x_be_af
+  0b_0011_0101
+
+Execute:
+  AssertEqual 'csNumber',                 SyntaxAt(1, 4)
+  AssertEqual 'csNumber',                 SyntaxAt(2, 3)
+  AssertEqual 'csNumber',                 SyntaxAt(3, 3)
+
+Given cs (valid char literals):
+  '\x41'
+  '\x041'
+  '\x0041'
+  '\u0041'
+
+Execute:
+  AssertEqual 'csUnicodeNumber',          SyntaxAt(1, 2)
+  AssertEqual 'csUnicodeNumber',          SyntaxAt(1, 3)
+  AssertEqual 'csUnicodeNumber',          SyntaxAt(1, 4)
+  AssertEqual 'csUnicodeNumber',          SyntaxAt(2, 2)
+  AssertEqual 'csUnicodeNumber',          SyntaxAt(2, 3)
+  AssertEqual 'csUnicodeNumber',          SyntaxAt(2, 4)
+  AssertEqual 'csUnicodeNumber',          SyntaxAt(3, 2)
+  AssertEqual 'csUnicodeNumber',          SyntaxAt(3, 3)
+  AssertEqual 'csUnicodeNumber',          SyntaxAt(3, 4)
+  AssertEqual 'csUnicodeSpecifier',       SyntaxAt(4, 2)
+  AssertEqual 'csUnicodeSpecifier',       SyntaxAt(4, 3)
+  AssertEqual 'csUnicodeNumber',          SyntaxAt(4, 4)
+
+Given cs (invalid char literals):
+  '\xaaaaa'
+  '\uaaaaa'
+  '\uaaa'
+  '\xg'
+  '\ugggg'
+
+Execute:
+  AssertEqual 'csSpecialCharError',       SyntaxAt(1, 8), 'More than 4 digits'
+  AssertEqual 'csSpecialCharError',       SyntaxAt(2, 8), 'More than 4 digits (unicode)'
+  AssertEqual 'csSpecialCharError',       SyntaxAt(3, 2), 'Less than 4 digits (unicode)'
+  AssertEqual 'csSpecialCharError',       SyntaxAt(4, 4), 'Non-hex digit'
+  AssertEqual 'csSpecialCharError',       SyntaxAt(5, 4), 'Non-hex digit (unicode)'
+

@@ -38,7 +38,6 @@ Given cs (a multiline string (illegal)):
 Execute:
   AssertEqual    'csString',              SyntaxAt(1, 2)
   AssertNotEqual 'csString',              SyntaxAt(2, 2)
-  AssertEqual    'csQuote',               SyntaxAt(2, 3)
 
 Given cs (a simple verbatim (@) string):
   @"a"
@@ -101,7 +100,9 @@ Given cs (a simple interpolated string):
 Execute:
   AssertEqual 'csInterpolatedString',     SyntaxAt(4)
   AssertEqual 'csInterpolationDelimiter', SyntaxAt(5)
+  AssertEqual 'csCharacter',              SyntaxAt(6)
   AssertEqual 'csCharacter',              SyntaxAt(7)
+  AssertEqual 'csCharacter',              SyntaxAt(8)
   AssertEqual 'csInterpolationDelimiter', SyntaxAt(9)
   AssertEqual 'csInterpolationDelimiter', SyntaxAt(14)
   AssertEqual 'csNumber',                 SyntaxAt(15)
