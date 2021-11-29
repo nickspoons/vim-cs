@@ -4,12 +4,9 @@
 " Former Maintainers:  Aquila Deus
 "                      Johannes Zellner <johannes@zellner.org>
 " Last Change:         2018-11-21
-" Filenames:           *.cs
 " License:             Vim (see :h license)
 " Repository:          https://github.com/nickspoons/vim-cs
-"
 
-" Only load this indent file when no other was loaded.
 if exists('b:did_indent')
   finish
 endif
