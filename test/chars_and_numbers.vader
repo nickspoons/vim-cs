@@ -14,30 +14,52 @@ Execute:
 Given cs (decimal literals):
   1234
   1234l
+  1234u
+  1234ul
+  1234lu
 
 Execute:
-  AssertEqual 'csNumber',                 SyntaxAt(1, 1)
-  AssertEqual 'csNumber',                 SyntaxAt(2, 5)
+  AssertEqual 'csInteger',                SyntaxAt(1, 1)
+  AssertEqual 'csInteger',                SyntaxAt(2, 5)
+  AssertEqual 'csInteger',                SyntaxAt(3, 5)
+  AssertEqual 'csInteger',                SyntaxAt(4, 6)
+  AssertEqual 'csInteger',                SyntaxAt(5, 6)
 
-Given cs (hex literal):
+Given cs (hex literals):
   0xf
+  0Xf
   0xfl
+  0xfu
+  0xful
+  0xflu
   0xg
 
 Execute:
-  AssertEqual 'csNumber',                 SyntaxAt(1, 3)
-  AssertEqual 'csNumber',                 SyntaxAt(2, 4)
-  AssertNotEqual 'csNumber',              SyntaxAt(3, 3), 'Not a hex digit'
+  AssertEqual 'csInteger',                SyntaxAt(1, 3)
+  AssertEqual 'csInteger',                SyntaxAt(2, 3)
+  AssertEqual 'csInteger',                SyntaxAt(3, 4)
+  AssertEqual 'csInteger',                SyntaxAt(4, 4)
+  AssertEqual 'csInteger',                SyntaxAt(5, 5)
+  AssertEqual 'csInteger',                SyntaxAt(6, 5)
+  AssertNotEqual 'csInteger',             SyntaxAt(7, 3), 'Not a hex digit'
 
-Given cs (binary literal):
+Given cs (binary literals):
   0b0
-  0B0L
+  0B0
+  0b0l
+  0b0u
+  0b0ul
+  0b0lu
   0b2
 
 Execute:
-  AssertEqual 'csNumber',                 SyntaxAt(1, 3)
-  AssertEqual 'csNumber',                 SyntaxAt(2, 4)
-  AssertNotEqual 'csNumber',              SyntaxAt(3, 3), 'Not a binary digit'
+  AssertEqual 'csInteger',                SyntaxAt(1, 3)
+  AssertEqual 'csInteger',                SyntaxAt(2, 3)
+  AssertEqual 'csInteger',                SyntaxAt(3, 4)
+  AssertEqual 'csInteger',                SyntaxAt(4, 4)
+  AssertEqual 'csInteger',                SyntaxAt(5, 5)
+  AssertEqual 'csInteger',                SyntaxAt(6, 5)
+  AssertNotEqual 'csInteger',             SyntaxAt(7, 3), 'Not a binary digit'
 
 Given cs (floating point literals):
   1.5f
@@ -46,23 +68,25 @@ Given cs (floating point literals):
   123.456M
 
 Execute:
-  AssertEqual 'csNumber',                 SyntaxAt(1, 4)
-  AssertEqual 'csNumber',                 SyntaxAt(2, 5)
-  AssertEqual 'csNumber',                 SyntaxAt(3, 8)
-  AssertEqual 'csNumber',                 SyntaxAt(4, 8)
+  AssertEqual 'csReal',                   SyntaxAt(1, 4)
+  AssertEqual 'csReal',                   SyntaxAt(2, 5)
+  AssertEqual 'csReal',                   SyntaxAt(3, 8)
+  AssertEqual 'csReal',                   SyntaxAt(4, 8)
 
 Given cs (digit separators):
   123_456
+  123__456
   0x_be_af
   0b_0011_0101
   123_456.242_3D
 
 Execute:
-  AssertEqual 'csNumber',                 SyntaxAt(1, 4)
-  AssertEqual 'csNumber',                 SyntaxAt(2, 3)
-  AssertEqual 'csNumber',                 SyntaxAt(3, 3)
-  AssertEqual 'csNumber',                 SyntaxAt(4, 4)
-  AssertEqual 'csNumber',                 SyntaxAt(4, 12)
+  AssertEqual 'csInteger',                SyntaxAt(1, 4)
+  AssertEqual 'csInteger',                SyntaxAt(2, 5)
+  AssertEqual 'csInteger',                SyntaxAt(3, 3)
+  AssertEqual 'csInteger',                SyntaxAt(4, 3)
+  AssertEqual 'csReal',                   SyntaxAt(5, 4)
+  AssertEqual 'csReal',                   SyntaxAt(5, 12)
 
 Given cs (valid char literals):
   '\x41'

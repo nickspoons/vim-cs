@@ -129,20 +129,25 @@ syn region	csString	matchgroup=csQuote start=+"+  end=+"+ end=+$+ extend contain
 syn match	csCharacter	"'[^']*'" contains=csSpecialChar,csSpecialCharError,csUnicodeNumber display
 syn match	csCharacter	"'\\''" contains=csSpecialChar display
 syn match	csCharacter	"'[^\\]'" display
-syn match	csNumber	"\<0[xX][[:xdigit:]_]\+[lL]\=\>" display
-syn match	csNumber	"\<0[bB][01_]\+[lL]\=\>" display
-syn match	csNumber	"\<[[:digit:]_]\+[lL]\=\>" display
-syn match	csNumber	"\<[[:digit:]_]\+\.[[:digit:]_]*\%\([eE][-+]\=[[:digit:]_]\+\)\=[fFdDmM]\=" display
-syn match	csNumber	"\.[[:digit:]_]\+\%\([eE][-+]\=[[:digit:]_]\+\)\=[fFdDmM]\=" display
-syn match	csNumber	"\<[[:digit:]_]\+[eE][-+]\=[[:digit:]_]\+[fFdDmM]\=\>" display
-syn match	csNumber	"\<[[:digit:]_]\+\%\([eE][-+]\=[[:digit:]_]\+\)\=[fFdDmM]\>" display
+
+" Numbers
+syn case	ignore
+syn match	csInteger	"\<0b[01_]*[01]\%([lu]\|lu\|ul\)\=\>" display
+syn match	csInteger	"\<\d\+\%(_\+\d\+\)*\%([lu]\|lu\|ul\)\=\>" display
+syn match	csInteger	"\<0x[[:xdigit:]_]*\x\%([lu]\|lu\|ul\)\=\>" display
+syn match	csReal	"\<\d\+\%(_\+\d\+\)*\.\d\+\%(_\+\d\+\)*\%\(e[-+]\=\d\+\%(_\+\d\+\)*\)\=[fdm]\=" display
+syn match	csReal	"\.\d\+\%(_\+\d\+\)*\%(e[-+]\=\d\+\%(_\+\d\+\)*\)\=[fdm]\=\>" display
+syn match	csReal	"\<\d\+\%(_\+\d\+\)*e[-+]\=\d\+\%(_\+\d\+\)*[fdm]\=\>" display
+syn match	csReal	"\<\d\+\%(_\+\d\+\)*[fdm]\>" display
+syn case	match
+syn cluster     csNumber	contains=csInteger,csReal
 
 syn region	csInterpolatedString	matchgroup=csQuote start=+\$"+ end=+"+ extend contains=csInterpolation,csEscapedInterpolation,csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
 
 syn region	csInterpolation	matchgroup=csInterpolationDelimiter start=+{+ end=+}+ keepend contained contains=@csAll,csBraced,csBracketed,csInterpolationAlign,csInterpolationFormat
 syn match	csEscapedInterpolation	"{{" transparent contains=NONE display
 syn match	csEscapedInterpolation	"}}" transparent contains=NONE display
-syn region	csInterpolationAlign	matchgroup=csInterpolationAlignDel start=+,+ end=+}+ end=+:+me=e-1 contained contains=csNumber,csConstant,csCharacter,csParens,csOpSymbols,csString,csBracketed display
+syn region	csInterpolationAlign	matchgroup=csInterpolationAlignDel start=+,+ end=+}+ end=+:+me=e-1 contained contains=@csNumber,csConstant,csCharacter,csParens,csOpSymbols,csString,csBracketed display
 syn match	csInterpolationFormat	+:[^}]\+}+ contained contains=csInterpolationFormatDel display
 syn match	csInterpolationAlignDel	+,+ contained display
 syn match	csInterpolationFormatDel	+:+ contained display
@@ -156,7 +161,7 @@ syn region	csInterVerbString	matchgroup=csQuote start=+\$@"+ end=+"+ skip=+""+ e
 syn region	csBracketed	matchgroup=csParens start=+(+ end=+)+ extend contained transparent contains=@csAll,csBraced,csBracketed
 syn region	csBraced	matchgroup=csParens start=+{+ end=+}+ extend contained transparent contains=@csAll,csBraced,csBracketed
 
-syn cluster	csAll	contains=csCharacter,csClassType,csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csConstant,csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csType,csUnicodeNumber,csUnicodeSpecifier,csInterpolatedString,csVerbatimString,csInterVerbString,csUserType,csUserIdentifier,csUserInterface,csUserMethod
+syn cluster	csAll	contains=csCharacter,csClassType,csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csConstant,@csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csType,csUnicodeNumber,csUnicodeSpecifier,csInterpolatedString,csVerbatimString,csInterVerbString,csUserType,csUserIdentifier,csUserInterface,csUserMethod
 
 " The default highlighting.
 hi def link	csType	Type
@@ -200,7 +205,8 @@ hi def link	csVerbatimQuote	SpecialChar
 hi def link	csPreCondit	PreCondit
 hi def link	csCharacter	Character
 hi def link	csSpecialChar	SpecialChar
-hi def link	csNumber	Number
+hi def link	csInteger	Number
+hi def link	csReal	Float
 hi def link	csUnicodeNumber	SpecialChar
 hi def link	csUnicodeSpecifier	SpecialChar
 hi def link	csInterpolationDelimiter	Delimiter
