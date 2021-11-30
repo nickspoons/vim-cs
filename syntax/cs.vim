@@ -150,9 +150,8 @@ syn match	csInterpolationFormatDel	+:+ contained display
 
 syn region	csVerbatimString	matchgroup=csQuote start=+@"+ end=+"+ skip=+""+ extend contains=csVerbatimQuote,@Spell
 syn match	csVerbatimQuote	+""+ contained
-syn match	csQuoteError	+@$"+he=s+2,me=s+2
 
-syn region	csInterVerbString	matchgroup=csQuote start=+\$@"+ end=+"+ skip=+""+ extend contains=csInterpolation,csEscapedInterpolation,csSpecialChar,csSpecialError,csUnicodeNumber,csVerbatimQuote,@Spell
+syn region	csInterVerbString	matchgroup=csQuote start=+$@"+ start=+@$"+ end=+"+ skip=+""+ extend contains=csInterpolation,csEscapedInterpolation,csSpecialChar,csSpecialError,csUnicodeNumber,csVerbatimQuote,@Spell
 
 syn region	csBracketed	matchgroup=csParens start=+(+ end=+)+ extend contained transparent contains=@csAll,csBraced,csBracketed
 syn region	csBraced	matchgroup=csParens start=+{+ end=+}+ extend contained transparent contains=@csAll,csBraced,csBracketed
@@ -193,7 +192,6 @@ hi def link	csSpecialError	Error
 hi def link	csSpecialCharError	Error
 hi def link	csString	String
 hi def link	csQuote	String
-hi def link	csQuoteError	Error
 hi def link	csInterpolatedString	String
 hi def link	csVerbatimString	String
 hi def link	csInterVerbString	String
