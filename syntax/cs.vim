@@ -45,8 +45,9 @@ syn match	csContextualStatement	/\<\%(get\|set\)\s*=>/me=s+3
 syn match	csContextualStatement	/\<where\>[^:]\+:/me=s+5
 
 " Operators
-syn keyword	csTypeOf	typeof contained
-syn region	csTypeOfStatement	start="typeof(" end=")" contains=csType, csTypeOf
+syn keyword	csTypeOf	typeof nextgroup=csTypeOfOperand,csTypeOfError skipwhite skipempty
+syn region	csTypeOfOperand	matchgroup=csParens start="(" end=")" contains=csType
+syn match       csTypeOfError               "[^([:space:]]" contained
 
 " Punctuation
 syn match	csBraces	"[{}\[\]]" display
@@ -172,7 +173,8 @@ hi def link	csModifier	StorageClass
 hi def link	csConstant	Constant
 hi def link	csException	Exception
 hi def link	csTypeOf	Keyword
-hi def link	csTypeOfStatement	Typedef
+hi def link	csTypeOfOperand	Typedef
+hi def link	csTypeOfError	Error
 hi def link	csUnspecifiedStatement	Statement
 hi def link	csUnsupportedStatement	Statement
 hi def link	csUnspecifiedKeyword	Keyword
