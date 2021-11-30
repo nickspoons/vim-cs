@@ -129,7 +129,6 @@ syn region	csString	matchgroup=csQuote start=+"+  end=+"+ end=+$+ extend contain
 syn match	csCharacter	"'[^']*'" contains=csSpecialChar,csSpecialCharError,csUnicodeNumber display
 syn match	csCharacter	"'\\''" contains=csSpecialChar display
 syn match	csCharacter	"'[^\\]'" display
-syn match	csNumber	"\<0[0-7]*[lL]\=\>" display
 syn match	csNumber	"\<0[xX][[:xdigit:]_]\+[lL]\=\>" display
 syn match	csNumber	"\<0[bB][01_]\+[lL]\=\>" display
 syn match	csNumber	"\<[[:digit:]_]\+[lL]\=\>" display
