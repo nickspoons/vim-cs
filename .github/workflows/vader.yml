@@ -1,0 +1,45 @@
+name: Vader
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        cfg:
+          - { editor: vim, neovim: false }
+          - { editor: neovim, neovim: true }
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@main
+
+    - name: Setup Vim
+      uses: rhysd/action-setup-vim@v1
+      with:
+        neovim: ${{ matrix.cfg.neovim }}
+        version: stable
+
+    - name: Install Dependencies
+      run: |
+        git clone https://github.com/junegunn/vader.vim.git $GITHUB_WORKSPACE/../vader.vim
+
+    - name: Run Test
+      run: |
+        cd test
+        vim -esNu vimrc -c 'Vader! *'
+      if: matrix.cfg.editor == 'vim'
+
+    - name: Run Test
+      run: |
+        cd test
+        nvim --headless -Nu vimrc -c 'Vader! *'
+      env:
+        VADER_OUTPUT_FILE: /dev/stderr 
+      if: matrix.cfg.editor == 'neovim'
