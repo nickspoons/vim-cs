@@ -341,11 +341,11 @@ Execute:
   AssertEqual 'csVerbatimQuote',              SyntaxAt(2, 5)
   AssertEqual 'csQuote',                      SyntaxAt(2, 6)
 
-Given cs (an incorrect prefix (@$ instead of $@)):
-  @$""
+Given cs (a verbatim, interpolated string with alternate open delimiter (@$ instead of $@)):
+  @$"..."
 
 Execute:
-  AssertEqual 'csQuoteError',             SyntaxAt(1)
-  AssertEqual 'csQuoteError',             SyntaxAt(2)
+  AssertEqual 'csQuote',                  SyntaxAt(1)
+  AssertEqual 'csQuote',                  SyntaxAt(2)
   AssertEqual 'csQuote',                  SyntaxAt(3)
-  AssertEqual 'csQuote',                  SyntaxAt(4)
+  AssertEqual 'csInterVerbString',        SyntaxAt(4)
