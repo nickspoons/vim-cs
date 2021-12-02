@@ -46,7 +46,7 @@ syn match	csContextualStatement	/\<where\>[^:]\+:/me=s+5
 
 " Operators
 syn keyword	csTypeOf	typeof nextgroup=csTypeOfOperand,csTypeOfError skipwhite skipempty
-syn region	csTypeOfOperand	matchgroup=csParens start="(" end=")" contains=csType
+syn region	csTypeOfOperand	matchgroup=csParens start="(" end=")" contained contains=csType
 syn match       csTypeOfError               "[^([:space:]]" contained
 
 " Punctuation

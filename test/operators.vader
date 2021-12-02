@@ -70,3 +70,28 @@ Execute:
   AssertEqual 'csGenericBraces', SyntaxAt()
   normal! f>
   AssertEqual 'csGenericBraces', SyntaxAt()
+
+Given cs (typeof operator):
+  typeof(Dictionary<string,List<Image>>)
+
+Execute:
+  AssertEqual 'csTypeOf',         SyntaxAt(1, 1)
+  AssertEqual 'csParens',         SyntaxAt(1, 7)
+  AssertEqual 'csTypeOfOperand',  SyntaxAt(1, 8)
+  AssertEqual 'csParens',         SyntaxAt(1, 38)
+
+Given cs (typeof operator with space before open paren):
+  typeof (Dictionary<string,List<Image>>)
+
+Execute:
+  AssertEqual 'csTypeOf',         SyntaxAt(1, 1)
+  AssertEqual 'csParens',         SyntaxAt(1, 8)
+  AssertEqual 'csTypeOfOperand',  SyntaxAt(1, 9)
+  AssertEqual 'csParens',         SyntaxAt(1, 39)
+
+Given cs (typeof operator with missing operand parens):
+  typeof Dictionary<string,List<Image>>
+
+Execute:
+  AssertEqual 'csTypeOf',         SyntaxAt(1, 1)
+  AssertEqual 'csTypeOfError',    SyntaxAt(1, 8)
