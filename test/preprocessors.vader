@@ -114,3 +114,12 @@ Execute:
   AssertEqual 'csPreProcPragma',        SyntaxAt(1, 17)
   AssertEqual 'csLineComment',          SyntaxAt(1, 37)
 
+Given cs (#nullable with comment):
+  #nullable disable annotations // nullable
+
+Execute:
+  AssertEqual 'csPreProcNullable',      SyntaxAt(1, 1)
+  AssertEqual 'csPreProcNullable',      SyntaxAt(1, 11)
+  AssertEqual 'csPreProcNullable',      SyntaxAt(1, 19)
+  AssertEqual 'csLineComment',          SyntaxAt(1, 31)
+
