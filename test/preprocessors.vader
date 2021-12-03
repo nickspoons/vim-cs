@@ -1,4 +1,7 @@
-" Unfortunately we can't test preprocessors (#if, #define, #pragma, #region
-" etc.) with Vader because the plugin treats any line beginning with "#" as a
-" comment and ignores it:
-" https://github.com/junegunn/vader.vim#comments
+Given cs (preprocessor define with line comment):
+  #define FOOBAR // foobar defined
+
+Execute:
+  AssertEqual 'csPreCondit',   SyntaxAt(1, 1)
+  AssertEqual 'csPreCondit',   SyntaxAt(1, 9)
+  AssertEqual 'csLineComment', SyntaxAt(1, 11)

@@ -73,8 +73,9 @@ syn region	csGeneric	matchgroup=csGenericBraces start="<" end=">" oneline contai
 "
 " PROVIDES: @csCommentHook
 syn keyword	csTodo	contained TODO FIXME XXX NOTE HACK TBD
-syn region	csComment	start="/\*"  end="\*/" contains=@csCommentHook,csTodo,@Spell
-syn match	csComment	"//.*$" contains=@csCommentHook,csTodo,@Spell
+syn region	csBlockComment	start="/\*"  end="\*/" contains=@csCommentHook,csTodo,@Spell
+syn match	csLineComment	"//.*$" contains=@csCommentHook,csTodo,@Spell
+syn cluster	csComment	contains=csLineComment,csBlockComment
 
 " xml markup inside '///' comments
 syn cluster	xmlRegionHook	add=csXmlCommentLeader
@@ -102,7 +103,7 @@ hi def link	xmlRegion Comment
 syn spell default
 
 " [1] 9.5 Pre-processing directives
-syn region	csPreCondit	start="^\s*#\s*\%(define\|undef\|if\|elif\|else\|endif\|line\|error\|warning\|pragma\)\>" skip="\\$" end="$" contains=csComment keepend
+syn region	csPreCondit	start="^\s*#\s*\%(define\|undef\|if\|elif\|else\|endif\|line\|error\|warning\|pragma\)\>" skip="\\$" end="$" contains=csLineComment keepend
 syn region	csRegion	matchgroup=csPreCondit start="^\s*#\s*region.*$" end="^\s*#\s*endregion" transparent fold contains=TOP
 syn region	csSummary	start="^\s*/// <summary" end="^\%\(\s*///\)\@!" transparent fold keepend
 
@@ -161,7 +162,7 @@ syn region	csInterVerbString	matchgroup=csQuote start=+$@"+ start=+@$"+ end=+"+ 
 syn region	csBracketed	matchgroup=csParens start=+(+ end=+)+ extend contained transparent contains=@csAll,csBraced,csBracketed
 syn region	csBraced	matchgroup=csParens start=+{+ end=+}+ extend contained transparent contains=@csAll,csBraced,csBracketed
 
-syn cluster	csAll	contains=csCharacter,csClassType,csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csConstant,@csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csType,csUnicodeNumber,csUnicodeSpecifier,csInterpolatedString,csVerbatimString,csInterVerbString,csUserType,csUserIdentifier,csUserInterface,csUserMethod
+syn cluster	csAll	contains=csCharacter,csClassType,@csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csConstant,@csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csType,csUnicodeNumber,csUnicodeSpecifier,csInterpolatedString,csVerbatimString,csInterVerbString,csUserType,csUserIdentifier,csUserInterface,csUserMethod
 
 " The default highlighting.
 hi def link	csType	Type
@@ -190,6 +191,8 @@ hi def link	csOperatorError	Error
 
 hi def link	csTodo	Todo
 hi def link	csComment	Comment
+hi def link	csLineComment	csComment
+hi def link	csBlockComment	csComment
 
 hi def link	csOpSymbols	Operator
 hi def link	csLogicSymbols	Operator
