@@ -103,8 +103,14 @@ hi def link	xmlRegion Comment
 syn spell default
 
 " [1] 9.5 Pre-processing directives
-syn region	csPreCondit	start="^\s*#\s*\%(define\|undef\|if\|elif\|else\|endif\|line\|error\|warning\|pragma\)\>" end="$" contains=csLineComment keepend
-syn region	csRegion	matchgroup=csPreCondit start="^\s*#\s*region.*$" end="^\s*#\s*endregion" transparent fold contains=TOP
+syn region	csPreProcDeclaration	start="^\s*\zs#\s*\%(define\|undef\)\>" end="$" contains=csLineComment keepend
+syn region	csPreProcConditional	start="^\s*\zs#\s*\%(if\|elif\)\>" end="$" contains=csLineComment keepend
+syn region	csPreProcConditional	start="^\s*\zs#\s*\%(else\|endif\)\>" end="$" contains=csLineComment keepend
+syn region	csPreProcLine	start="^\s*\zs#\s*line\>" end="$" contains=csLineComment keepend
+syn region	csPreProcDiagnostic	start="^\s*\zs#\s*\%(error\|warning\)\>" end="$"
+syn region	csPreProcConditionalSection	matchgroup=csPreProcRegion start="^\s*\zs#\s*region\>.*" end="^\s*#\s*endregion\>.*" transparent fold contains=TOP
+syn region	csPreProcPragma	start="^\s*\zs#\s*pragma\>" end="$" contains=csLineComment keepend
+
 syn region	csSummary	start="^\s*/// <summary" end="^\%\(\s*///\)\@!" transparent fold keepend
 
 
@@ -205,7 +211,15 @@ hi def link	csInterpolatedString	String
 hi def link	csVerbatimString	String
 hi def link	csInterVerbString	String
 hi def link	csVerbatimQuote	SpecialChar
-hi def link	csPreCondit	PreCondit
+
+hi def link     csPreProc	PreProc
+hi def link	csPreProcDeclaration	Define
+hi def link	csPreProcConditional	PreCondit
+hi def link	csPreProcLine	csPreProc
+hi def link	csPreProcDiagnostic	csPreProc
+hi def link	csPreProcPragma	csPreProc
+hi def link	csPreProcRegion	csPreProc
+
 hi def link	csCharacter	Character
 hi def link	csSpecialChar	SpecialChar
 hi def link	csInteger	Number
