@@ -17,6 +17,15 @@ Execute:
   AssertEqual 'csContextualStatement', SyntaxAt()
 
 
+Given cs (automatic property get/set with whitespace):
+  get ; set ;
+
+Execute:
+  AssertEqual 'csContextualStatement', SyntaxAt()
+  normal! fs
+  AssertEqual 'csContextualStatement', SyntaxAt()
+
+
 Given cs (in-line property get/set):
   get => 0; set => _value = value;
 

@@ -40,7 +40,7 @@ syn keyword	csUnspecifiedKeyword	explicit implicit
 " Contextual Keywords
 syn match	csContextualStatement	/\<yield[[:space:]\n]\+\%(return\|break\)/me=s+5
 syn match	csContextualStatement	/\<partial[[:space:]\n]\+\%(class\|struct\|interface\)/me=s+7
-syn match	csContextualStatement	/\<\%(get\|set\)\%(;\|[[:space:]\n]*{\)/me=s+3
+syn match	csContextualStatement	/\<\%(get\|set\)\%(\s*;\|[[:space:]\n]*{\)/me=s+3
 syn match	csContextualStatement	/\<\%(get\|set\)\s*=>/me=s+3
 syn match	csContextualStatement	/\<where\>[^:]\+:/me=s+5
 
