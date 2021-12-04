@@ -27,11 +27,15 @@ syn match	csOperatorError	display +::+
 syn match	csGlobal	display +global::+
 " user labels (see [1] 8.6 Statements)
 syn match	csLabel	display +^\s*\I\i*\s*:\%([^:]\)\@=+
-syn keyword	csModifier	abstract const extern internal override private protected public readonly sealed static virtual volatile
+syn keyword	csModifier	abstract const internal override private protected public readonly sealed static virtual volatile
+syn match	csModifier	"\<extern\>"
 syn keyword	csConstant	false null true
 syn keyword	csException	try catch finally throw when
 syn keyword	csLinq	ascending by descending equals from group in into join let on orderby select where
 syn keyword	csAsync	async await
+
+syn match	csStorage	"\<extern\ze\s\+alias\>"
+syn match	csStorage	"\%(\<extern\s\+\)\@16<=alias\>"
 
 syn keyword	csUnspecifiedStatement	as base checked event fixed in is lock nameof operator out params ref sizeof stackalloc this unchecked unsafe using
 syn keyword	csUnsupportedStatement	add remove value

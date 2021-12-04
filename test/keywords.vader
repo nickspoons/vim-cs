@@ -1,0 +1,14 @@
+Given cs (extern alias contextual keywords):
+  extern alias Foobar;
+
+Execute:
+  AssertEqual 'csStorage',  SyntaxAt(1, 1)
+  AssertEqual 'csStorage',  SyntaxAt(1, 8)
+
+Given cs (extern modifier):
+  extern void Foobar();
+
+Execute:
+  AssertEqual 'csModifier', SyntaxAt(1, 1)
+  AssertEqual 'csType',     SyntaxAt(1, 8)
+
