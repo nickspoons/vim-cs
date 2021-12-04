@@ -8,12 +8,31 @@ Execute:
   AssertEqual 'csContextualStatement', SyntaxAt()
 
 
+Given cs (standard get/init formatting):
+  get { return 0; }
+  init { _value = value; }
+
+Execute:
+  AssertEqual 'csContextualStatement', SyntaxAt()
+  normal! j
+  AssertEqual 'csContextualStatement', SyntaxAt()
+
+
 Given cs (automatic property get/set):
   get; set;
 
 Execute:
   AssertEqual 'csContextualStatement', SyntaxAt()
   normal! fs
+  AssertEqual 'csContextualStatement', SyntaxAt()
+
+
+Given cs (automatic property get/init):
+  get; init;
+
+Execute:
+  AssertEqual 'csContextualStatement', SyntaxAt()
+  normal! fi
   AssertEqual 'csContextualStatement', SyntaxAt()
 
 
@@ -26,10 +45,28 @@ Execute:
   AssertEqual 'csContextualStatement', SyntaxAt()
 
 
+Given cs (automatic property get/init with whitespace):
+  get ; init ;
+
+Execute:
+  AssertEqual 'csContextualStatement', SyntaxAt()
+  normal! fi
+  AssertEqual 'csContextualStatement', SyntaxAt()
+
+
 Given cs (in-line property get/set):
   get => 0; set => _value = value;
 
 Execute:
   AssertEqual 'csContextualStatement', SyntaxAt()
   normal! fs
+  AssertEqual 'csContextualStatement', SyntaxAt()
+
+
+Given cs (in-line property get/init):
+  get => 0; init => _value = value;
+
+Execute:
+  AssertEqual 'csContextualStatement', SyntaxAt()
+  normal! fi
   AssertEqual 'csContextualStatement', SyntaxAt()
