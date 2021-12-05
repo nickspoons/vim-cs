@@ -23,6 +23,12 @@ setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:///,://
 
 let b:undo_ftplugin = 'setl com< fo<'
 
+if exists('loaded_matchit') && !exists('b:match_words')
+  " #if/#endif support included by default
+  let b:match_words = '\%(^\s*\)\@<=#\s*region\>:\%(^\s*\)\@<=#\s*endregion\>,'
+  let b:undo_ftplugin .= ' | unlet! b:match_words'
+endif
+
 if (has('gui_win32') || has('gui_gtk')) && !exists('b:browsefilter')
   let b:browsefilter = "C# Source Files (*.cs)\t*.cs\nAll Files (*.*)\t*.*\n"
   let b:undo_ftplugin .= ' | unlet! b:browsefilter'
