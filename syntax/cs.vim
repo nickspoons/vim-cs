@@ -75,8 +75,9 @@ syn region	csGeneric	matchgroup=csGenericBraces start="<" end=">" oneline contai
 "
 " PROVIDES: @csCommentHook
 syn keyword	csTodo	contained TODO FIXME XXX NOTE HACK TBD
-syn region	csComment	start="/\*"  end="\*/" contains=@csCommentHook,csTodo,@Spell
-syn match	csComment	"//.*$" contains=@csCommentHook,csTodo,@Spell
+syn region	csBlockComment	start="/\*"  end="\*/" contains=@csCommentHook,csTodo,@Spell
+syn match	csLineComment	"//.*$" contains=@csCommentHook,csTodo,@Spell
+syn cluster	csComment	contains=csLineComment,csBlockComment
 
 " xml markup inside '///' comments
 syn cluster	xmlRegionHook	add=csXmlCommentLeader
@@ -104,8 +105,15 @@ hi def link	xmlRegion Comment
 syn spell default
 
 " [1] 9.5 Pre-processing directives
-syn region	csPreCondit	start="^\s*#\s*\%(define\|undef\|if\|elif\|else\|endif\|line\|error\|warning\|pragma\)\>" skip="\\$" end="$" contains=csComment keepend
-syn region	csRegion	matchgroup=csPreCondit start="^\s*#\s*region.*$" end="^\s*#\s*endregion" transparent fold contains=TOP
+syn region	csPreProcDeclaration	start="^\s*\zs#\s*\%(define\|undef\)\>" end="$" contains=csLineComment keepend
+syn region	csPreProcConditional	start="^\s*\zs#\s*\%(if\|elif\)\>" end="$" contains=csLineComment keepend
+syn region	csPreProcConditional	start="^\s*\zs#\s*\%(else\|endif\)\>" end="$" contains=csLineComment keepend
+syn region	csPreProcLine	start="^\s*\zs#\s*line\>" end="$" contains=csLineComment keepend
+syn region	csPreProcDiagnostic	start="^\s*\zs#\s*\%(error\|warning\)\>" end="$"
+syn region	csPreProcConditionalSection	matchgroup=csPreProcRegion start="^\s*#\s*region\>.*" end="^\s*#\s*endregion\>.*" transparent fold contains=TOP
+syn region	csPreProcPragma	start="^\s*\zs#\s*pragma\>" end="$" contains=csLineComment keepend
+syn region	csPreProcNullable	start="^\s*\zs#\s*nullable\>" end="$" contains=csLineComment keepend
+
 syn region	csSummary	start="^\s*/// <summary" end="^\%\(\s*///\)\@!" transparent fold keepend
 
 
@@ -163,7 +171,7 @@ syn region	csInterVerbString	matchgroup=csQuote start=+$@"+ start=+@$"+ end=+"+ 
 syn region	csBracketed	matchgroup=csParens start=+(+ end=+)+ extend contained transparent contains=@csAll,csBraced,csBracketed
 syn region	csBraced	matchgroup=csParens start=+{+ end=+}+ extend contained transparent contains=@csAll,csBraced,csBracketed
 
-syn cluster	csAll	contains=csCharacter,csClassType,csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csConstant,@csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csType,csUnicodeNumber,csUnicodeSpecifier,csInterpolatedString,csVerbatimString,csInterVerbString,csUserType,csUserIdentifier,csUserInterface,csUserMethod
+syn cluster	csAll	contains=csCharacter,csClassType,@csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csConstant,@csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csType,csUnicodeNumber,csUnicodeSpecifier,csInterpolatedString,csVerbatimString,csInterVerbString,csUserType,csUserIdentifier,csUserInterface,csUserMethod
 
 " The default highlighting.
 hi def link	csType	Type
@@ -192,6 +200,8 @@ hi def link	csOperatorError	Error
 
 hi def link	csTodo	Todo
 hi def link	csComment	Comment
+hi def link	csLineComment	csComment
+hi def link	csBlockComment	csComment
 
 hi def link	csOpSymbols	Operator
 hi def link	csLogicSymbols	Operator
@@ -204,7 +214,16 @@ hi def link	csInterpolatedString	String
 hi def link	csVerbatimString	String
 hi def link	csInterVerbString	String
 hi def link	csVerbatimQuote	SpecialChar
-hi def link	csPreCondit	PreCondit
+
+hi def link     csPreProc	PreProc
+hi def link	csPreProcDeclaration	Define
+hi def link	csPreProcConditional	PreCondit
+hi def link	csPreProcLine	csPreProc
+hi def link	csPreProcDiagnostic	csPreProc
+hi def link	csPreProcRegion	csPreProc
+hi def link	csPreProcPragma	csPreProc
+hi def link	csPreProcNullable	csPreProc
+
 hi def link	csCharacter	Character
 hi def link	csSpecialChar	SpecialChar
 hi def link	csInteger	Number

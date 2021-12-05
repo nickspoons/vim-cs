@@ -1,4 +1,125 @@
-" Unfortunately we can't test preprocessors (#if, #define, #pragma, #region
-" etc.) with Vader because the plugin treats any line beginning with "#" as a
-" comment and ignores it:
-" https://github.com/junegunn/vader.vim#comments
+Given cs (#define with comment):
+  #define FOOBAR // define
+
+Execute:
+  AssertEqual 'csPreProcDeclaration', SyntaxAt(1, 1)
+  AssertEqual 'csPreProcDeclaration', SyntaxAt(1, 9)
+  AssertEqual 'csLineComment',        SyntaxAt(1, 16)
+
+Given cs (#undef with comment):
+  #undef FOOBAR // undef
+
+Execute:
+  AssertEqual 'csPreProcDeclaration', SyntaxAt(1, 1)
+  AssertEqual 'csPreProcDeclaration', SyntaxAt(1, 8)
+  AssertEqual 'csLineComment',        SyntaxAt(1, 15)
+
+Given cs (indented #define):
+      #define FOOBAR
+
+Execute:
+  AssertEqual '',                     SyntaxAt(1, 1)
+  AssertEqual 'csPreProcDeclaration', SyntaxAt(1, 5)
+  AssertEqual 'csPreProcDeclaration', SyntaxAt(1, 13)
+
+Given cs (#if with comments):
+  #if FOO   // if
+      Console.WriteLine("FOO")
+  #elif BAR // elif
+      Console.WriteLine("BAR")
+  #else     // else
+      Console.WriteLine("BAZ")
+  #endif    // endif
+
+Execute:
+  AssertEqual 'csPreProcConditional', SyntaxAt(1, 1)
+  AssertEqual 'csPreProcConditional', SyntaxAt(1, 5)
+  AssertEqual 'csLineComment',        SyntaxAt(1, 11)
+  AssertEqual 'csString',             SyntaxAt(2, 24)
+  AssertEqual 'csPreProcConditional', SyntaxAt(3, 1)
+  AssertEqual 'csPreProcConditional', SyntaxAt(3, 7)
+  AssertEqual 'csLineComment',        SyntaxAt(3, 11)
+  AssertEqual 'csString',             SyntaxAt(4, 24)
+  AssertEqual 'csPreProcConditional', SyntaxAt(5, 1)
+  AssertEqual 'csLineComment',        SyntaxAt(5, 11)
+  AssertEqual 'csString',             SyntaxAt(6, 24)
+  AssertEqual 'csPreProcConditional', SyntaxAt(7, 1)
+  AssertEqual 'csLineComment',        SyntaxAt(7, 11)
+
+Given cs (#line with line number and comment):
+  #line 42 // line
+
+Execute:
+  AssertEqual 'csPreProcLine',        SyntaxAt(1, 1)
+  AssertEqual 'csPreProcLine',        SyntaxAt(1, 7)
+  AssertEqual 'csLineComment',        SyntaxAt(1, 10)
+
+Given cs (#line with line number and filename):
+  #line 42 "meaning.cs" // line
+
+Execute:
+  AssertEqual 'csPreProcLine',        SyntaxAt(1, 1)
+  AssertEqual 'csPreProcLine',        SyntaxAt(1, 7)
+  AssertEqual 'csPreProcLine',        SyntaxAt(1, 10)
+  AssertEqual 'csLineComment',        SyntaxAt(1, 23)
+
+Given cs (#line with comment):
+  #line default // line
+
+Execute:
+  AssertEqual 'csPreProcLine',        SyntaxAt(1, 1)
+  AssertEqual 'csPreProcLine',        SyntaxAt(1, 7)
+  AssertEqual 'csLineComment',        SyntaxAt(1, 15)
+
+Given cs (#line with comment):
+  #line hidden // error
+
+Execute:
+  AssertEqual 'csPreProcLine',        SyntaxAt(1, 1)
+  AssertEqual 'csPreProcLine',        SyntaxAt(1, 7)
+  AssertEqual 'csLineComment',        SyntaxAt(1, 14)
+
+Given cs (#error):
+  #error This is the end
+
+Execute:
+  AssertEqual 'csPreProcDiagnostic',  SyntaxAt(1, 1)
+  AssertEqual 'csPreProcDiagnostic',  SyntaxAt(1, 8)
+
+Given cs (#warning):
+  #warning The end is nigh
+
+Execute:
+  AssertEqual 'csPreProcDiagnostic',  SyntaxAt(1, 1)
+  AssertEqual 'csPreProcDiagnostic',  SyntaxAt(1, 10)
+
+Given cs (#region):
+  #region enter region
+      Console.WriteLine("Region")
+  #endregion exit region
+
+Execute:
+  AssertEqual 'csPreProcRegion',      SyntaxAt(1, 1)
+  AssertEqual 'csPreProcRegion',      SyntaxAt(1, 9)
+  AssertEqual 'csString',             SyntaxAt(2, 24)
+  AssertEqual 'csPreProcRegion',      SyntaxAt(3, 1)
+  AssertEqual 'csPreProcRegion',      SyntaxAt(3, 12)
+
+Given cs (#pragma with comment):
+  #pragma warning disable 414, CS3021 // pragma
+
+Execute:
+  AssertEqual 'csPreProcPragma',        SyntaxAt(1, 1)
+  AssertEqual 'csPreProcPragma',        SyntaxAt(1, 9)
+  AssertEqual 'csPreProcPragma',        SyntaxAt(1, 17)
+  AssertEqual 'csLineComment',          SyntaxAt(1, 37)
+
+Given cs (#nullable with comment):
+  #nullable disable annotations // nullable
+
+Execute:
+  AssertEqual 'csPreProcNullable',      SyntaxAt(1, 1)
+  AssertEqual 'csPreProcNullable',      SyntaxAt(1, 11)
+  AssertEqual 'csPreProcNullable',      SyntaxAt(1, 19)
+  AssertEqual 'csLineComment',          SyntaxAt(1, 31)
+
