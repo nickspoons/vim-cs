@@ -79,25 +79,27 @@ syn region	csBlockComment	start="/\*"  end="\*/" contains=@csCommentHook,csTodo,
 syn match	csLineComment	"//.*$" contains=@csCommentHook,csTodo,@Spell
 syn cluster	csComment	contains=csLineComment,csBlockComment
 
-" xml markup inside '///' comments
-syn cluster	xmlRegionHook	add=csXmlCommentLeader
-syn cluster	xmlCdataHook	add=csXmlCommentLeader
-syn cluster	xmlStartTagHook	add=csXmlCommentLeader
-syn keyword	csXmlTag	contained Libraries Packages Types Excluded ExcludedTypeName ExcludedLibraryName
-syn keyword	csXmlTag	contained ExcludedBucketName TypeExcluded Type TypeKind TypeSignature AssemblyInfo
-syn keyword	csXmlTag	contained AssemblyName AssemblyPublicKey AssemblyVersion AssemblyCulture Base
-syn keyword	csXmlTag	contained BaseTypeName Interfaces Interface InterfaceName Attributes Attribute
-syn keyword	csXmlTag	contained AttributeName Members Member MemberSignature MemberType MemberValue
-syn keyword	csXmlTag	contained ReturnValue ReturnType Parameters Parameter MemberOfPackage
-syn keyword	csXmlTag	contained ThreadingSafetyStatement Docs devdoc example overload remarks returns summary
-syn keyword	csXmlTag	contained threadsafe value internalonly nodoc exception param permission platnote
-syn keyword	csXmlTag	contained seealso b c i pre sub sup block code note paramref see subscript superscript
-syn keyword	csXmlTag	contained list listheader item term description altcompliant altmember
+" xml markup inside '///' and /**...*/ comments
+syn cluster	xmlRegionHook	add=csXmlLineCommentLeader,csXmlBlockCommentMiddle
+syn cluster	xmlCdataHook	add=csXmlLineCommentLeader,csXmlBlockCommentMiddle
+syn cluster	xmlStartTagHook	add=csXmlLineCommentLeader,csXmlBlockCommentMiddle
+syn cluster	xmlTagHook	add=csXmlTag
+syn cluster	xmlAttribHook	add=csXmlAttrib
 
-syn cluster xmlTagHook add=csXmlTag
+" https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags
+syn keyword	csXmlTag	contained summary remarks
+syn keyword	csXmlTag	contained returns param paramref exception value
+syn keyword	csXmlTag	contained para list c code example
+syn keyword	csXmlTag	contained inheritdoc include
+syn keyword	csXmlTag	contained see seealso
+syn keyword	csXmlTag	contained typeparam typeparamref
+syn keyword	csXmlTag	contained b i u br a
+syn keyword	csXmlAttrib	contained cref href
 
-syn match	csXmlCommentLeader	"///" contained
-syn match	csXmlComment	"///.*$" contains=csXmlCommentLeader,@csXml,@Spell keepend
+syn match	csXmlLineCommentLeader	"///" contained
+syn match	csXmlLineComment	"///.*$" contains=csXmlLineCommentLeader,@csXml,@Spell keepend
+syn match	csXmlBlockCommentMiddle	"^\s*\zs\*" contained
+syn region	csXmlBlockComment	start="/\*\*" end="\*/" contains=@csXml,@Spell,csXmlBlockCommentMiddle keepend
 syn include	@csXml syntax/xml.vim
 hi def link	xmlRegion Comment
 
@@ -238,9 +240,12 @@ hi def link	csInterpolationFormatDel	csInterpolationDelimiter
 hi def link	csGenericBraces	csBraces
 
 " xml markup
-hi def link	csXmlCommentLeader	Comment
-hi def link	csXmlComment	Comment
+hi def link	csXmlLineCommentLeader	Comment
+hi def link	csXmlLineComment	Comment
+hi def link	csXmlBlockComment	Comment
+hi def link	csXmlBlockCommentMiddle	csXmlBlockComment
 hi def link	csXmlTag	Statement
+hi def link	csXmlAttrib	Statement
 
 let b:current_syntax = 'cs'
 

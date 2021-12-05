@@ -1,0 +1,35 @@
+Given cs (line comment with TODO):
+  // TODO: this won't get done
+
+Execute:
+  AssertEqual 'csLineComment',   SyntaxAt()
+  normal! fT
+  AssertEqual 'csTodo', SyntaxAt()
+
+Given cs (block comment with TODO):
+  /*
+   * TODO: this won't get done either
+   */
+
+Execute:
+  AssertEqual 'csBlockComment',   SyntaxAt()
+  normal! jfT
+  AssertEqual 'csTodo', SyntaxAt()
+
+Given cs (XML doc line comment):
+  /// <summary>...</summary>
+
+Execute:
+  AssertEqual 'csXmlLineCommentLeader',   SyntaxAt()
+  normal! fs
+  AssertEqual 'csXmlTag', SyntaxAt()
+
+Given cs (XML doc block comment):
+  /**
+   * <summary>...</summary>
+   */
+
+Execute:
+  AssertEqual 'csXmlBlockComment',   SyntaxAt()
+  normal! jfs
+  AssertEqual 'csXmlTag', SyntaxAt()
