@@ -29,7 +29,6 @@ syn match	csGlobal	display +global::+
 syn match	csLabel	display +^\s*\I\i*\s*:\%([^:]\)\@=+
 syn keyword	csModifier	abstract const internal override private protected public readonly sealed static virtual volatile
 syn match	csModifier	"\<extern\>"
-syn keyword	csConstant	false null true
 syn keyword	csException	try catch finally throw when
 syn keyword	csLinq	ascending by descending equals from group in into join let on orderby select where
 syn keyword	csAsync	async await
@@ -132,6 +131,9 @@ syn keyword	csNew	new contained
 syn keyword	csClass	class contained
 syn keyword	csIsAs	is as
 
+syn keyword	csBoolean	false true
+syn keyword	csConstant	null
+
 " Strings and constants
 syn match	csSpecialError	"\\." contained
 syn match	csSpecialCharError	"[^']" contained
@@ -164,7 +166,7 @@ syn region	csInterpolatedString	matchgroup=csQuote start=+\$"+ end=+"+ extend co
 syn region	csInterpolation	matchgroup=csInterpolationDelimiter start=+{+ end=+}+ keepend contained contains=@csAll,csBraced,csBracketed,csInterpolationAlign,csInterpolationFormat
 syn match	csEscapedInterpolation	"{{" transparent contains=NONE display
 syn match	csEscapedInterpolation	"}}" transparent contains=NONE display
-syn region	csInterpolationAlign	matchgroup=csInterpolationAlignDel start=+,+ end=+}+ end=+:+me=e-1 contained contains=@csNumber,csConstant,csCharacter,csParens,csOpSymbols,csString,csBracketed display
+syn region	csInterpolationAlign	matchgroup=csInterpolationAlignDel start=+,+ end=+}+ end=+:+me=e-1 contained contains=@csNumber,csBoolean,csConstant,csCharacter,csParens,csOpSymbols,csString,csBracketed display
 syn match	csInterpolationFormat	+:[^}]\+}+ contained contains=csInterpolationFormatDel display
 syn match	csInterpolationAlignDel	+,+ contained display
 syn match	csInterpolationFormatDel	+:+ contained display
@@ -177,7 +179,7 @@ syn region	csInterVerbString	matchgroup=csQuote start=+$@"+ start=+@$"+ end=+"+ 
 syn region	csBracketed	matchgroup=csParens start=+(+ end=+)+ extend contained transparent contains=@csAll,csBraced,csBracketed
 syn region	csBraced	matchgroup=csParens start=+{+ end=+}+ extend contained transparent contains=@csAll,csBraced,csBracketed
 
-syn cluster	csAll	contains=csCharacter,csClassType,@csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csConstant,@csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csType,csUnicodeNumber,csUnicodeSpecifier,csInterpolatedString,csVerbatimString,csInterVerbString,csUserType,csUserIdentifier,csUserInterface,csUserMethod
+syn cluster	csAll	contains=csCharacter,csClassType,@csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csBoolean,csConstant,@csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csType,csUnicodeNumber,csUnicodeSpecifier,csInterpolatedString,csVerbatimString,csInterVerbString,csUserType,csUserIdentifier,csUserInterface,csUserMethod
 
 " Keyword identifiers
 syn match csIdentifier "@\h\w*"
@@ -233,6 +235,7 @@ hi def link	csPreProcRegion	csPreProc
 hi def link	csPreProcPragma	csPreProc
 hi def link	csPreProcNullable	csPreProc
 
+hi def link	csBoolean	Boolean
 hi def link	csCharacter	Character
 hi def link	csSpecialChar	SpecialChar
 hi def link	csInteger	Number
