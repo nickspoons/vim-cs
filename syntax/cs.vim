@@ -123,9 +123,9 @@ syn region	csPreProcNullable	start="^\s*\zs#\s*nullable\>" end="$" contains=csLi
 syn region	csSummary	start="^\s*/// <summary" end="^\%\(\s*///\)\@!" transparent fold keepend
 
 
-syn region	csClassType	start="@\@1<!\<class\>"hs=s+6 end="[:\n{]"me=e-1 contains=csClass
+syn region	csClassType	start="\<class\>"hs=s+6 end="[:\n{]"me=e-1 contains=csClass
 " csUserType may be defined by user scripts/plugins - it should be contained in csNewType
-syn region	csNewType	start="@\@1<!\<new\>"hs=s+4 end="[;\n{(<\[]"me=e-1 contains=csNew,csUserType
+syn region	csNewType	start="\<new\>"hs=s+4 end="[;\n{(<\[]"me=e-1 contains=csNew,csUserType
 syn region	csIsType	start=" is "hs=s+4 end="[A-Za-z0-9]\+" oneline contains=csIsAs
 syn region	csIsType	start=" as "hs=s+4 end="[A-Za-z0-9]\+" oneline contains=csIsAs
 syn keyword	csNew	new contained
@@ -178,6 +178,9 @@ syn region	csBracketed	matchgroup=csParens start=+(+ end=+)+ extend contained tr
 syn region	csBraced	matchgroup=csParens start=+{+ end=+}+ extend contained transparent contains=@csAll,csBraced,csBracketed
 
 syn cluster	csAll	contains=csCharacter,csClassType,@csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csConstant,@csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csType,csUnicodeNumber,csUnicodeSpecifier,csInterpolatedString,csVerbatimString,csInterVerbString,csUserType,csUserIdentifier,csUserInterface,csUserMethod
+
+" Keyword identifiers
+syn match csIdentifier "@\h\w*"
 
 " The default highlighting.
 hi def link	csType	Type
