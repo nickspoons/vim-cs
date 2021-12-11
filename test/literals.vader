@@ -1,3 +1,17 @@
+Given cs (booleans):
+  true
+  false
+
+Execute:
+  AssertEqual 'csBoolean',              SyntaxAt(1, 1)
+  AssertEqual 'csBoolean',              SyntaxAt(2, 1)
+
+Given cs (null):
+  null
+
+Execute:
+  AssertEqual 'csConstant',             SyntaxAt(1, 1)
+
 Given cs (chars):
   'a'
   '\''
