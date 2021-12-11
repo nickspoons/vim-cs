@@ -42,10 +42,10 @@ syn keyword	csUnsupportedStatement	value
 syn keyword	csUnspecifiedKeyword	explicit implicit
 
 " Contextual Keywords
-syn match	csContextualStatement	/\<yield[[:space:]\n]\+\%(return\|break\)/me=s+5
-syn match	csContextualStatement	/\<partial[[:space:]\n]\+\%(class\|struct\|interface\)/me=s+7
+syn match	csContextualStatement	"\<yield\ze\_s\+\%(return\|break\)\>"
+syn match	csContextualStatement	"\<partial\ze\_s\+\%(class\|struct\|interface\)\>"
 syn match	csContextualStatement	"\<\%(get\|set\|init\|add\|remove\)\ze\_s*\%([;{]\|=>\)"
-syn match	csContextualStatement	/\<where\>[^:]\+:/me=s+5
+syn match	csContextualStatement	"\<where\>\ze[^:]\+:"
 
 " Operators
 syn keyword	csTypeOf	typeof nextgroup=csTypeOfOperand,csTypeOfError skipwhite skipempty
