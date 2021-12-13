@@ -37,17 +37,14 @@ syn match	csStorage	"\<extern\ze\s\+alias\>"
 syn match	csStorage	"\%(\<extern\s\+\)\@16<=alias\>"
 
 syn keyword	csUnspecifiedStatement	as base checked event fixed in is lock nameof operator out params ref sizeof stackalloc this unchecked unsafe using
-syn keyword	csUnsupportedStatement	add remove value
+syn keyword	csUnsupportedStatement	value
 syn keyword	csUnspecifiedKeyword	explicit implicit
 
 " Contextual Keywords
-syn match	csContextualStatement	/\<yield[[:space:]\n]\+\%(return\|break\)/me=s+5
-syn match	csContextualStatement	/\<partial[[:space:]\n]\+\%(class\|struct\|interface\)/me=s+7
-syn match	csContextualStatement	/\<\%(get\|set\)\%(\s*;\|[[:space:]\n]*{\)/me=s+3
-syn match	csContextualStatement	/\<\%(get\|set\)\s*=>/me=s+3
-syn match	csContextualStatement	/\<init\%(\s*;\|[[:space:]\n]*{\)/me=s+4
-syn match	csContextualStatement	/\<init\s*=>/me=s+4
-syn match	csContextualStatement	/\<where\>[^:]\+:/me=s+5
+syn match	csContextualStatement	"\<yield\ze\_s\+\%(return\|break\)\>"
+syn match	csContextualStatement	"\<partial\ze\_s\+\%(class\|struct\|interface\)\>"
+syn match	csContextualStatement	"\<\%(get\|set\|init\|add\|remove\)\ze\_s*\%([;{]\|=>\)"
+syn match	csContextualStatement	"\<where\>\ze[^:]\+:"
 
 " Operators
 syn keyword	csTypeOf	typeof nextgroup=csTypeOfOperand,csTypeOfError skipwhite skipempty

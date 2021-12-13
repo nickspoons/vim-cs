@@ -1,3 +1,5 @@
+# Property Accessors
+
 Given cs (standard get/set formatting):
   get { return 0; }
   set { _value = value; }
@@ -70,3 +72,43 @@ Execute:
   AssertEqual 'csContextualStatement', SyntaxAt()
   normal! fi
   AssertEqual 'csContextualStatement', SyntaxAt()
+
+
+# Event Accessors
+
+Given cs (standard event add/remove formatting):
+  add { _value += value; }
+  remove { _value -= value; }
+
+Execute:
+  AssertEqual 'csContextualStatement', SyntaxAt()
+  normal! j
+  AssertEqual 'csContextualStatement', SyntaxAt()
+
+
+Given cs (automatic event add/remove):
+  add; remove;
+
+Execute:
+  AssertEqual 'csContextualStatement', SyntaxAt()
+  normal! fr
+  AssertEqual 'csContextualStatement', SyntaxAt()
+
+
+Given cs (automatic event add/remove with whitespace):
+  add ; remove ;
+
+Execute:
+  AssertEqual 'csContextualStatement', SyntaxAt()
+  normal! fr
+  AssertEqual 'csContextualStatement', SyntaxAt()
+
+
+Given cs (in-line event add/remove):
+  add => _value += value; remove => _value -= value;
+
+Execute:
+  AssertEqual 'csContextualStatement', SyntaxAt()
+  normal! fr
+  AssertEqual 'csContextualStatement', SyntaxAt()
+
