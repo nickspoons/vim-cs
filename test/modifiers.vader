@@ -1,0 +1,34 @@
+Given cs (unsafe modifier):
+  unsafe void foobar() { /* boom! */ }
+
+Execute:
+  AssertEqual 'csModifier', SyntaxAt(1, 1)
+
+Given cs (async modifier):
+  async void foobar() {}
+
+Execute:
+  AssertEqual 'csAsyncModifier', SyntaxAt(1, 1)
+
+Given cs (partial types):
+  partial class         Foobar {}
+  partial interface     Foobar {}
+  partial struct        Foobar {}
+  partial record        Foobar {}
+  partial record class  Foobar {}
+  partial record struct Foobar {}
+
+Execute:
+  AssertEqual 'csModifier', SyntaxAt(1, 1)
+  AssertEqual 'csModifier', SyntaxAt(2, 1)
+  AssertEqual 'csModifier', SyntaxAt(3, 1)
+  AssertEqual 'csModifier', SyntaxAt(4, 1)
+  AssertEqual 'csModifier', SyntaxAt(5, 1)
+  AssertEqual 'csModifier', SyntaxAt(6, 1)
+
+Given cs (partial methods):
+  partial void Foobar();
+
+Execute:
+  AssertEqual 'csModifier', SyntaxAt()
+
