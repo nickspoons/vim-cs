@@ -1,0 +1,9 @@
+Given cs (nint and nuint):
+  nint foo = 42;
+  nuint foo = 42;
+
+Execute:
+  AssertEqual 'csType', SyntaxAt(1, 1)
+  AssertEqual 'csType', SyntaxAt(2, 1)
+
+

@@ -19,6 +19,7 @@ let s:save_cpo = &cpoptions
 set cpoptions&vim
 
 syn keyword	csType	bool byte char decimal double float int long object sbyte short string T uint ulong ushort var void dynamic
+syn keyword	csType	nint nuint " contextual
 syn keyword	csStorage	delegate enum interface namespace struct
 syn keyword	csRepeat	break continue do for foreach goto return while
 syn keyword	csConditional	else if switch
