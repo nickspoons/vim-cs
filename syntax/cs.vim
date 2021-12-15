@@ -43,7 +43,7 @@ syn keyword	csUnspecifiedKeyword	explicit implicit
 
 " Contextual Keywords
 syn match	csContextualStatement	"\<yield\ze\_s\+\%(return\|break\)\>"
-syn match	csContextualStatement	"\<partial\ze\_s\+\%(class\|struct\|interface\)\>"
+syn match	csContextualStatement	"\<partial\ze\_s\+\%(class\|struct\|interface\|record\|void\)\>"
 syn match	csContextualStatement	"\<\%(get\|set\|init\|add\|remove\)\ze\_s*\%([;{]\|=>\)"
 syn match	csContextualStatement	"\<where\>\ze[^:]\+:"
 

@@ -19,4 +19,26 @@ Execute:
   normal! f@
   AssertEqual 'csIdentifier', SyntaxAt()
 
+Given cs (partial types):
+  partial class         Foobar {}
+  partial interface     Foobar {}
+  partial struct        Foobar {}
+  partial record        Foobar {}
+  partial record class  Foobar {}
+  partial record struct Foobar {}
+
+Execute:
+  AssertEqual 'csContextualStatement', SyntaxAt(1, 1)
+  AssertEqual 'csContextualStatement', SyntaxAt(2, 1)
+  AssertEqual 'csContextualStatement', SyntaxAt(3, 1)
+  AssertEqual 'csContextualStatement', SyntaxAt(4, 1)
+  AssertEqual 'csContextualStatement', SyntaxAt(5, 1)
+  AssertEqual 'csContextualStatement', SyntaxAt(6, 1)
+
+Given cs (partial methods):
+  partial void Foobar();
+
+Execute:
+  AssertEqual 'csContextualStatement', SyntaxAt()
+
 
