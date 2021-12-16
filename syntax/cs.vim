@@ -31,22 +31,32 @@ syn match	csOperatorError	display +::+
 syn match	csGlobal	display +global::+
 " user labels
 syn match	csLabel	display +^\s*\I\i*\s*:\%([^:]\)\@=+
-syn keyword	csModifier	abstract const internal override private protected public readonly sealed static virtual volatile
-syn match	csModifier	"\<extern\>"
+
+" Modifiers
+syn keyword	csAccessModifier	internal private protected public
+" TODO: in new out
+syn keyword	csModifier	abstract const event override readonly sealed static virtual volatile
+syn match	csModifier	"\<\%(extern\|unsafe\)\>"
+syn match	csModifier	"\<partial\ze\_s\+\%(class\|struct\|interface\|record\|void\)\>"
+
 syn keyword	csException	try catch finally throw when
 syn keyword	csLinq	ascending by descending equals from group in into join let on orderby select where
-syn keyword	csAsync	async await
+
+" Async
+syn keyword	csAsyncModifier	async
+syn keyword	csAsyncOperator	await
 
 syn match	csStorage	"\<extern\ze\s\+alias\>"
 syn match	csStorage	"\%(\<extern\s\+\)\@16<=alias\>"
 
-syn keyword	csUnspecifiedStatement	as base checked event fixed in is lock nameof operator out params ref sizeof stackalloc this unchecked unsafe using
+syn match	csUnsafeStatement	"\<unsafe\ze\_s*{"
+
+syn keyword	csUnspecifiedStatement	as base checked fixed in is lock nameof operator out params ref sizeof stackalloc this unchecked using
 syn keyword	csUnsupportedStatement	value
 syn keyword	csUnspecifiedKeyword	explicit implicit
 
 " Contextual Keywords
 syn match	csContextualStatement	"\<yield\ze\_s\+\%(return\|break\)\>"
-syn match	csContextualStatement	"\<partial\ze\_s\+\%(class\|struct\|interface\|record\|void\)\>"
 syn match	csContextualStatement	"\<\%(get\|set\|init\|add\|remove\)\ze\_s*\%([;{]\|=>\)"
 syn match	csContextualStatement	"\<where\>\ze[^:]\+:"
 
@@ -195,28 +205,32 @@ hi def link	csRepeat	Repeat
 hi def link	csConditional	Conditional
 hi def link	csLabel	Label
 hi def link	csModifier	StorageClass
+hi def link	csAccessModifier	csModifier
 hi def link	csConstant	Constant
 hi def link	csException	Exception
-hi def link	csTypeOf	Keyword
-hi def link	csTypeOfOperand	Typedef
-hi def link	csTypeOfError	Error
+hi def link	csUnsafeStatement	Statement
 hi def link	csUnspecifiedStatement	Statement
 hi def link	csUnsupportedStatement	Statement
 hi def link	csUnspecifiedKeyword	Keyword
 hi def link	csNew	Statement
 hi def link	csLinq	Statement
 hi def link	csIsAs 	Keyword
-hi def link	csAsync	Keyword
+hi def link	csAsyncModifier	csModifier
 hi def link	csContextualStatement	Statement
-hi def link	csOperatorError	Error
 
 hi def link	csTodo	Todo
 hi def link	csComment	Comment
 hi def link	csLineComment	csComment
 hi def link	csBlockComment	csComment
 
+hi def link	csKeywordOperator	Keyword
+hi def link	csAsyncOperator	csKeywordOperator
+hi def link	csTypeOf	csKeywordOperator
+hi def link	csTypeOfOperand	Typedef
+hi def link	csTypeOfError	Error
 hi def link	csOpSymbols	Operator
 hi def link	csLogicSymbols	Operator
+hi def link	csOperatorError	Error
 
 hi def link	csSpecialError	Error
 hi def link	csSpecialCharError	Error

@@ -71,6 +71,8 @@ Execute:
   normal! f>
   AssertEqual 'csGenericBraces', SyntaxAt()
 
+# Keyword operators
+
 Given cs (typeof operator):
   typeof(Dictionary<string,List<Image>>)
 
@@ -95,3 +97,9 @@ Given cs (typeof operator with missing operand parens):
 Execute:
   AssertEqual 'csTypeOf',         SyntaxAt(1, 1)
   AssertEqual 'csTypeOfError',    SyntaxAt(1, 8)
+
+Given cs (await operator):
+  await foobar();
+
+Execute:
+  AssertEqual 'csAsyncOperator', SyntaxAt(1, 1)
