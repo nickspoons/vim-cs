@@ -108,11 +108,11 @@ Given cs (checked operator):
   var foobar = checked(42 + 1);
 
 Execute:
-  AssertEqual 'csKeywordOperator', SyntaxAt(1, 14)
+  AssertEqual 'csKeywordOperator', SyntaxOf('checked')
 
 Given cs (unchecked operator):
   var foobar = unchecked(42 + 1);
 
 Execute:
-  AssertEqual 'csKeywordOperator', SyntaxAt(1, 14)
+  AssertEqual 'csKeywordOperator', SyntaxOf('unchecked')
 

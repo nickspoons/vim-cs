@@ -51,13 +51,14 @@ syn match	csStorage	"\%(\<extern\s\+\)\@16<=alias\>"
 
 syn match	csStatement	"\<\%(checked\|unchecked\|unsafe\)\ze\_s*{"
 syn match	csStatement	"\<fixed\ze\_s*("
+syn keyword	csStatement	lock
+syn match	csStatement	"\<yield\ze\_s\+\%(return\|break\)\>"
 
-syn keyword	csUnspecifiedStatement	as base in is lock nameof operator out params ref sizeof stackalloc this using
+syn keyword	csUnspecifiedStatement	as base in is nameof operator out params ref sizeof stackalloc this using
 syn keyword	csUnsupportedStatement	value
 syn keyword	csUnspecifiedKeyword	explicit implicit
 
 " Contextual Keywords
-syn match	csContextualStatement	"\<yield\ze\_s\+\%(return\|break\)\>"
 syn match	csContextualStatement	"\<\%(get\|set\|init\|add\|remove\)\ze\_s*\%([;{]\|=>\)"
 syn match	csContextualStatement	"\<where\>\ze[^:]\+:"
 

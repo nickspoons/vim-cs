@@ -12,10 +12,3 @@ Execute:
   AssertEqual 'csModifier',   SyntaxAt(1, 1)
   AssertEqual 'csType',       SyntaxAt(1, 8)
 
-Given cs (keyword identifiers):
-  var @new = 42;
-
-Execute:
-  normal! f@
-  AssertEqual 'csIdentifier', SyntaxAt()
-
