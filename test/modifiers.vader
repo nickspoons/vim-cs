@@ -30,5 +30,11 @@ Given cs (partial methods):
   partial void Foobar();
 
 Execute:
-  AssertEqual 'csModifier', SyntaxAt()
+  AssertEqual 'csModifier', SyntaxAt(1, 1)
+
+Given cs (fixed modifier):
+  fixed byte foobar[42];
+
+Execute:
+  AssertEqual 'csModifier', SyntaxAt(1, 1)
 

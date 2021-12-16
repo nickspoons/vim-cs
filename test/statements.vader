@@ -16,3 +16,9 @@ Given cs (unchecked statement):
 Execute:
   AssertEqual 'csStatement', SyntaxAt(1, 1)
 
+Given cs (fixed statement):
+  fixed (int* i = foobar) { /* ... */ }
+
+Execute:
+  AssertEqual 'csStatement', SyntaxAt(1, 1)
+

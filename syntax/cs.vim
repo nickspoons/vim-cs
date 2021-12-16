@@ -36,7 +36,7 @@ syn match	csLabel	display +^\s*\I\i*\s*:\%([^:]\)\@=+
 syn keyword	csAccessModifier	internal private protected public
 " TODO: in new out
 syn keyword	csModifier	abstract const event override readonly sealed static virtual volatile
-syn match	csModifier	"\<\%(extern\|unsafe\)\>"
+syn match	csModifier	"\<\%(extern\|fixed\|unsafe\)\>"
 syn match	csModifier	"\<partial\ze\_s\+\%(class\|struct\|interface\|record\|void\)\>"
 
 syn keyword	csException	try catch finally throw when
@@ -50,8 +50,9 @@ syn match	csStorage	"\<extern\ze\s\+alias\>"
 syn match	csStorage	"\%(\<extern\s\+\)\@16<=alias\>"
 
 syn match	csStatement	"\<\%(checked\|unchecked\|unsafe\)\ze\_s*{"
+syn match	csStatement	"\<fixed\ze\_s*("
 
-syn keyword	csUnspecifiedStatement	as base fixed in is lock nameof operator out params ref sizeof stackalloc this using
+syn keyword	csUnspecifiedStatement	as base in is lock nameof operator out params ref sizeof stackalloc this using
 syn keyword	csUnsupportedStatement	value
 syn keyword	csUnspecifiedKeyword	explicit implicit
 
