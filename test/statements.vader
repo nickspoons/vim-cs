@@ -1,0 +1,18 @@
+Given cs (unsafe statement):
+  unsafe { /* boom! */ }
+
+Execute:
+  AssertEqual 'csStatement', SyntaxAt(1, 1)
+
+Given cs (checked statement):
+  checked { /* boom! */ }
+
+Execute:
+  AssertEqual 'csStatement', SyntaxAt(1, 1)
+
+Given cs (unchecked statement):
+  unchecked { /* boom! */ }
+
+Execute:
+  AssertEqual 'csStatement', SyntaxAt(1, 1)
+

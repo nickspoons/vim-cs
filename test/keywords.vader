@@ -19,9 +19,3 @@ Execute:
   normal! f@
   AssertEqual 'csIdentifier', SyntaxAt()
 
-Given cs (unsafe statement):
-  unsafe { /* boom! */ }
-
-Execute:
-  AssertEqual 'csUnsafeStatement', SyntaxAt(1, 1)
-

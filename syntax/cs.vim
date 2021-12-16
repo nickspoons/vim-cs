@@ -49,9 +49,9 @@ syn keyword	csAsyncOperator	await
 syn match	csStorage	"\<extern\ze\s\+alias\>"
 syn match	csStorage	"\%(\<extern\s\+\)\@16<=alias\>"
 
-syn match	csUnsafeStatement	"\<unsafe\ze\_s*{"
+syn match	csStatement	"\<\%(checked\|unchecked\|unsafe\)\ze\_s*{"
 
-syn keyword	csUnspecifiedStatement	as base checked fixed in is lock nameof operator out params ref sizeof stackalloc this unchecked using
+syn keyword	csUnspecifiedStatement	as base fixed in is lock nameof operator out params ref sizeof stackalloc this using
 syn keyword	csUnsupportedStatement	value
 syn keyword	csUnspecifiedKeyword	explicit implicit
 
@@ -64,6 +64,7 @@ syn match	csContextualStatement	"\<where\>\ze[^:]\+:"
 syn keyword	csTypeOf	typeof nextgroup=csTypeOfOperand,csTypeOfError skipwhite skipempty
 syn region	csTypeOfOperand	matchgroup=csParens start="(" end=")" contained contains=csType
 syn match       csTypeOfError               "[^([:space:]]" contained
+syn match	csKeywordOperator	"\<\%(checked\|unchecked\)\ze\_s*("
 
 " Punctuation
 syn match	csBraces	"[{}\[\]]" display
@@ -208,7 +209,6 @@ hi def link	csModifier	StorageClass
 hi def link	csAccessModifier	csModifier
 hi def link	csConstant	Constant
 hi def link	csException	Exception
-hi def link	csUnsafeStatement	Statement
 hi def link	csUnspecifiedStatement	Statement
 hi def link	csUnsupportedStatement	Statement
 hi def link	csUnspecifiedKeyword	Keyword
