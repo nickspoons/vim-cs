@@ -130,6 +130,11 @@ syn region	csPreProcConditionalSection	matchgroup=csPreProcRegion start="^\s*#\s
 syn region	csPreProcPragma	start="^\s*\zs#\s*pragma\>" end="$" contains=csLineComment keepend
 syn region	csPreProcNullable	start="^\s*\zs#\s*nullable\>" end="$" contains=csLineComment keepend
 
+if expand('%:e') == 'csx' || getline('1') =~ '^#!.*\<dotnet-script\>'
+  syn region	csPreProcInclude	start="^\s*\zs#\s*\%(load\|r\)\>" end="$" contains=csLineComment keepend
+  syn match	csShebang	"\%^#!.*" display
+endif
+
 syn region	csSummary	start="^\s*/// <summary" end="^\%\(\s*///\)\@!" transparent fold keepend
 
 
@@ -249,6 +254,8 @@ hi def link	csPreProcDiagnostic	csPreProc
 hi def link	csPreProcRegion	csPreProc
 hi def link	csPreProcPragma	csPreProc
 hi def link	csPreProcNullable	csPreProc
+hi def link	csPreProcInclude	csPreProc
+hi def link	csShebang	csPreProc
 
 hi def link	csBoolean	Boolean
 hi def link	csCharacter	Character
