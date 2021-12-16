@@ -30,7 +30,10 @@ if exists('loaded_matchit') && !exists('b:match_words')
 endif
 
 if (has('gui_win32') || has('gui_gtk')) && !exists('b:browsefilter')
-  let b:browsefilter = "C# Source Files (*.cs)\t*.cs\nAll Files (*.*)\t*.*\n"
+  let b:browsefilter = "C# Source Files (*.cs *.csx)\t*.cs;*.csx\n" .
+        \              "C# Project Files (*.csproj)\t*.csproj\n" .
+        \              "Visual Studio Solution Files (*.sln)\t*.sln\n" .
+        \              "All Files (*.*)\t*.*\n"
   let b:undo_ftplugin .= ' | unlet! b:browsefilter'
 endif
 
