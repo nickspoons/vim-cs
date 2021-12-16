@@ -8,8 +8,11 @@
 " License:             Vim (see :h license)
 " Repository:          https://github.com/nickspoons/vim-cs
 "
-" REFERENCES:
-" [1] ECMA TC39: C# Language Specification (WD13Oct01.doc)
+" References:
+"   -   ECMA-334 5th Edition: C# Language Specification
+"       https://www.ecma-international.org/publications-and-standards/standards/ecma-334/
+"   -   C# Language Design: Draft 6th Edition and later proposals
+"       https://github.com/dotnet/csharplang
 
 if exists('b:current_syntax')
   finish
@@ -26,7 +29,7 @@ syn keyword	csConditional	else if switch
 syn keyword	csLabel	case default
 syn match	csOperatorError	display +::+
 syn match	csGlobal	display +global::+
-" user labels (see [1] 8.6 Statements)
+" user labels
 syn match	csLabel	display +^\s*\I\i*\s*:\%([^:]\)\@=+
 syn keyword	csModifier	abstract const internal override private protected public readonly sealed static virtual volatile
 syn match	csModifier	"\<extern\>"
@@ -107,7 +110,7 @@ hi def link	xmlRegion Comment
 " Since syntax/xml.vim contains `syn spell toplevel`, we need to set it back to `default` here.
 syn spell default
 
-" [1] 9.5 Pre-processing directives
+" Pre-processing directives
 syn region	csPreProcDeclaration	start="^\s*\zs#\s*\%(define\|undef\)\>" end="$" contains=csLineComment keepend
 syn region	csPreProcConditional	start="^\s*\zs#\s*\%(if\|elif\)\>" end="$" contains=csLineComment keepend
 syn region	csPreProcConditional	start="^\s*\zs#\s*\%(else\|endif\)\>" end="$" contains=csLineComment keepend
@@ -135,7 +138,7 @@ syn keyword	csConstant	null
 " Strings and constants
 syn match	csSpecialError	"\\." contained
 syn match	csSpecialCharError	"[^']" contained
-" [1] 9.4.4.4 Character literals
+" Character literals
 syn match	csSpecialChar	+\\["\\'0abfnrtv]+ contained display
 syn match	csUnicodeNumber	+\\x\x\{1,4}+ contained contains=csUnicodeSpecifier display
 syn match	csUnicodeNumber	+\\u\x\{4}+ contained contains=csUnicodeSpecifier display
