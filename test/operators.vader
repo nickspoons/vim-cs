@@ -77,32 +77,82 @@ Given cs (typeof operator):
   typeof(Dictionary<string,List<Image>>)
 
 Execute:
-  AssertEqual 'csTypeOf',         SyntaxAt(1, 1)
-  AssertEqual 'csParens',         SyntaxAt(1, 7)
-  AssertEqual 'csTypeOfOperand',  SyntaxAt(1, 8)
-  AssertEqual 'csParens',         SyntaxAt(1, 38)
+  AssertEqual 'csKeywordOperator', SyntaxOf('typeof')
+  AssertEqual 'csParens',          SyntaxOf('(')
+  AssertEqual 'csTypeOfOperand',   SyntaxOf('(\zs')
+  AssertEqual 'csParens',          SyntaxOf(')')
 
 Given cs (typeof operator with space before open paren):
   typeof (Dictionary<string,List<Image>>)
 
 Execute:
-  AssertEqual 'csTypeOf',         SyntaxAt(1, 1)
-  AssertEqual 'csParens',         SyntaxAt(1, 8)
-  AssertEqual 'csTypeOfOperand',  SyntaxAt(1, 9)
-  AssertEqual 'csParens',         SyntaxAt(1, 39)
+  AssertEqual 'csKeywordOperator', SyntaxOf('typeof')
+  AssertEqual 'csParens',          SyntaxOf('(')
+  AssertEqual 'csTypeOfOperand',   SyntaxOf('(\zs')
+  AssertEqual 'csParens',          SyntaxOf(')')
 
 Given cs (typeof operator with missing operand parens):
   typeof Dictionary<string,List<Image>>
 
 Execute:
-  AssertEqual 'csTypeOf',         SyntaxAt(1, 1)
-  AssertEqual 'csTypeOfError',    SyntaxAt(1, 8)
+  AssertEqual 'csKeywordOperator',   SyntaxOf('typeof')
+  AssertEqual 'csMissingParenError', SyntaxAt(1, 8)
+
+Given cs (sizeof operator):
+  sizeof(byte)
+
+Execute:
+  AssertEqual 'csKeywordOperator', SyntaxOf('sizeof')
+  AssertEqual 'csParens',          SyntaxOf('(')
+  AssertEqual 'csType',            SyntaxOf('(\zs')
+  AssertEqual 'csParens',          SyntaxOf(')')
+
+Given cs (sizeof operator with space before open paren):
+  sizeof (byte)
+
+Execute:
+  AssertEqual 'csKeywordOperator', SyntaxOf('sizeof')
+  AssertEqual 'csParens',          SyntaxOf('(')
+  AssertEqual 'csType',            SyntaxOf('(\zs')
+  AssertEqual 'csParens',          SyntaxOf(')')
+
+Given cs (sizeof operator with missing operand parens):
+  sizeof byte
+
+Execute:
+  AssertEqual 'csKeywordOperator',   SyntaxOf('sizeof')
+  AssertEqual 'csMissingParenError', SyntaxOf('b\zeyte')
+
+Given cs (nameof operator):
+  nameof(foobar)
+
+Execute:
+  AssertEqual 'csKeywordOperator', SyntaxOf('nameof')
+  AssertEqual 'csParens',          SyntaxOf('(')
+  AssertEqual 'csNameOfOperand',   SyntaxOf('(\zs')
+  AssertEqual 'csParens',          SyntaxOf(')')
+
+Given cs (nameof operator with space before open paren):
+  nameof (foobar)
+
+Execute:
+  AssertEqual 'csKeywordOperator', SyntaxOf('nameof')
+  AssertEqual 'csParens',          SyntaxOf('(')
+  AssertEqual 'csNameOfOperand',   SyntaxOf('(\zs')
+  AssertEqual 'csParens',          SyntaxOf(')')
+
+Given cs (nameof operator with missing operand parens):
+  nameof foobar
+
+Execute:
+  AssertEqual 'csKeywordOperator',   SyntaxOf('nameof')
+  AssertEqual 'csMissingParenError', SyntaxOf('f\zeoobar')
 
 Given cs (await operator):
   await foobar();
 
 Execute:
-  AssertEqual 'csAsyncOperator', SyntaxAt(1, 1)
+  AssertEqual 'csAsyncOperator', SyntaxOf('await')
 
 Given cs (checked operator):
   var foobar = checked(42 + 1);
@@ -115,4 +165,30 @@ Given cs (unchecked operator):
 
 Execute:
   AssertEqual 'csKeywordOperator', SyntaxOf('unchecked')
+
+Given cs (stackalloc operator):
+  Span<byte> foobar = stackalloc byte[42];
+
+Execute:
+  AssertEqual 'csKeywordOperator', SyntaxOf('stackalloc')
+
+Given cs (switch operator):
+  var foo = bar switch { _ => 42 };
+
+Execute:
+  AssertEqual 'csKeywordOperator', SyntaxOf('switch')
+
+Given cs (delegate operator):
+  Func<int> foobar = delegate (int a) { return 42; };
+     Action foobar = delegate { FortyTwo(); };
+
+Execute:
+  AssertEqual 'csKeywordOperator', SyntaxOf('delegate', 1)
+  AssertEqual 'csKeywordOperator', SyntaxOf('delegate', 2)
+
+Given cs (with operator):
+  var foo = bar with { Baz = 42 };
+
+Execute:
+  AssertEqual 'csKeywordOperator', SyntaxOf('with')
 
