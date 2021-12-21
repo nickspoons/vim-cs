@@ -1,0 +1,12 @@
+Given cs (verbatim identifiers):
+  var @new = 42;
+
+Execute:
+  AssertEqual 'csIdentifier', SyntaxOf('@new')
+
+Given cs (yield as identifier):
+  var yield = 42;
+
+Execute:
+  AssertEqual '', SyntaxOf('yield')
+

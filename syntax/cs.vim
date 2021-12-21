@@ -36,7 +36,7 @@ syn match	csLabel	display +^\s*\I\i*\s*:\%([^:]\)\@=+
 syn keyword	csAccessModifier	internal private protected public
 " TODO: in new out
 syn keyword	csModifier	abstract const event override readonly sealed static virtual volatile
-syn match	csModifier	"\<\%(extern\|unsafe\)\>"
+syn match	csModifier	"\<\%(extern\|fixed\|unsafe\)\>"
 syn match	csModifier	"\<partial\ze\_s\+\%(class\|struct\|interface\|record\|void\)\>"
 
 syn keyword	csException	try catch finally throw when
@@ -49,14 +49,16 @@ syn keyword	csAsyncOperator	await
 syn match	csStorage	"\<extern\ze\s\+alias\>"
 syn match	csStorage	"\%(\<extern\s\+\)\@16<=alias\>"
 
-syn match	csUnsafeStatement	"\<unsafe\ze\_s*{"
+syn match	csStatement	"\<\%(checked\|unchecked\|unsafe\)\ze\_s*{"
+syn match	csStatement	"\<fixed\ze\_s*("
+syn keyword	csStatement	lock
+syn match	csStatement	"\<yield\ze\_s\+\%(return\|break\)\>"
 
-syn keyword	csUnspecifiedStatement	as base checked fixed in is lock nameof operator out params ref sizeof stackalloc this unchecked using
+syn keyword	csUnspecifiedStatement	as base in is nameof operator out params ref sizeof stackalloc this using
 syn keyword	csUnsupportedStatement	value
 syn keyword	csUnspecifiedKeyword	explicit implicit
 
 " Contextual Keywords
-syn match	csContextualStatement	"\<yield\ze\_s\+\%(return\|break\)\>"
 syn match	csContextualStatement	"\<\%(get\|set\|init\|add\|remove\)\ze\_s*\%([;{]\|=>\)"
 syn match	csContextualStatement	"\<where\>\ze[^:]\+:"
 
@@ -64,6 +66,7 @@ syn match	csContextualStatement	"\<where\>\ze[^:]\+:"
 syn keyword	csTypeOf	typeof nextgroup=csTypeOfOperand,csTypeOfError skipwhite skipempty
 syn region	csTypeOfOperand	matchgroup=csParens start="(" end=")" contained contains=csType
 syn match       csTypeOfError               "[^([:space:]]" contained
+syn match	csKeywordOperator	"\<\%(checked\|unchecked\)\ze\_s*("
 
 " Punctuation
 syn match	csBraces	"[{}\[\]]" display
@@ -208,7 +211,6 @@ hi def link	csModifier	StorageClass
 hi def link	csAccessModifier	csModifier
 hi def link	csConstant	Constant
 hi def link	csException	Exception
-hi def link	csUnsafeStatement	Statement
 hi def link	csUnspecifiedStatement	Statement
 hi def link	csUnsupportedStatement	Statement
 hi def link	csUnspecifiedKeyword	Keyword

@@ -1,0 +1,38 @@
+Given cs (unsafe statement):
+  unsafe { /* boom! */ }
+
+Execute:
+  AssertEqual 'csStatement', SyntaxAt(1, 1)
+
+Given cs (checked statement):
+  checked { /* boom! */ }
+
+Execute:
+  AssertEqual 'csStatement', SyntaxAt(1, 1)
+
+Given cs (unchecked statement):
+  unchecked { /* boom! */ }
+
+Execute:
+  AssertEqual 'csStatement', SyntaxAt(1, 1)
+
+Given cs (fixed statement):
+  fixed (int* i = foobar) { /* ... */ }
+
+Execute:
+  AssertEqual 'csStatement', SyntaxAt(1, 1)
+
+Given cs (lock statement):
+  lock (foobar) { /* ... */ }
+
+Execute:
+  AssertEqual 'csStatement', SyntaxAt(1, 1)
+
+Given cs (yield statement):
+  yield break;
+  yield return 42;
+
+Execute:
+  AssertEqual 'csStatement', SyntaxAt(1, 1)
+  AssertEqual 'csStatement', SyntaxAt(2, 1)
+
