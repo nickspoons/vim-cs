@@ -218,6 +218,7 @@ hi def link	csNew	Statement
 hi def link	csLinq	Statement
 hi def link	csIsAs 	Keyword
 hi def link	csAsyncModifier	csModifier
+hi def link	csStatement	Statement
 hi def link	csContextualStatement	Statement
 
 hi def link	csTodo	Todo
