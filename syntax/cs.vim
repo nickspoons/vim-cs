@@ -145,6 +145,8 @@ if expand('%:e') == 'csx' || getline('1') =~ '^#!.*\<dotnet-script\>'
   syn match	csShebang	"\%^#!.*" display
 endif
 
+syn cluster	csPreProcessor	contains=csPreProc.*
+
 syn region	csClassType	start="\<class\>"hs=s+6 end="[:\n{]"me=e-1 contains=csClass
 " csUserType may be defined by user scripts/plugins - it should be contained in csNewType
 syn region	csNewType	start="\<new\>"hs=s+4 end="[;\n{(<\[]"me=e-1 contains=csNew,csUserType
@@ -206,7 +208,7 @@ syn cluster	csLiteral	contains=csBoolean,@csNumber,csCharacter,@csString,csNull
 syn region	csBracketed	matchgroup=csParens start=+(+ end=+)+ extend contained transparent contains=@csAll,csBraced,csBracketed
 syn region	csBraced	matchgroup=csParens start=+{+ end=+}+ extend contained transparent contains=@csAll,csBraced,csBracketed
 
-syn cluster	csAll	contains=@csLiteral,csClassType,@csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csOpSymbols,csParens,csPreCondit,csRegion,csSummary,csType,csUnicodeNumber,csUserType,csUserIdentifier,csUserInterface,csUserMethod
+syn cluster	csAll	contains=@csLiteral,csClassType,@csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csOpSymbols,csParens,@csPreProcessor,csSummary,csType,csUnicodeNumber,csUserType,csUserIdentifier,csUserInterface,csUserMethod
 
 " Keyword identifiers
 syn match csIdentifier "@\h\w*"
