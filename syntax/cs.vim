@@ -27,8 +27,7 @@ syn keyword	csStorage	delegate enum interface namespace struct
 syn keyword	csRepeat	break continue do for foreach goto return while
 syn keyword	csConditional	else if switch
 syn keyword	csLabel	case default
-syn match	csOperatorError	display +::+
-syn match	csGlobal	display +global::+
+syn match	csGlobal	display +global\ze::+
 " user labels
 syn match	csLabel	display +^\s*\I\i*\s*:\%([^:]\)\@=+
 
@@ -198,7 +197,7 @@ syn region	csInterVerbString	matchgroup=csQuote start=+$@"+ start=+@$"+ end=+"+ 
 syn region	csBracketed	matchgroup=csParens start=+(+ end=+)+ extend contained transparent contains=@csAll,csBraced,csBracketed
 syn region	csBraced	matchgroup=csParens start=+{+ end=+}+ extend contained transparent contains=@csAll,csBraced,csBracketed
 
-syn cluster	csAll	contains=csCharacter,csClassType,@csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csBoolean,csConstant,@csNumber,csOpSymbols,csOperatorError,csParens,csPreCondit,csRegion,csString,csSummary,csType,csUnicodeNumber,csUnicodeSpecifier,csInterpolatedString,csVerbatimString,csInterVerbString,csUserType,csUserIdentifier,csUserInterface,csUserMethod
+syn cluster	csAll	contains=csCharacter,csClassType,@csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csBoolean,csConstant,@csNumber,csOpSymbols,csParens,csPreCondit,csRegion,csString,csSummary,csType,csUnicodeNumber,csUnicodeSpecifier,csInterpolatedString,csVerbatimString,csInterVerbString,csUserType,csUserIdentifier,csUserInterface,csUserMethod
 
 " Keyword identifiers
 syn match csIdentifier "@\h\w*"
@@ -238,7 +237,6 @@ hi def link	csTypeOfOperand	Typedef
 hi def link	csTypeOfError	Error
 hi def link	csOpSymbols	Operator
 hi def link	csLogicSymbols	Operator
-hi def link	csOperatorError	Error
 
 hi def link	csSpecialError	Error
 hi def link	csSpecialCharError	Error
