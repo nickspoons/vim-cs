@@ -6,4 +6,24 @@ Execute:
   AssertEqual 'csType', SyntaxAt(1, 1)
   AssertEqual 'csType', SyntaxAt(2, 1)
 
+Given cs (function pointer):
+  delegate* managed<int, int> foobar;
+  delegate* unmanaged[Cdecl]<int, int> foobar;
+
+Execute:
+  AssertEqual 'csType',            SyntaxOf('delegate')
+  AssertEqual 'csOpSymbols',       SyntaxOf('\*')
+  AssertEqual 'csManagedModifier', SyntaxOf('managed')
+  AssertEqual 'csType',            SyntaxAt(2, 1)
+  AssertEqual 'csType',            SyntaxOf('delegate', 2)
+  AssertEqual 'csOpSymbols',       SyntaxOf('\*')
+  AssertEqual 'csManagedModifier', SyntaxOf('unmanaged')
+
+Given cs (function pointer with whitespace before asterisk):
+  delegate * managed<int, int> foobar;
+
+Execute:
+  AssertEqual 'csType',            SyntaxOf('delegate')
+  AssertEqual 'csOpSymbols',       SyntaxOf('\*')
+  AssertEqual 'csManagedModifier', SyntaxOf('\<managed')
 

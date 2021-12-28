@@ -23,13 +23,19 @@ set cpoptions&vim
 
 syn keyword	csType	bool byte char decimal double float int long object sbyte short string T uint ulong ushort var void dynamic
 syn keyword	csType	nint nuint " contextual
-syn keyword	csStorage	delegate enum interface namespace struct
+
+syn keyword	csStorage	enum interface namespace struct
+syn match	csStorage	"\<delegate\>"
 syn keyword	csRepeat	break continue do for foreach goto return while
 syn keyword	csConditional	else if switch
 syn keyword	csLabel	case default
 syn match	csGlobal	display +global\ze::+
 " user labels
 syn match	csLabel	display +^\s*\I\i*\s*:\%([^:]\)\@=+
+
+" Function pointers
+syn match	csType	"\<delegate\s*\*" contains=csOpSymbols nextgroup=csManagedModifier skipwhite skipempty
+syn keyword	csManagedModifier	managed unmanaged contained
 
 " Modifiers
 syn keyword	csAccessModifier	internal private protected public
@@ -213,6 +219,7 @@ hi def link	csConditional	Conditional
 hi def link	csLabel	Label
 hi def link	csModifier	StorageClass
 hi def link	csAccessModifier	csModifier
+hi def link	csManagedModifier	csModifier
 hi def link	csConstant	Constant
 hi def link	csException	Exception
 hi def link	csUnspecifiedStatement	Statement
