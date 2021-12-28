@@ -101,6 +101,8 @@ syn region	csBlockComment	start="/\*"  end="\*/" contains=@csCommentHook,csTodo,
 syn match	csLineComment	"//.*$" contains=@csCommentHook,csTodo,@Spell
 syn cluster	csComment	contains=csLineComment,csBlockComment
 
+syn region	csSummary	start="^\s*/// <summary" end="^\%\(\s*///\)\@!" transparent fold keepend
+
 " xml markup inside '///' and /**...*/ comments
 syn cluster	xmlRegionHook	add=csXmlLineCommentLeader,csXmlBlockCommentMiddle
 syn cluster	xmlCdataHook	add=csXmlLineCommentLeader,csXmlBlockCommentMiddle
@@ -142,9 +144,6 @@ if expand('%:e') == 'csx' || getline('1') =~ '^#!.*\<dotnet-script\>'
   syn region	csPreProcInclude	start="^\s*\zs#\s*\%(load\|r\)\>" end="$" contains=csLineComment keepend
   syn match	csShebang	"\%^#!.*" display
 endif
-
-syn region	csSummary	start="^\s*/// <summary" end="^\%\(\s*///\)\@!" transparent fold keepend
-
 
 syn region	csClassType	start="\<class\>"hs=s+6 end="[:\n{]"me=e-1 contains=csClass
 " csUserType may be defined by user scripts/plugins - it should be contained in csNewType
