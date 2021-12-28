@@ -64,12 +64,13 @@ syn match	csStatement	"\<fixed\ze\_s*("
 syn keyword	csStatement	lock
 syn match	csStatement	"\<yield\ze\_s\+\%(return\|break\)\>"
 
+syn match	csAccessor	"\<\%(get\|set\|init\|add\|remove\)\ze\_s*\%([;{]\|=>\)"
+
 syn keyword	csUnspecifiedStatement	as base in is nameof operator out params ref sizeof stackalloc this using
 syn keyword	csUnsupportedStatement	value
 syn keyword	csUnspecifiedKeyword	explicit implicit
 
 " Contextual Keywords
-syn match	csContextualStatement	"\<\%(get\|set\|init\|add\|remove\)\ze\_s*\%([;{]\|=>\)"
 syn match	csContextualStatement	"\<where\>\ze[^:]\+:"
 
 " Operators
@@ -245,6 +246,7 @@ hi def link	csAsyncModifier	csModifier
 hi def link	csStatement	Statement
 hi def link	csContextualStatement	Statement
 hi def link	csGlobalNamespaceAlias	Include
+hi def link	csAccessor	Keyword
 
 hi def link	csTodo	Todo
 hi def link	csComment	Comment
