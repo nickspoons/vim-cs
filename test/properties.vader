@@ -5,9 +5,9 @@ Given cs (standard get/set formatting):
   set { _value = value; }
 
 Execute:
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
   normal! j
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
 
 
 Given cs (standard get/init formatting):
@@ -15,63 +15,63 @@ Given cs (standard get/init formatting):
   init { _value = value; }
 
 Execute:
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
   normal! j
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
 
 
 Given cs (automatic property get/set):
   get; set;
 
 Execute:
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
   normal! fs
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
 
 
 Given cs (automatic property get/init):
   get; init;
 
 Execute:
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
   normal! fi
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
 
 
 Given cs (automatic property get/set with whitespace):
   get ; set ;
 
 Execute:
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
   normal! fs
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
 
 
 Given cs (automatic property get/init with whitespace):
   get ; init ;
 
 Execute:
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
   normal! fi
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
 
 
 Given cs (in-line property get/set):
   get => 0; set => _value = value;
 
 Execute:
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
   normal! fs
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
 
 
 Given cs (in-line property get/init):
   get => 0; init => _value = value;
 
 Execute:
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
   normal! fi
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
 
 
 # Event Accessors
@@ -81,34 +81,34 @@ Given cs (standard event add/remove formatting):
   remove { _value -= value; }
 
 Execute:
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
   normal! j
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
 
 
 Given cs (automatic event add/remove):
   add; remove;
 
 Execute:
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
   normal! fr
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
 
 
 Given cs (automatic event add/remove with whitespace):
   add ; remove ;
 
 Execute:
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
   normal! fr
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
 
 
 Given cs (in-line event add/remove):
   add => _value += value; remove => _value -= value;
 
 Execute:
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
   normal! fr
-  AssertEqual 'csContextualStatement', SyntaxAt()
+  AssertEqual 'csAccessor', SyntaxAt()
 
