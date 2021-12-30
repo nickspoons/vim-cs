@@ -10,3 +10,11 @@ Given cs (yield as identifier):
 Execute:
   AssertEqual '', SyntaxOf('yield')
 
+Given cs (global namespace alias):
+  global using global::System;
+
+Execute:
+  AssertEqual 'csUsingModifier',           SyntaxOf('global', 1)
+  AssertEqual 'csGlobalNamespaceAlias',    SyntaxOf('global', 2)
+  AssertEqual 'csNamespaceAliasQualifier', SyntaxOf('::')
+

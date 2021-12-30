@@ -38,3 +38,9 @@ Given cs (fixed modifier):
 Execute:
   AssertEqual 'csModifier', SyntaxAt(1, 1)
 
+Given cs (global using modifier):
+  global using Foobar;
+
+Execute:
+  AssertEqual 'csUsingModifier', SyntaxAt(1, 1)
+

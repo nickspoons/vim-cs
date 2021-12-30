@@ -29,7 +29,11 @@ syn match	csStorage	"\<delegate\>"
 syn keyword	csRepeat	break continue do for foreach goto return while
 syn keyword	csConditional	else if switch
 syn keyword	csLabel	case default
-syn match	csGlobal	display +global\ze::+
+
+syn match	csNamespaceAlias	"@\=\h\w*\ze\_s*::" display
+syn match	csGlobalNamespaceAlias	"global\ze\_s*::" display
+syn cluster	csNamespaceAlias	contains=csGlobalNamespaceAlias,csNamespaceAlias,csNamespaceAliasQualifier
+
 " user labels
 syn match	csLabel	display +^\s*\I\i*\s*:\%([^:]\)\@=+
 
@@ -38,6 +42,7 @@ syn match	csType	"\<delegate\s*\*" contains=csOpSymbols nextgroup=csManagedModif
 syn keyword	csManagedModifier	managed unmanaged contained
 
 " Modifiers
+syn match	csUsingModifier	"\<global\ze\_s\+using\>"
 syn keyword	csAccessModifier	internal private protected public
 " TODO: in new out
 syn keyword	csModifier	abstract const event override readonly sealed static virtual volatile
@@ -89,9 +94,10 @@ syn match	csLogicSymbols	"&&" display
 syn match	csLogicSymbols	"||" display
 syn match	csLogicSymbols	"?" display
 syn match	csLogicSymbols	":" display
+syn match	csNamespaceAliasQualifier	"::" display
 
 " Generics
-syn region	csGeneric	matchgroup=csGenericBraces start="<" end=">" oneline contains=csType,csGeneric,csUserType,csUserIdentifier,csUserInterface,csUserMethod
+syn region	csGeneric	matchgroup=csGenericBraces start="<" end=">" oneline contains=csType,csGeneric,@csNamespaceAlias,csUserType,csUserIdentifier,csUserInterface,csUserMethod
 
 " Comments
 "
@@ -149,7 +155,7 @@ syn cluster	csPreProcessor	contains=csPreProc.*
 
 syn region	csClassType	start="\<class\>"hs=s+6 end="[:\n{]"me=e-1 contains=csClass
 " csUserType may be defined by user scripts/plugins - it should be contained in csNewType
-syn region	csNewType	start="\<new\>"hs=s+4 end="[;\n{(<\[]"me=e-1 contains=csNew,csUserType
+syn region	csNewType	start="\<new\>"hs=s+4 end="[;\n{(<\[]"me=e-1 contains=csNew,@csNamespaceAlias,csUserType
 syn region	csIsType	start=" is "hs=s+4 end="[A-Za-z0-9]\+" oneline contains=csIsAs
 syn region	csIsType	start=" as "hs=s+4 end="[A-Za-z0-9]\+" oneline contains=csIsAs
 syn keyword	csNew	new contained
@@ -208,7 +214,7 @@ syn cluster	csLiteral	contains=csBoolean,@csNumber,csCharacter,@csString,csNull
 syn region	csBracketed	matchgroup=csParens start=+(+ end=+)+ extend contained transparent contains=@csAll,csBraced,csBracketed
 syn region	csBraced	matchgroup=csParens start=+{+ end=+}+ extend contained transparent contains=@csAll,csBraced,csBracketed
 
-syn cluster	csAll	contains=@csLiteral,csClassType,@csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csOpSymbols,csParens,@csPreProcessor,csSummary,csType,csUnicodeNumber,csUserType,csUserIdentifier,csUserInterface,csUserMethod
+syn cluster	csAll	contains=@csLiteral,csClassType,@csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csOpSymbols,csParens,@csPreProcessor,csSummary,@csNamespaceAlias,csType,csUnicodeNumber,csUserType,csUserIdentifier,csUserInterface,csUserMethod
 
 " Keyword identifiers
 syn match csIdentifier "@\h\w*"
@@ -225,6 +231,7 @@ hi def link	csLabel	Label
 hi def link	csModifier	StorageClass
 hi def link	csAccessModifier	csModifier
 hi def link	csManagedModifier	csModifier
+hi def link	csUsingModifier	csModifier
 hi def link	csConstant	Constant
 hi def link	csNull	Constant
 hi def link	csException	Exception
@@ -237,6 +244,7 @@ hi def link	csIsAs 	Keyword
 hi def link	csAsyncModifier	csModifier
 hi def link	csStatement	Statement
 hi def link	csContextualStatement	Statement
+hi def link	csGlobalNamespaceAlias	Include
 
 hi def link	csTodo	Todo
 hi def link	csComment	Comment
