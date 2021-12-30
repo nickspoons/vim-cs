@@ -155,7 +155,7 @@ syn keyword	csClass	class contained
 syn keyword	csIsAs	is as
 
 syn keyword	csBoolean	false true
-syn keyword	csConstant	null
+syn keyword	csNull	null
 
 " Strings and constants
 syn match	csSpecialError	"\\." contained
@@ -220,6 +220,7 @@ hi def link	csModifier	StorageClass
 hi def link	csAccessModifier	csModifier
 hi def link	csManagedModifier	csModifier
 hi def link	csConstant	Constant
+hi def link	csNull	Constant
 hi def link	csException	Exception
 hi def link	csUnspecifiedStatement	Statement
 hi def link	csUnsupportedStatement	Statement
