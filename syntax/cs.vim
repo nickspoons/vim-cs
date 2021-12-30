@@ -199,10 +199,14 @@ syn match	csVerbatimQuote	+""+ contained
 
 syn region	csInterVerbString	matchgroup=csQuote start=+$@"+ start=+@$"+ end=+"+ skip=+""+ extend contains=csInterpolation,csEscapedInterpolation,csSpecialChar,csSpecialError,csUnicodeNumber,csVerbatimQuote,@Spell
 
+syn cluster	csString	contains=csString,csInterpolatedString,csVerbatimString,csInterVerbString
+
+syn cluster	csLiteral	contains=csBoolean,@csNumber,csCharacter,@csString,csNull
+
 syn region	csBracketed	matchgroup=csParens start=+(+ end=+)+ extend contained transparent contains=@csAll,csBraced,csBracketed
 syn region	csBraced	matchgroup=csParens start=+{+ end=+}+ extend contained transparent contains=@csAll,csBraced,csBracketed
 
-syn cluster	csAll	contains=csCharacter,csClassType,@csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csBoolean,csConstant,@csNumber,csOpSymbols,csParens,csPreCondit,csRegion,csString,csSummary,csType,csUnicodeNumber,csUnicodeSpecifier,csInterpolatedString,csVerbatimString,csInterVerbString,csUserType,csUserIdentifier,csUserInterface,csUserMethod
+syn cluster	csAll	contains=@csLiteral,csClassType,@csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csOpSymbols,csParens,csPreCondit,csRegion,csSummary,csType,csUnicodeNumber,csUserType,csUserIdentifier,csUserInterface,csUserMethod
 
 " Keyword identifiers
 syn match csIdentifier "@\h\w*"
