@@ -10,7 +10,7 @@ Given cs (null):
   null
 
 Execute:
-  AssertEqual 'csConstant',             SyntaxAt(1, 1)
+  AssertEqual 'csNull',                   SyntaxAt(1, 1)
 
 Given cs (chars):
   'a'
