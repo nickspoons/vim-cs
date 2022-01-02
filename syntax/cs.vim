@@ -29,7 +29,9 @@ syn match	csStorage	"\<delegate\>"
 syn keyword	csRepeat	break continue do for foreach goto return while
 syn keyword	csConditional	else if
 syn match	csCondtional	"\<switch\>"
-syn keyword	csLabel	case default
+
+syn keyword	csLabel	case
+syn match	csLabel	"\<default\ze\_s*:"
 
 syn match	csNamespaceAlias	"@\=\h\w*\ze\_s*::" display
 syn match	csGlobalNamespaceAlias	"global\ze\_s*::" display
@@ -89,6 +91,9 @@ syn region	csSizeOfOperand	matchgroup=csParens start="(" end=")" contained conta
 
 syn keyword	csKeywordOperator	nameof nextgroup=csNameOfOperand,csMissingParenError skipwhite skipempty
 syn region	csNameOfOperand	matchgroup=csParens start="(" end=")" contained contains=csType
+
+syn match	csKeywordOperator	"\<default\_s*\ze(" nextgroup=csDefaultOperand,csMissingParenError skipwhite skipempty
+syn region	csDefaultOperand	matchgroup=csParens start="(" end=")" contained contains=csType
 
 syn match       csMissingParenError         "[^([:space:]]" contained
 
@@ -178,6 +183,9 @@ syn keyword	csIsAs	is as
 
 syn keyword	csBoolean	false true
 syn keyword	csNull	null
+syn match	csDefault	"\<default\>\%(\_s*[(:]\)\@!"
+" ternary consequent
+syn match	csDefault	"\%(?\_s*\)\@32<=default\>"
 
 " Strings and constants
 syn match	csSpecialError	"\\." contained
@@ -211,7 +219,7 @@ syn region	csInterpolatedString	matchgroup=csQuote start=+\$"+ end=+"+ extend co
 syn region	csInterpolation	matchgroup=csInterpolationDelimiter start=+{+ end=+}+ keepend contained contains=@csAll,csBraced,csBracketed,csInterpolationAlign,csInterpolationFormat
 syn match	csEscapedInterpolation	"{{" transparent contains=NONE display
 syn match	csEscapedInterpolation	"}}" transparent contains=NONE display
-syn region	csInterpolationAlign	matchgroup=csInterpolationAlignDel start=+,+ end=+}+ end=+:+me=e-1 contained contains=@csNumber,csBoolean,csConstant,csCharacter,csParens,csOpSymbols,csString,csBracketed display
+syn region	csInterpolationAlign	matchgroup=csInterpolationAlignDel start=+,+ end=+}+ end=+:+me=e-1 contained contains=@csNumber,csBoolean,csLiteral,csCharacter,csParens,csOpSymbols,csString,csBracketed display
 syn match	csInterpolationFormat	+:[^}]\+}+ contained contains=csInterpolationFormatDel display
 syn match	csInterpolationAlignDel	+,+ contained display
 syn match	csInterpolationFormatDel	+:+ contained display
@@ -246,8 +254,9 @@ hi def link	csModifier	StorageClass
 hi def link	csAccessModifier	csModifier
 hi def link	csManagedModifier	csModifier
 hi def link	csUsingModifier	csModifier
-hi def link	csConstant	Constant
-hi def link	csNull	Constant
+hi def link	csLiteral	Constant
+hi def link	csNull	csLiteral
+hi def link	csDefault	csLiteral
 hi def link	csException	Exception
 hi def link	csUnspecifiedStatement	Statement
 hi def link	csUnsupportedStatement	Statement
@@ -270,6 +279,7 @@ hi def link	csKeywordOperator	Keyword
 hi def link	csAsyncOperator	csKeywordOperator
 hi def link	csTypeOfOperand	Typedef
 hi def link	csSizeOfOperand	Typedef
+hi def link	csDefaultOperand	Typedef
 hi def link	csMissingParenError	Error
 hi def link	csOpSymbols	Operator
 hi def link	csLogicSymbols	Operator
