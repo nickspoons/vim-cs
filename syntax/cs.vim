@@ -261,7 +261,7 @@ hi def link	csException	Exception
 hi def link	csUnspecifiedStatement	Statement
 hi def link	csUnsupportedStatement	Statement
 hi def link	csUnspecifiedKeyword	Keyword
-hi def link	csNew	Statement
+hi def link	csNew	csKeywordOperator
 hi def link	csLinq	Statement
 hi def link	csIsAs 	csKeywordOperator
 hi def link	csAsyncModifier	csModifier

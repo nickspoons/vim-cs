@@ -192,6 +192,12 @@ Given cs (unchecked operator):
 Execute:
   AssertEqual 'csKeywordOperator', SyntaxOf('unchecked')
 
+Given cs (new operator):
+  var foo = new Bar();
+
+Execute:
+  AssertEqual 'csNew', SyntaxOf('new')
+
 Given cs (stackalloc operator):
   Span<byte> foobar = stackalloc byte[42];
 
