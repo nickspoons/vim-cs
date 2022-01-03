@@ -1,3 +1,9 @@
+Given cs (switch statement - default case label):
+  switch (42) { default: ; break; }
+
+Execute:
+  AssertEqual 'csLabel', SyntaxOf('default')
+
 Given cs (unsafe statement):
   unsafe { /* boom! */ }
 

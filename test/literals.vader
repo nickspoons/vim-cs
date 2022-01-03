@@ -6,6 +6,18 @@ Execute:
   AssertEqual 'csBoolean',              SyntaxAt(1, 1)
   AssertEqual 'csBoolean',              SyntaxAt(2, 1)
 
+Given cs (default literal):
+  default
+
+Execute:
+  AssertEqual 'csDefault',                SyntaxAt(1, 1)
+
+Given cs (default literal - ternary consequent):
+  var foo = bar ? default : 42;
+
+Execute:
+  AssertEqual 'csDefault',                SyntaxOf('default')
+
 Given cs (null):
   null
 

@@ -27,8 +27,11 @@ syn keyword	csType	nint nuint " contextual
 syn keyword	csStorage	enum interface namespace struct
 syn match	csStorage	"\<delegate\>"
 syn keyword	csRepeat	break continue do for foreach goto return while
-syn keyword	csConditional	else if switch
-syn keyword	csLabel	case default
+syn keyword	csConditional	else if
+syn match	csCondtional	"\<switch\>"
+
+syn keyword	csLabel	case
+syn match	csLabel	"\<default\ze\_s*:"
 
 syn match	csNamespaceAlias	"@\=\h\w*\ze\_s*::" display
 syn match	csGlobalNamespaceAlias	"global\ze\_s*::" display
@@ -66,7 +69,7 @@ syn match	csStatement	"\<yield\ze\_s\+\%(return\|break\)\>"
 
 syn match	csAccessor	"\<\%(get\|set\|init\|add\|remove\)\ze\_s*\%([;{]\|=>\)"
 
-syn keyword	csUnspecifiedStatement	as base in is nameof operator out params ref sizeof stackalloc this using
+syn keyword	csUnspecifiedStatement	as base in is operator out params ref this using
 syn keyword	csUnsupportedStatement	value
 syn keyword	csUnspecifiedKeyword	explicit implicit
 
@@ -74,10 +77,25 @@ syn keyword	csUnspecifiedKeyword	explicit implicit
 syn match	csContextualStatement	"\<where\>\ze[^:]\+:"
 
 " Operators
-syn keyword	csTypeOf	typeof nextgroup=csTypeOfOperand,csTypeOfError skipwhite skipempty
-syn region	csTypeOfOperand	matchgroup=csParens start="(" end=")" contained contains=csType
-syn match       csTypeOfError               "[^([:space:]]" contained
+syn keyword	csKeywordOperator	stackalloc
 syn match	csKeywordOperator	"\<\%(checked\|unchecked\)\ze\_s*("
+syn match	csKeywordOperator	"\<delegate\ze\_s*[({]"
+syn match	csKeywordOperator	"\<switch\ze\_s*{"
+syn match	csKeywordOperator	"\<with\ze\_s*{"
+
+syn keyword	csKeywordOperator	typeof nextgroup=csTypeOfOperand,csMissingParenError skipwhite skipempty
+syn region	csTypeOfOperand	matchgroup=csParens start="(" end=")" contained contains=csType
+
+syn keyword	csKeywordOperator	sizeof nextgroup=csSizeOfOperand,csMissingParenError skipwhite skipempty
+syn region	csSizeOfOperand	matchgroup=csParens start="(" end=")" contained contains=csType
+
+syn keyword	csKeywordOperator	nameof nextgroup=csNameOfOperand,csMissingParenError skipwhite skipempty
+syn region	csNameOfOperand	matchgroup=csParens start="(" end=")" contained contains=csType
+
+syn match	csKeywordOperator	"\<default\_s*\ze(" nextgroup=csDefaultOperand,csMissingParenError skipwhite skipempty
+syn region	csDefaultOperand	matchgroup=csParens start="(" end=")" contained contains=csType
+
+syn match       csMissingParenError         "[^([:space:]]" contained
 
 " Punctuation
 syn match	csBraces	"[{}[\]]" display
@@ -165,6 +183,9 @@ syn keyword	csIsAs	is as
 
 syn keyword	csBoolean	false true
 syn keyword	csNull	null
+syn match	csDefault	"\<default\>\%(\_s*[(:]\)\@!"
+" ternary consequent
+syn match	csDefault	"\%(?\_s*\)\@32<=default\>"
 
 " Strings and constants
 syn match	csSpecialError	"\\." contained
@@ -198,7 +219,7 @@ syn region	csInterpolatedString	matchgroup=csQuote start=+\$"+ end=+"+ extend co
 syn region	csInterpolation	matchgroup=csInterpolationDelimiter start=+{+ end=+}+ keepend contained contains=@csAll,csBraced,csBracketed,csInterpolationAlign,csInterpolationFormat
 syn match	csEscapedInterpolation	"{{" transparent contains=NONE display
 syn match	csEscapedInterpolation	"}}" transparent contains=NONE display
-syn region	csInterpolationAlign	matchgroup=csInterpolationAlignDel start=+,+ end=+}+ end=+:+me=e-1 contained contains=@csNumber,csBoolean,csConstant,csCharacter,csParens,csOpSymbols,csString,csBracketed display
+syn region	csInterpolationAlign	matchgroup=csInterpolationAlignDel start=+,+ end=+}+ end=+:+me=e-1 contained contains=@csNumber,csBoolean,csLiteral,csCharacter,csParens,csOpSymbols,csString,csBracketed display
 syn match	csInterpolationFormat	+:[^}]\+}+ contained contains=csInterpolationFormatDel display
 syn match	csInterpolationAlignDel	+,+ contained display
 syn match	csInterpolationFormatDel	+:+ contained display
@@ -215,7 +236,7 @@ syn cluster	csLiteral	contains=csBoolean,@csNumber,csCharacter,@csString,csNull
 syn region	csBracketed	matchgroup=csParens start=+(+ end=+)+ extend contained transparent contains=@csAll,csBraced,csBracketed
 syn region	csBraced	matchgroup=csParens start=+{+ end=+}+ extend contained transparent contains=@csAll,csBraced,csBracketed
 
-syn cluster	csAll	contains=@csLiteral,csClassType,@csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csOpSymbols,csParens,@csPreProcessor,csSummary,@csNamespaceAlias,csType,csUnicodeNumber,csUserType,csUserIdentifier,csUserInterface,csUserMethod
+syn cluster	csAll	contains=@csLiteral,csClassType,@csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csOpSymbols,csKeywordOperator,csParens,@csPreProcessor,csSummary,@csNamespaceAlias,csType,csUnicodeNumber,csUserType,csUserIdentifier,csUserInterface,csUserMethod
 
 " Keyword identifiers
 syn match csIdentifier "@\h\w*"
@@ -233,15 +254,16 @@ hi def link	csModifier	StorageClass
 hi def link	csAccessModifier	csModifier
 hi def link	csManagedModifier	csModifier
 hi def link	csUsingModifier	csModifier
-hi def link	csConstant	Constant
-hi def link	csNull	Constant
+hi def link	csLiteral	Constant
+hi def link	csNull	csLiteral
+hi def link	csDefault	csLiteral
 hi def link	csException	Exception
 hi def link	csUnspecifiedStatement	Statement
 hi def link	csUnsupportedStatement	Statement
 hi def link	csUnspecifiedKeyword	Keyword
-hi def link	csNew	Statement
+hi def link	csNew	csKeywordOperator
 hi def link	csLinq	Statement
-hi def link	csIsAs 	Keyword
+hi def link	csIsAs 	csKeywordOperator
 hi def link	csAsyncModifier	csModifier
 hi def link	csStatement	Statement
 hi def link	csContextualStatement	Statement
@@ -255,9 +277,10 @@ hi def link	csBlockComment	csComment
 
 hi def link	csKeywordOperator	Keyword
 hi def link	csAsyncOperator	csKeywordOperator
-hi def link	csTypeOf	csKeywordOperator
 hi def link	csTypeOfOperand	Typedef
-hi def link	csTypeOfError	Error
+hi def link	csSizeOfOperand	Typedef
+hi def link	csDefaultOperand	Typedef
+hi def link	csMissingParenError	Error
 hi def link	csOpSymbols	Operator
 hi def link	csLogicSymbols	Operator
 
