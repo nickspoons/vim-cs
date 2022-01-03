@@ -80,7 +80,7 @@ syn match       csTypeOfError               "[^([:space:]]" contained
 syn match	csKeywordOperator	"\<\%(checked\|unchecked\)\ze\_s*("
 
 " Punctuation
-syn match	csBraces	"[{}\[\]]" display
+syn match	csBraces	"[{}[\]]" display
 syn match	csParens	"[()]" display
 syn match	csOpSymbols	"+\{1,2}" display
 syn match	csOpSymbols	"-\{1,2}" display
