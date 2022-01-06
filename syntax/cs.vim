@@ -50,7 +50,11 @@ syn match	csModifier	"\<\%(extern\|fixed\|unsafe\)\>"
 syn match	csModifier	"\<partial\ze\_s\+\%(class\|struct\|interface\|record\|void\)\>"
 
 syn keyword	csException	try catch finally throw when
-syn keyword	csLinq	ascending by descending equals from group in into join let on orderby select where
+syn keyword	csLinq	ascending by descending equals from group in into join let on orderby select
+syn match	csLinq	"\<where\>"
+
+" Type parameter constraint clause
+syn match	csStorage	"\<where\>\ze\_s\+@\=\h\w*\_s*:"
 
 " Async
 syn keyword	csAsyncModifier	async
@@ -69,9 +73,6 @@ syn match	csAccessor	"\<\%(get\|set\|init\|add\|remove\)\ze\_s*\%([;{]\|=>\)"
 syn keyword	csUnspecifiedStatement	as base in is nameof operator out params ref sizeof stackalloc this using
 syn keyword	csUnsupportedStatement	value
 syn keyword	csUnspecifiedKeyword	explicit implicit
-
-" Contextual Keywords
-syn match	csContextualStatement	"\<where\>\ze[^:]\+:"
 
 " Operators
 syn keyword	csTypeOf	typeof nextgroup=csTypeOfOperand,csTypeOfError skipwhite skipempty
@@ -154,7 +155,7 @@ endif
 
 syn cluster	csPreProcessor	contains=csPreProc.*
 
-syn region	csClassType	start="\<class\>"hs=s+6 end="[:\n{]"me=e-1 contains=csClass
+syn region	csClassType	start="\<class\>"hs=s+6 end=">" end="[:{]"me=e-1 contains=csClass
 " csUserType may be defined by user scripts/plugins - it should be contained in csNewType
 syn region	csNewType	start="\<new\>"hs=s+4 end="[;\n{(<\[]"me=e-1 contains=csNew,@csNamespaceAlias,csUserType
 syn region	csIsType	start=" is "hs=s+4 end="[A-Za-z0-9]\+" oneline contains=csIsAs
