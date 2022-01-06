@@ -27,3 +27,42 @@ Execute:
   AssertEqual 'csOpSymbols',       SyntaxOf('\*')
   AssertEqual 'csManagedModifier', SyntaxOf('\<managed')
 
+Given cs (class type declaration):
+  class Foo<T, U> : Bar<T, U> {}
+
+Execute:
+  AssertEqual 'csStorage',         SyntaxOf('class')
+  AssertEqual 'csClassType',       SyntaxOf('Foo')
+  AssertEqual 'csClassType',       SyntaxOf('T', 1)
+
+Given cs (interface type declaration):
+  interface Foo<T, U> : Bar<T, U> {}
+
+Execute:
+  AssertEqual 'csStorage',         SyntaxOf('interface')
+  AssertEqual 'csInterfaceType',   SyntaxOf('Foo')
+  AssertEqual 'csInterfaceType',   SyntaxOf('T', 1)
+
+Given cs (struct type declaration):
+  struct Foo<T, U> : Bar<T, U> {}
+
+Execute:
+  AssertEqual 'csStorage',         SyntaxOf('struct')
+  AssertEqual 'csStructType',      SyntaxOf('Foo')
+  AssertEqual 'csStructType',      SyntaxOf('T', 1)
+
+Given cs (enum type declaration):
+  enum Foo : int {}
+
+Execute:
+  AssertEqual 'csStorage',         SyntaxOf('enum')
+  AssertEqual 'csEnumType',        SyntaxOf('Foo')
+
+Given cs (delegate type declaration):
+  delegate Foo<Bar<T>> Baz<T>();
+
+Execute:
+  AssertEqual 'csStorage',         SyntaxOf('delegate')
+  AssertEqual 'csDelegateType',    SyntaxOf('Baz')
+  AssertEqual 'csDelegateType',    SyntaxOf('T', 2)
+

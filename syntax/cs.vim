@@ -24,8 +24,9 @@ set cpoptions&vim
 syn keyword	csType	bool byte char decimal double float int long object sbyte short string T uint ulong ushort var void dynamic
 syn keyword	csType	nint nuint " contextual
 
-syn keyword	csStorage	enum interface namespace struct
-syn match	csStorage	"\<delegate\>"
+syn keyword	csStorage	namespace
+" syn keyword	csStorage	enum interface namespace struct
+" syn match	csStorage	"\<delegate\>"
 syn keyword	csRepeat	break continue do for foreach goto return while
 syn keyword	csConditional	else if switch
 syn keyword	csLabel	case default
@@ -154,13 +155,21 @@ endif
 
 syn cluster	csPreProcessor	contains=csPreProc.*
 
-syn region	csClassType	start="\<class\>"hs=s+6 end="[:\n{]"me=e-1 contains=csClass
+syn region	csClassType	matchgroup=csStorage start="\<class\>" matchgroup=NONE end=">" end="[:{]"me=e-1
+syn region	csInterfaceType	matchgroup=csStorage start="\<interface\>" matchgroup=NONE end=">" end="[:{]"me=e-1
+
+syn region	csStructType	matchgroup=csStorage start="\<struct\>" matchgroup=NONE end=">" end="[:{]"me=e-1
+syn region	csEnumType	matchgroup=csStorage start="\<enum\>" end="[:{]"me=e-1
+
+syn match	csStorage	"\<delegate\>\%(\_s*[*(]\)\@!" nextgroup=csDelegateReturnType skipwhite skipempty
+syn match	csDelegateReturnType	"@\=\<\h\w*\_s*\%(<\_[^;]\+>\)\=\%(\_s*\[]\)\=?\=\ze\_s*@\=\h" nextgroup=csDelegateType skipwhite skipempty contained contains=csType,csGeneric
+syn match	csDelegateType	"@\=\h\w*\_s*\%(<\_[^>]\+>\)\=\ze\_s*(" contained
+
 " csUserType may be defined by user scripts/plugins - it should be contained in csNewType
 syn region	csNewType	start="\<new\>"hs=s+4 end="[;\n{(<\[]"me=e-1 contains=csNew,@csNamespaceAlias,csUserType
 syn region	csIsType	start=" is "hs=s+4 end="[A-Za-z0-9]\+" oneline contains=csIsAs
 syn region	csIsType	start=" as "hs=s+4 end="[A-Za-z0-9]\+" oneline contains=csIsAs
 syn keyword	csNew	new contained
-syn keyword	csClass	class contained
 syn keyword	csIsAs	is as
 
 syn keyword	csBoolean	false true
@@ -223,9 +232,12 @@ syn match csIdentifier "@\h\w*"
 " The default highlighting.
 hi def link	csType	Type
 hi def link	csClassType	Type
+hi def link	csInterfaceType	Type
+hi def link	csStructType	Type
+hi def link	csEnumType	Type
+hi def link	csDelegateType	Type
 hi def link	csIsType	Type
 hi def link	csStorage	Structure
-hi def link	csClass	Structure
 hi def link	csRepeat	Repeat
 hi def link	csConditional	Conditional
 hi def link	csLabel	Label
