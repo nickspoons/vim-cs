@@ -12,3 +12,46 @@ Execute:
   AssertEqual 'csModifier',   SyntaxAt(1, 1)
   AssertEqual 'csType',       SyntaxAt(1, 8)
 
+Given cs (base access):
+  base.Foo();
+  base[42];
+
+Execute:
+  AssertEqual 'csAccess',   SyntaxOf('base', 1)
+  AssertEqual 'csAccess',   SyntaxOf('base', 2)
+
+Given cs (base constructor intializer):
+  Foo() : base() {}
+
+Execute:
+  AssertEqual 'csAccess',   SyntaxOf('base')
+
+Given cs (this access):
+  Foo(this);
+  this.Foo();
+  this[42];
+
+Execute:
+  AssertEqual 'csAccess',   SyntaxOf('this', 1)
+  AssertEqual 'csAccess',   SyntaxOf('this', 2)
+  AssertEqual 'csAccess',   SyntaxOf('this', 3)
+
+Given cs (this constructor intializer):
+  Foo() : this(42) {}
+
+Execute:
+  AssertEqual 'csAccess',   SyntaxOf('this')
+
+Given cs (this indexer declaration):
+  public int this[int foo] => 42;
+  public int Foo.this[int bar] => 42;
+
+Execute:
+  AssertEqual 'csAccess',   SyntaxOf('this', 1)
+  AssertEqual 'csAccess',   SyntaxOf('this', 2)
+
+Given cs (this parameter modifier):
+  public static int Foo(this int bar) => 42
+
+Execute:
+  AssertEqual 'csModifier',   SyntaxOf('this')
