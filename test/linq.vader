@@ -1,0 +1,6 @@
+Given cs (LINQ):
+  var foo = from bar in baz where bar < 42 select bar;
+
+Execute:
+  AssertEqual 'csLinq', SyntaxOf('where')
+

@@ -27,3 +27,9 @@ Execute:
   AssertEqual 'csOpSymbols',       SyntaxOf('\*')
   AssertEqual 'csManagedModifier', SyntaxOf('\<managed')
 
+Given cs (type parameter constraint):
+  class Foo<T> where T : Bar {}
+
+Execute:
+  AssertEqual 'csStorage',         SyntaxOf('where')
+
