@@ -70,7 +70,13 @@ syn match	csStatement	"\<yield\ze\_s\+\%(return\|break\)\>"
 
 syn match	csAccessor	"\<\%(get\|set\|init\|add\|remove\)\ze\_s*\%([;{]\|=>\)"
 
-syn keyword	csUnspecifiedStatement	as base in is nameof operator out params ref sizeof stackalloc this using
+syn keyword	csAccess	base
+syn match	csAccess	"\<this\>"
+
+" Extension method parameter modifier
+syn match	csModifier	"\<this\ze\_s\+@\=\h"
+
+syn keyword	csUnspecifiedStatement	as in is nameof operator out params ref sizeof stackalloc using
 syn keyword	csUnsupportedStatement	value
 syn keyword	csUnspecifiedKeyword	explicit implicit
 
@@ -248,6 +254,7 @@ hi def link	csStatement	Statement
 hi def link	csContextualStatement	Statement
 hi def link	csGlobalNamespaceAlias	Include
 hi def link	csAccessor	Keyword
+hi def link	csAccess	Keyword
 
 hi def link	csTodo	Todo
 hi def link	csComment	Comment
