@@ -222,39 +222,42 @@ syn cluster	csLiteral	contains=csBoolean,@csNumber,csCharacter,@csString,csNull
 syn region	csBracketed	matchgroup=csParens start=+(+ end=+)+ extend contained transparent contains=@csAll,csBraced,csBracketed
 syn region	csBraced	matchgroup=csParens start=+{+ end=+}+ extend contained transparent contains=@csAll,csBraced,csBracketed
 
-syn cluster	csAll	contains=@csLiteral,csClassType,@csComment,csContextualStatement,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csOpSymbols,csParens,@csPreProcessor,csSummary,@csNamespaceAlias,csType,csUnicodeNumber,csUserType,csUserIdentifier,csUserInterface,csUserMethod
+syn cluster	csAll	contains=@csLiteral,csClassType,@csComment,csEndColon,csIsType,csLabel,csLogicSymbols,csNewType,csOpSymbols,csParens,@csPreProcessor,csSummary,@csNamespaceAlias,csType,csUnicodeNumber,csUserType,csUserIdentifier,csUserInterface,csUserMethod
 
 " Keyword identifiers
 syn match csIdentifier "@\h\w*"
 
 " The default highlighting.
-hi def link	csType	Type
-hi def link	csClassType	Type
-hi def link	csIsType	Type
-hi def link	csStorage	Structure
-hi def link	csClass	Structure
-hi def link	csRepeat	Repeat
-hi def link	csConditional	Conditional
-hi def link	csLabel	Label
-hi def link	csModifier	StorageClass
-hi def link	csAccessModifier	csModifier
-hi def link	csManagedModifier	csModifier
-hi def link	csUsingModifier	csModifier
-hi def link	csConstant	Constant
-hi def link	csNull	Constant
-hi def link	csException	Exception
 hi def link	csUnspecifiedStatement	Statement
 hi def link	csUnsupportedStatement	Statement
 hi def link	csUnspecifiedKeyword	Keyword
-hi def link	csNew	Statement
-hi def link	csLinq	Statement
-hi def link	csIsAs 	Keyword
-hi def link	csAsyncModifier	csModifier
-hi def link	csStatement	Statement
-hi def link	csContextualStatement	Statement
+
 hi def link	csGlobalNamespaceAlias	Include
+
+hi def link	csType	Type
+hi def link	csClassType	Type
+hi def link	csIsType	Type
+
+hi def link	csStorage	Structure
+hi def link	csClass	Structure
+hi def link	csNew	Statement
+hi def link	csIsAs 	Keyword
 hi def link	csAccessor	Keyword
 hi def link	csAccess	Keyword
+
+hi def link	csLinq	Statement
+
+hi def link	csStatement	Statement
+hi def link	csRepeat	Repeat
+hi def link	csConditional	Conditional
+hi def link	csLabel	Label
+hi def link	csException	Exception
+
+hi def link	csModifier	StorageClass
+hi def link	csAccessModifier	csModifier
+hi def link	csAsyncModifier	csModifier
+hi def link	csManagedModifier	csModifier
+hi def link	csUsingModifier	csModifier
 
 hi def link	csTodo	Todo
 hi def link	csComment	Comment
@@ -289,6 +292,8 @@ hi def link	csPreProcNullable	csPreProc
 hi def link	csPreProcInclude	csPreProc
 hi def link	csShebang	csPreProc
 
+hi def link	csConstant	Constant
+hi def link	csNull	Constant
 hi def link	csBoolean	Boolean
 hi def link	csCharacter	Character
 hi def link	csSpecialChar	SpecialChar
