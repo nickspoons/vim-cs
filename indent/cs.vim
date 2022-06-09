@@ -3,7 +3,7 @@
 " Maintainer:          Nick Jensen <nickspoon@gmail.com>
 " Former Maintainers:  Aquila Deus
 "                      Johannes Zellner <johannes@zellner.org>
-" Last Change:         2018-11-21
+" Last Change:         2020-03-26
 " License:             Vim (see :h license)
 " Repository:          https://github.com/nickspoons/vim-cs
 
