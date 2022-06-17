@@ -1,0 +1,67 @@
+Given cs (record matching via body):
+  record Foo {}
+  record struct Foo {}
+  record class Foo {}
+
+Execute:
+  AssertEqual 'csStorage', SyntaxOf('record', 1)
+  AssertEqual 'csStorage', SyntaxOf('record', 2)
+  AssertEqual 'csStorage', SyntaxOf('record', 3)
+
+Given cs (record matching via body):
+  record Foo;
+  record struct Foo;
+  record class Foo;
+
+Execute:
+  AssertEqual 'csStorage', SyntaxOf('record', 1)
+  AssertEqual 'csStorage', SyntaxOf('record', 2)
+  AssertEqual 'csStorage', SyntaxOf('record', 3)
+
+Given cs (record matching via type parameter list):
+  record Foo<T>;
+  record struct Foo<T>;
+  record class Foo<T>;
+
+Execute:
+  AssertEqual 'csStorage', SyntaxOf('record', 1)
+  AssertEqual 'csStorage', SyntaxOf('record', 2)
+  AssertEqual 'csStorage', SyntaxOf('record', 3)
+
+Given cs (record matching via parameter list):
+  record Foo(int X, int Y);
+  record struct Foo(int X, int Y);
+  record class Foo(int X, int Y);
+
+Execute:
+  AssertEqual 'csStorage', SyntaxOf('record', 1)
+  AssertEqual 'csStorage', SyntaxOf('record', 2)
+  AssertEqual 'csStorage', SyntaxOf('record', 3)
+
+Given cs (record matching via base type):
+  record Foo : Bar;
+  record struct Foo : Bar;
+  record class Foo : Bar;
+
+Execute:
+  AssertEqual 'csStorage', SyntaxOf('record', 1)
+  AssertEqual 'csStorage', SyntaxOf('record', 2)
+  AssertEqual 'csStorage', SyntaxOf('record', 3)
+
+Given cs (record matching via modifier):
+  partial record Foo ...
+  partial record struct ...
+  partial record class ...
+
+Execute:
+  AssertEqual 'csStorage', SyntaxOf('record', 1)
+  AssertEqual 'csStorage', SyntaxOf('record', 2)
+  AssertEqual 'csStorage', SyntaxOf('record', 3)
+
+Given cs (record matching via class or struct):
+  record struct ...
+  record class ...
+
+Execute:
+  AssertEqual 'csStorage', SyntaxOf('record', 1)
+  AssertEqual 'csStorage', SyntaxOf('record', 2)
