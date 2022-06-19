@@ -25,6 +25,9 @@ syn keyword	csType	bool byte char decimal double float int long object sbyte sho
 syn keyword	csType	nint nuint " contextual
 
 syn keyword	csStorage	enum interface namespace struct
+syn match	csStorage	"\<record\ze\_s\+@\=\h\w*\_s*[<(:{;]"
+syn match	csStorage	"\%(\<\%(partial\|new\|public\|protected\|internal\|private\|abstract\|sealed\|static\|unsafe\|readonly\)\)\@9<=\_s\+record\>"
+syn match	csStorage	"\<record\ze\_s\+\%(class\|struct\)"
 syn match	csStorage	"\<delegate\>"
 syn keyword	csRepeat	break continue do for foreach goto return while
 syn keyword	csConditional	else if switch
