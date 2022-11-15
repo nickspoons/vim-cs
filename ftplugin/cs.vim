@@ -25,8 +25,9 @@ let b:undo_ftplugin = 'setl com< fo<'
 
 if exists('loaded_matchit') && !exists('b:match_words')
   " #if/#endif support included by default
+  let b:match_ignorecase = 0
   let b:match_words = '\%(^\s*\)\@<=#\s*region\>:\%(^\s*\)\@<=#\s*endregion\>,'
-  let b:undo_ftplugin .= ' | unlet! b:match_words'
+  let b:undo_ftplugin .= ' | unlet! b:match_ignorecase b:match_words'
 endif
 
 if (has('gui_win32') || has('gui_gtk')) && !exists('b:browsefilter')
