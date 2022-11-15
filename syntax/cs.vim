@@ -47,6 +47,9 @@ syn keyword	csManagedModifier	managed unmanaged contained
 " Modifiers
 syn match	csUsingModifier	"\<global\ze\_s\+using\>"
 syn keyword	csAccessModifier	internal private protected public
+syn keyword	csModifier	operator nextgroup=csCheckedModifier skipwhite skipempty
+syn keyword	csCheckedModifier	checked contained
+
 " TODO: in new out
 syn keyword	csModifier	abstract const event override readonly sealed static virtual volatile
 syn match	csModifier	"\<\%(extern\|fixed\|unsafe\)\>"
@@ -79,7 +82,7 @@ syn match	csAccess	"\<this\>"
 " Extension method parameter modifier
 syn match	csModifier	"\<this\ze\_s\+@\=\h"
 
-syn keyword	csUnspecifiedStatement	as in is nameof operator out params ref sizeof stackalloc using
+syn keyword	csUnspecifiedStatement	as in is nameof out params ref sizeof stackalloc using
 syn keyword	csUnsupportedStatement	value
 syn keyword	csUnspecifiedKeyword	explicit implicit
 
@@ -259,6 +262,7 @@ hi def link	csException	Exception
 hi def link	csModifier	StorageClass
 hi def link	csAccessModifier	csModifier
 hi def link	csAsyncModifier	csModifier
+hi def link	csCheckedModifier	csModifier
 hi def link	csManagedModifier	csModifier
 hi def link	csUsingModifier	csModifier
 
