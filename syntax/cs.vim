@@ -186,7 +186,7 @@ syn match	csUnicodeNumber	+\\u\x\{4}+ contained contains=csUnicodeSpecifier disp
 syn match	csUnicodeNumber	+\\U00\x\{6}+ contained contains=csUnicodeSpecifier display
 syn match	csUnicodeSpecifier	+\\[uUx]+ contained display
 
-syn region	csString	matchgroup=csQuote start=+"+  end=+"+ end=+$+ extend contains=csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
+syn region	csString	matchgroup=csQuote start=+"+ end=+"\%(u8\)\=+ end=+$+ extend contains=csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
 syn match	csCharacter	"'[^']*'" contains=csSpecialChar,csSpecialCharError,csUnicodeNumber display
 syn match	csCharacter	"'\\''" contains=csSpecialChar display
 syn match	csCharacter	"'[^\\]'" display
@@ -203,7 +203,7 @@ syn match	csReal	"\<\d\+\%(_\+\d\+\)*[fdm]\>" display
 syn case	match
 syn cluster     csNumber	contains=csInteger,csReal
 
-syn region	csInterpolatedString	matchgroup=csQuote start=+\$"+ end=+"+ extend contains=csInterpolation,csEscapedInterpolation,csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
+syn region	csInterpolatedString	matchgroup=csQuote start=+\$"+ end=+"\%(u8\)\=+ extend contains=csInterpolation,csEscapedInterpolation,csSpecialChar,csSpecialError,csUnicodeNumber,@Spell
 
 syn region	csInterpolation	matchgroup=csInterpolationDelimiter start=+{+ end=+}+ keepend contained contains=@csAll,csBraced,csBracketed,csInterpolationAlign,csInterpolationFormat
 syn match	csEscapedInterpolation	"{{" transparent contains=NONE display
@@ -213,10 +213,10 @@ syn match	csInterpolationFormat	+:[^}]\+}+ contained contains=csInterpolationFor
 syn match	csInterpolationAlignDel	+,+ contained display
 syn match	csInterpolationFormatDel	+:+ contained display
 
-syn region	csVerbatimString	matchgroup=csQuote start=+@"+ end=+"+ skip=+""+ extend contains=csVerbatimQuote,@Spell
+syn region	csVerbatimString	matchgroup=csQuote start=+@"+ end=+"\%(u8\)\=+ skip=+""+ extend contains=csVerbatimQuote,@Spell
 syn match	csVerbatimQuote	+""+ contained
 
-syn region	csInterVerbString	matchgroup=csQuote start=+$@"+ start=+@$"+ end=+"+ skip=+""+ extend contains=csInterpolation,csEscapedInterpolation,csSpecialChar,csSpecialError,csUnicodeNumber,csVerbatimQuote,@Spell
+syn region	csInterVerbString	matchgroup=csQuote start=+$@"+ start=+@$"+ end=+"\%(u8\)\=+ skip=+""+ extend contains=csInterpolation,csEscapedInterpolation,csSpecialChar,csSpecialError,csUnicodeNumber,csVerbatimQuote,@Spell
 
 syn cluster	csString	contains=csString,csInterpolatedString,csVerbatimString,csInterVerbString
 

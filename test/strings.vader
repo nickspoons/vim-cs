@@ -349,3 +349,15 @@ Execute:
   AssertEqual 'csQuote',                  SyntaxAt(2)
   AssertEqual 'csQuote',                  SyntaxAt(3)
   AssertEqual 'csInterVerbString',        SyntaxAt(4)
+
+Given cs (UTF8 string literals):
+  "..."u8
+  $"..."u8
+  @"..."u8
+  $@"..."u8
+
+Execute:
+  AssertEqual 'csQuote',             SyntaxOf("u8", 1)
+  AssertEqual 'csQuote',             SyntaxOf("u8", 2)
+  AssertEqual 'csQuote',             SyntaxOf("u8", 3)
+  AssertEqual 'csQuote',             SyntaxOf("u8", 4)
