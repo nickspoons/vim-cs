@@ -44,3 +44,10 @@ Given cs (global using modifier):
 Execute:
   AssertEqual 'csUsingModifier', SyntaxAt(1, 1)
 
+Given cs (operator modifier):
+  public static T operator checked ++(T x) {...}
+
+Execute:
+  AssertEqual 'csModifier',        SyntaxOf("operator")
+  AssertEqual 'csCheckedModifier', SyntaxOf("checked")
+
