@@ -2,7 +2,7 @@
 " Language:            C#
 " Maintainer:          Nick Jensen <nickspoon@gmail.com>
 " Former Maintainer:   Johannes Zellner <johannes@zellner.org>
-" Last Change:         2021-12-07
+" Last Change:         2022-11-16
 " License:             Vim (see :h license)
 " Repository:          https://github.com/nickspoons/vim-cs
 

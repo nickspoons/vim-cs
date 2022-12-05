@@ -1,7 +1,9 @@
 " Vim compiler file
-" Compiler:	dotnet build (.NET CLI)
-" Maintainer:   Nick Jensen <nickspoon@gmail.com>
-" Last Change:	2022 Nov 16
+" Compiler:            dotnet build (.NET CLI)
+" Maintainer:          Nick Jensen <nickspoon@gmail.com>
+" Last Change:         2022-12-06
+" License:             Vim (see :h license)
+" Repository:          https://github.com/nickspoons/vim-cs
 
 if exists("current_compiler")
   finish
