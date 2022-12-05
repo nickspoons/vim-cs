@@ -15,7 +15,13 @@ endif
 let s:cpo_save = &cpo
 set cpo&vim
 
-CompilerSet makeprg=dotnet\ build\ -nologo\ -consoleloggerparameters:NoSummary
+if get(g:, "dotnet_errors_only", v:false)
+  CompilerSet makeprg=dotnet\ build\ -nologo
+		     \\ -consoleloggerparameters:NoSummary
+		     \\ -consoleloggerparameters:ErrorsOnly
+else
+  CompilerSet makeprg=dotnet\ build\ -nologo\ -consoleloggerparameters:NoSummary
+endif
 
 if get(g:, "dotnet_show_project_file", v:true)
   CompilerSet errorformat=%E%f(%l\\,%c):\ %trror\ %m,
