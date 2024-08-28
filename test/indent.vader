@@ -74,3 +74,20 @@ Expect cs(correct indentation):
               string m_PrettyName = "";
       }
   }
+
+Given cs (an object initialization with more than one property):
+  return new LoginResponse
+  {
+  Success = false,
+  Message = _frameworkSettings.InvalidLoginErrorMessage
+  };
+
+Execute:
+  normal! gg=G
+
+Expect cs(correct indentation):
+  return new LoginResponse
+  {
+      Success = false,
+      Message = _frameworkSettings.InvalidLoginErrorMessage
+  };
