@@ -23,7 +23,7 @@ setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:///,://
 
 setlocal cinoptions=J1
 
-let b:undo_ftplugin = 'setl com< fo<'
+let b:undo_ftplugin = 'setl com< fo< cino<'
 
 if exists('loaded_matchit') && !exists('b:match_words')
   " #if/#endif support included by default
