@@ -21,6 +21,8 @@ setlocal formatoptions-=t formatoptions+=croql
 " Set 'comments' to format dashed lists in comments.
 setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:///,://
 
+setlocal cinoptions=J1
+
 let b:undo_ftplugin = 'setl com< fo<'
 
 if exists('loaded_matchit') && !exists('b:match_words')
