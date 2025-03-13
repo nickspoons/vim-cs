@@ -361,3 +361,99 @@ Execute:
   AssertEqual 'csQuote',             SyntaxOf("u8", 2)
   AssertEqual 'csQuote',             SyntaxOf("u8", 3)
   AssertEqual 'csQuote',             SyntaxOf("u8", 4)
+
+Given cs (a single line raw string):
+  """a"""
+
+Execute:
+  AssertEqual 'csQuote',                  SyntaxOf('"""', 1)
+  AssertEqual 'csQuote',                  SyntaxOf('"""', 2)
+  AssertEqual 'csRawString3',             SyntaxOf('a')
+
+Given cs (a multi-line raw string):
+  """
+  a
+  """
+
+Execute:
+  AssertEqual 'csQuote',                  SyntaxOf('"""', 1)
+  AssertEqual 'csQuote',                  SyntaxOf('"""', 2)
+  AssertEqual 'csRawString3',             SyntaxOf('a')
+
+Given cs (an invalid multi-line raw string start delimiter):
+  """ non-whitespace
+  42
+  """
+
+Execute:
+  AssertEqual 'csString',                 SyntaxOf('non-whitespace')
+  AssertEqual 'csInteger',                SyntaxOf('42')
+
+Given cs (an invalid multi-line raw string end delimiter):
+  """
+  a
+  non-whitespace """
+
+Execute:
+  AssertEqual 'csQuote',                  SyntaxOf('"""', 1)
+  AssertEqual 'csRawString3',             SyntaxOf('a')
+  AssertEqual 'csRawStringError3',        SyntaxOf('non-whitespace """')
+
+Given cs (an interpolated raw string - 1 dollar):
+  $"""
+  a
+  {42}
+  {{42}}
+  {{{42}}}
+  b
+  """
+
+Execute:
+  AssertEqual 'csQuote',                        SyntaxOf('$"""')
+  AssertEqual 'csInterpolatedRawString1',       SyntaxOf('a')
+  AssertEqual 'csInterpolationDelimiter',       SyntaxOf('{')
+  AssertEqual 'csInteger',                      SyntaxOf('42')
+  AssertEqual 'csInterpolationDelimiter',       SyntaxOf('}')
+  AssertEqual 'csInterpolationDelimiterError1', SyntaxOf('{{')
+  AssertEqual 'csInterpolatedRawString1',       SyntaxOf('42', 2)
+  AssertEqual 'csInterpolationDelimiterError1', SyntaxOf('}}')
+  AssertEqual 'csInterpolationDelimiterError1', SyntaxOf('{{{')
+  AssertEqual 'csInterpolatedRawString1',       SyntaxOf('42', 3)
+  AssertEqual 'csInterpolationDelimiterError1', SyntaxOf('}}}')
+  AssertEqual 'csInterpolatedRawString1',       SyntaxOf('b')
+  AssertEqual 'csQuote',                        SyntaxOf('"""', 2)
+
+Given cs (an interpolated raw string - 2 dollar):
+  $$"""
+  a
+  {42}
+  {{42}}
+  {{{42}}}
+  {{{{42}}}}
+  {{{{{42}}}}}
+  b
+  """
+
+Execute:
+  AssertEqual 'csQuote',                        SyntaxOf('$"""')
+  AssertEqual 'csInterpolatedRawString2',       SyntaxOf('a')
+  AssertEqual 'csInterpolatedRawString2',       SyntaxOf('{')
+  AssertEqual 'csInterpolatedRawString2',       SyntaxOf('42')
+  AssertEqual 'csInterpolatedRawString2',       SyntaxOf('}')
+  AssertEqual 'csInterpolationDelimiter',       SyntaxOf('{{')
+  AssertEqual 'csInteger',                      SyntaxOf('42', 2)
+  AssertEqual 'csInterpolationDelimiter',       SyntaxOf('}}')
+  AssertEqual 'csInterpolatedRawString2',       SyntaxOf('{\ze{{')
+  AssertEqual 'csInterpolationDelimiter',       SyntaxOf('{\zs{{')
+  AssertEqual 'csInteger',                      SyntaxOf('42', 3)
+  AssertEqual 'csInterpolationDelimiter',       SyntaxOf('}}\ze}')
+  AssertEqual 'csInterpolatedRawString2',       SyntaxOf('}}\zs}')
+  AssertEqual 'csInterpolationDelimiterError2', SyntaxOf('{{{{')
+  AssertEqual 'csInterpolatedRawString2',       SyntaxOf('42', 4)
+  AssertEqual 'csInterpolationDelimiterError2', SyntaxOf('}}}}')
+  AssertEqual 'csInterpolationDelimiterError2', SyntaxOf('{{{{{')
+  AssertEqual 'csInterpolatedRawString2',       SyntaxOf('42', 5)
+  AssertEqual 'csInterpolationDelimiterError2', SyntaxOf('}}}}}')
+  AssertEqual 'csInterpolatedRawString2',       SyntaxOf('b')
+  AssertEqual 'csQuote',                        SyntaxOf('"""', 2)
+
